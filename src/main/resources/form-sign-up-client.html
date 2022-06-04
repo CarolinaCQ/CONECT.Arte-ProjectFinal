@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+
+    <header th:replace="fragments/header-index :: header-index"></header>
+
+    <div class="container">
+        <div class="row d-flex flex-column align-items-center">
+            <div class="col-4">
+                <div class="progress d-flex flex-row justify-content-center mt-3">
+                    <div class="step1">Ingresar</div>
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body d-flex flex-row justify-content-center">
+                        <form th:action="@{/clients/__${action}__}" method="POST" th:object="${dtoClient}"
+                            autocompleted="off" class="needs-validation" novalidate>
+
+                            <input type="hidden" th:field="*{id}">
+
+                            <div class="my-3">
+                                <label th:fo="nickname" class="form-label">Nombre usuario</label>
+                                <input type="text" class="form-control" th:field="*{nickname}" id="nickname" required
+                                    autofocus>
+                                <div class="invalid-feedback">El nombre de usuario es un campo requerido!</div>
+                            </div>
+
+                            <div th:if="${action}=='register'" class="form-group my-3">
+                                <label th:fo="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" th:field="*{email}" id="email" required
+                                    autofocus>
+                                <div class="invalid-feedback">El email es un campo requerido!</div>
+                            </div>
+
+                            <div class="form-group my-3">
+                                <label th:fo="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" th:field="*{password}" id="password"
+                                    required>
+                                <div class="invalid-feedback">La contraseña es un campo requerido!</div>
+                            </div>
+
+                            <div class="my-3 d-flex flex-column">
+                                <label th:fo="profileImage" class="form-label">Foto de perfil</label>
+                                <input type="file" accept="image/*" th:field="*{profileImage}" class="form-control"
+                                    id="profileImage">
+                            </div>
+
+                            <div class="my-3 d-flex flex-row justify-content-end">
+                                <button type="submit" class="mt-2 save btn btn-primary">Guardar</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/validation.js"></script>
+</html>
