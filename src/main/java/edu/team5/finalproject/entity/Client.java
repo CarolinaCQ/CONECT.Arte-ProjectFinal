@@ -3,7 +3,6 @@ package edu.team5.finalproject.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

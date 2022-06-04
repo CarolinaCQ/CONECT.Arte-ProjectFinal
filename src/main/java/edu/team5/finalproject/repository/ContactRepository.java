@@ -7,8 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    static Contact finById(Long id) {
-
-        return new Contact();
-    }
+    // borré el método que estaba creado acá, ese método ya lo estamos heredando de JpaRepository. (findbyid)
 }

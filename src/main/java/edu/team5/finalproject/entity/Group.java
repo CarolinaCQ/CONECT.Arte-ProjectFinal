@@ -7,6 +7,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.EnumType.STRING;
 import javax.persistence.*;
 import edu.team5.finalproject.entity.enums.Locale;
+import edu.team5.finalproject.entity.enums.Style;
 import edu.team5.finalproject.entity.enums.Type;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +34,6 @@ public class Group implements Serializable {
     @Column(name = "group_description")
     private String description;
 
-    @Column(name = "group_style", nullable = false)
-    private String style;
-
     @Column(name = "group_mobility", nullable = false)
     private Boolean mobility;
 
@@ -50,6 +48,10 @@ public class Group implements Serializable {
             joinColumns = @JoinColumn(name = "group_id"))
     @Column(name = "group_image")
     private List<String> imageList;
+
+    @Enumerated(STRING)
+    @Column(name = "group_style", nullable = false)
+    private Style style;
 
     @Enumerated(STRING)
     @Column(name = "group_type", nullable = false)
