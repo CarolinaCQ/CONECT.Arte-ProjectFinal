@@ -6,11 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PrincipalController {
-/*
+
     @GetMapping
     public ModelAndView getIndex() {
         return new ModelAndView("index");
-    }*/
+    }
 }
 
 
