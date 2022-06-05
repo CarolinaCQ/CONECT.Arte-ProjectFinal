@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -16,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-//@RequestMapping("/")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    //@GetMapping
+    @GetMapping
     public ModelAndView getUser(HttpServletRequest request){
         ModelAndView mav = new ModelAndView("");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     //PreAuthorize("")
-    //@GetMapping
+    @GetMapping
     public ModelAndView getForm(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     //@PreAuthorize("")
-   // @GetMapping("//{id}")
+    @GetMapping("//{id}")
     public ModelAndView getForm(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("");
         mav.addObject("user", userService.getById(id));
@@ -58,7 +59,7 @@ public class UserController {
     }
 
    // @PreAuthorize("")
-   // @PostMapping("/")
+    @PostMapping("/")
     public RedirectView create(User user1, RedirectAttributes attributes) {
         RedirectView redirect = new RedirectView("");
         //try{
@@ -72,7 +73,7 @@ public class UserController {
     }
 
     //@PreAuthorize("")
-   //@PostMapping("/")
+   @PostMapping("/")
     public RedirectView update(User user1, RedirectAttributes attributes) {
         RedirectView redirect = new RedirectView("");
        // userService.update(user1);
@@ -80,7 +81,7 @@ public class UserController {
         return redirect;
     }
     //@PreAuthorize("")
-    //@PostMapping("//{id}")
+    @PostMapping("//{id}")
     public RedirectView delete(@PathVariable Long id) {
         RedirectView redirect = new RedirectView("");
         userService.deleteById(id);

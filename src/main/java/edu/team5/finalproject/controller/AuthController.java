@@ -4,6 +4,8 @@ import edu.team5.finalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,7 +22,7 @@ public class AuthController {
 
     private final UserService userService;
 
-    //@GetMapping
+    @GetMapping
     public ModelAndView login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Principal principal){
         ModelAndView mav = new ModelAndView("");
         if(error != null) mav.addObject("error","Invalid email or password");
@@ -29,7 +31,7 @@ public class AuthController {
         return  mav;
 
     }
-     //@GetMapping
+     @GetMapping
     public ModelAndView signup(HttpServletRequest request, Principal principal){
         ModelAndView mav = new ModelAndView("");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
@@ -43,7 +45,7 @@ public class AuthController {
         return mav;
     }
 
-    //@PostMapping
+    @PostMapping
     public RedirectView signup(User user1, RedirectAttributes attributes) {
         RedirectView redirect = new RedirectView("/");
         //try{
