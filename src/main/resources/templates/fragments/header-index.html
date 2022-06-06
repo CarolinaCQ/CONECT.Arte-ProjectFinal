@@ -11,6 +11,12 @@
       </button>
       <div class="collapse navbar-collapse d-flex flex-row justify-content-end" id="menu">
         <ul class="navbar-nav">
+          <li class="nav-item px-5">
+            <form class="form-inline">
+              <input class="form-control mr-sm-2 search" type="search" placeholder="Buscar por nombre" aria-label="Search" />
+            </form>
+            <ul class="list"></ul>
+          </li>
           <li class="nav-item">
             <a class="nav-link btn border text-light" th:href="@{/users/form-login}">Ingresar</a>
           </li>
