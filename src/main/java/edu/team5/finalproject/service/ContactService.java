@@ -41,9 +41,9 @@ public class ContactService {
       contactRepository.deleteById(id);
    }
 
-   private void validateContact(Contact newContact) throws MyException {
-      if (newContact == null) throw new MyException("Exception message here.");
-      Utility.validate(Utility.ONLY_NUMBERS, newContact.getWhatsAppNumber().toString()); // consultar como hacer esto
+   private void validateContact(Contact contact) throws MyException {
+      if (contact == null) throw new MyException("Exception message here.");
+      Utility.validate(Utility.ONLY_NUMBERS, contact.getWhatsAppNumber().toString()); // consultar como hacer esto
    }
 
 }

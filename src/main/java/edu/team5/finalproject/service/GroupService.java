@@ -18,15 +18,15 @@ public class GroupService {
     private final GroupRepository groupRepository;
 
     public void create(GroupUserContactDto dto) throws MyException{
-        Group group = mapper.mapToGroup(dto);        
-        validateGroup(group);        
+        Group group = mapper.mapToGroup(dto);
+        validateGroup(group);
         groupRepository.save(group);
     }
 
     @Transactional
     public void update(GroupUserContactDto dto) throws MyException{
-        Group group = mapper.mapToGroup(dto);        
-        validateGroup(group);        
+        Group group = mapper.mapToGroup(dto);
+        validateGroup(group);
         groupRepository.save(group);
     }
 
@@ -40,9 +40,10 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
-    private void validateGroup(Group newGroup) throws MyException{
-        if(newGroup == null) throw new MyException("Exception message here.");
-        Utility.validate(Utility.ONLY_NAMES, newGroup.getName());      
-
+    private void validateGroup(Group group) throws MyException {
+        if (group == null) throw new MyException("Exception message here.");
+        Utility.validate(Utility.ONLY_NAMES, group.getName());
+        Utility.validate(Utility.MAIL_PATTERN, group.getUser().getEmail());
+        Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword());        
     }
 }

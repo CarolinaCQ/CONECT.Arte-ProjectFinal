@@ -33,7 +33,7 @@ public class ContactController {
 
     public RedirectView update(Contact contact, RedirectAttributes attributes){
         RedirectView redirect = new RedirectView("/");
-        contactService.update(contact);
+        //contactService.update(contact);
         attributes.addFlashAttribute("success","");
         return redirect;
 

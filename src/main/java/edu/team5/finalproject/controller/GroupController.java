@@ -19,14 +19,14 @@ public class GroupController {
 
     //@PostMapping
     public RedirectView create(Group group){
-        groupService.create(group);
+        //groupService.create(group);
         return  new RedirectView("/");
     }
 
     //@PostMapping("/")
     public RedirectView update(Group group, RedirectAttributes attributes){
         RedirectView redirect = new RedirectView("/");
-        groupService.update(group);
+        //groupService.update(group);
         attributes.addFlashAttribute("success","");
         return redirect;
 
