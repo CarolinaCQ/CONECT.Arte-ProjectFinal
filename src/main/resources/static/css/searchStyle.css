@@ -1,0 +1,22 @@
+.list{
+    width: 205px;
+    padding: 0px;
+    background-color: white;
+    position: absolute;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.list-item{
+    color: black;
+    border: 0.5px solid grey;
+    list-style: none;
+    padding: 10px 12px;
+}
+
+.list-item:last-child{
+    border-radius: 0px 0px 5px 5px;
+}
+
+.list-item:hover{
+    background-color: rgba(175, 177, 179, 0.233);
+}

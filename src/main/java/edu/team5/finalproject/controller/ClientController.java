@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,6 +39,7 @@ public class ClientController {
         ModelAndView mav = new ModelAndView("form-sign-up-client");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
+
         if(principal!=null) mav.setViewName("/"); // modificar
         
         if(inputFlashMap!=null){
@@ -48,26 +51,23 @@ public class ClientController {
         return mav;
     }
 
-    /*
-     @GetMapping("/sign-up")
-    public ModelAndView formSingUp(HttpServletRequest request, Principal principal){
-        ModelAndView mav = new ModelAndView("form-sign-up");
-        Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-        
-        if(principal!=null) mav.setViewName("redirect:/inicio");
-        
-        if(inputFlashMap!=null){
-            mav.addObject("exception", inputFlashMap.get("exception"));
-            mav.addObject("user", inputFlashMap.get("user"));
-        } else{
-            mav.addObject("user", new User());
-        }
-        
-        return mav;
+   
+    @PostMapping
+    public RedirectView create(@RequestParam String nickname, @RequestParam String profileImage, @RequestParam User user) {
+        //  clientService.create(nickname, profileImage, user);
+        return new RedirectView("/");
     }
 
 
-     */
+    @PostMapping
+    public RedirectView update(Client client, RedirectAttributes attributes){
+        RedirectView redirect = new RedirectView("/");
+       // clientService.update(Client);
+        attributes.addFlashAttribute("success","");
+        return redirect;
+
+
+ 
 
     @GetMapping("/form/{id}")
     public ModelAndView getForm(@PathVariable Long id){
@@ -83,6 +83,7 @@ public class ClientController {
         return new RedirectView("/"); //MODIFICAR RE-DIRECCION
     }
 
+
     @PostMapping("/update")
     public RedirectView update(ClientUserDto dto, RedirectAttributes attributes) throws MyException{
         RedirectView redirect = new RedirectView("/"); //MODIFICAR RE-DIRECCION
@@ -91,18 +92,21 @@ public class ClientController {
         return redirect;
     }
 
-/*
+
+
+    @GetMapping
     public ModelAndView getById(Long id){
         ModelAndView mav = new ModelAndView("");
         mav.addObject("client", clientService.getById(id));
         return mav;
     }
 
+    @PostMapping
     public RedirectView deleteById(@PathVariable Long id) {
         RedirectView redirect = new RedirectView("");
         clientService.deleteById(id);
         return redirect;
     }
 
-    */
+    
 }
