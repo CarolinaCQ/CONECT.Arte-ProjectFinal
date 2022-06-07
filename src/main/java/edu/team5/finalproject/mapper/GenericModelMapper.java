@@ -1,9 +1,14 @@
 package edu.team5.finalproject.mapper;
 
+import java.io.Serializable;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import edu.team5.finalproject.dto.ClientUserDto;
 import edu.team5.finalproject.dto.GroupUserContactDto;
+import edu.team5.finalproject.dto.UserDto;
 import edu.team5.finalproject.entity.Client;
 import edu.team5.finalproject.entity.Contact;
 import edu.team5.finalproject.entity.Group;
@@ -11,7 +16,8 @@ import edu.team5.finalproject.entity.User;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class GenericModelMapper {
+@Component
+public class GenericModelMapper implements Serializable{
 
    private final ModelMapper mapper;
 
@@ -23,6 +29,8 @@ public class GenericModelMapper {
                                               explicar (la característica "Reflection")
    */
 
+   //TO DTO CLASS
+
    public ClientUserDto mapToClientUserDto(Client client){       
         return mapper.map(client, ClientUserDto.class);
    }
@@ -31,14 +39,21 @@ public class GenericModelMapper {
       return mapper.map(group, GroupUserContactDto.class);
    }
 
-   //REVERSES
+   //DTO TO DTO CLASS
+
+   
+   private UserDto mapToUserDto(ClientUserDto dto){
+      return mapper.map(dto, UserDto.class);
+   }
+
+   private UserDto mapToUserDto(GroupUserContactDto dto){
+      return mapper.map(dto, UserDto.class);
+   }   
+
+   //TO ENTITY CLASS
 
    public Client mapToClient(ClientUserDto dto){
       return mapper.map(dto, Client.class);
-   }
-
-   public User mapToUser(ClientUserDto dto){
-      return mapper.map(dto, User.class);
    }
 
    public Group mapToGroup(GroupUserContactDto dto){
@@ -49,8 +64,19 @@ public class GenericModelMapper {
       return mapper.map(dto, Contact.class);
    }
 
-   public User mapToUserFromGroup(GroupUserContactDto dto){
+   public User mapToUser(UserDto dto){
       return mapper.map(dto, User.class);
    }
+    
+   public User mapToUserFromClient(ClientUserDto dto){
+      return mapper.map(mapToUserDto(dto), User.class);
+   }
+
+   public User mapToUserFromGroup(GroupUserContactDto dto){
+      return mapper.map(mapToUserDto(dto), User.class);
+   }
+   
+   
+   
     
 }
