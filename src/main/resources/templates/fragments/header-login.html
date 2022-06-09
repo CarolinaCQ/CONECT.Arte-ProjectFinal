@@ -1,8 +1,7 @@
-<header>
+<header th:fragment="header-login">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid px-5">
       <a class="navbar-brand">
-        <img src="" width="30" height="30" class="d-inline-block align-top" alt="" />
         NombreApp
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu"
@@ -19,7 +18,7 @@
           </li>
           <div class="d-flex flex-row px-5">
             <li class="nav-item px-3">
-              <img src="" width="30" height="30" class="d-inline-block align-top" alt="" />
+              <img src="" class="d-inline-block align-top" alt="" />
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle pr-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -29,7 +28,7 @@
                   <a class="dropdown-item text-light" th:href="@{/}">Inicio</a>
                 </li>
                 <li>
-                  <a class="dropdown-item text-light" th:href="${user.role.name}=='group' ? @{/groups/profile} : @{/clients/profile}">Perfil</a>
+                  <a class="dropdown-item text-light" th:href="${user.role.name}=='Group' ? @{/groups/profile} : @{/clients/profile}">Perfil</a>
                 </li>
                 <li>
                   <a class="dropdown-item text-light" th:href="@{/groups/dance}">Grupos de danza</a>

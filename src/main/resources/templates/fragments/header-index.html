@@ -1,65 +1,81 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand px-5">
-        <img src="" width="30" height="30" class="d-inline-block align-top" alt="" />
-        NombreApp
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu"
-        aria-expanded="false" aria-label="Show / Hide Menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse d-flex flex-row justify-content-end" id="menu">
-        <ul class="navbar-nav">
-          <li class="nav-item px-5">
-            <form class="form-inline">
-              <input class="form-control mr-sm-2 search" type="search" placeholder="Buscar por nombre" aria-label="Search" />
-            </form>
-            <ul class="list"></ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn border text-light" th:href="@{/users/form-login}">Ingresar</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav px-5">
-          <li class="nav-item">
-            <button type="button" class="btn border text-light" data-bs-toggle="modal" data-bs-target="#Modal">
-              Registrarme
-            </button>
-            <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="modalRole" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-body d-flex flex-column align-items-center">
-                    <div class=" col-12 d-flex flex-row justify-content-end">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <h4 class="fst-italic pb-3">Elegí tu rol</h4>
-                    <div class="d-flex flex-row justify-content-center">
-                      <div class="px-3 d-flex flex-column align-items-center">
-                        <img src="" width="40" height="40" class="d-inline-block align-top" alt="" />
-                        <h5 class="pb-3">¿Sos un Artista?</h5>
-                        <a class="fw-bold fst-italic" style="color: #522e96;" th:href="@{/groups/form}">Registrate</a>
-                        <p class="text-center pb-3">y sé parte de esta comunidad!</p>
-                      </div>
-                      <div class="px-3 d-flex flex-column align-items-center">
-                        <img src="" width="40" height="40" class="d-inline-block align-top" alt="" />
-                        <h5 class="pb-3">¿Buscas un Artista?</h5>
-                        <a class="fw-bold fst-italic" style="color: #522e96;" th:href="@{/clients/form}">Registrate</a>
-                        <p class="text-center pb-3">y comenza a buscar artistas!</p>
-                      </div>
-                    </div>
-                    <div>
-                      <p style="font-size: 12px;">Ya tenés una cuenta? <a style="color: #522e96;"
-                          th:href="@{/users/form-login}">Ingresa
-                          aqui</a></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<header th:fragment="header-index">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-6 navbar-brand px-5">
+                NombreApp
+            </a>
+            <div class="col-12 col-sm-8 col-md-6 col-lg-7 col-xl-6 d-flex flex-row justify-content-end px-5" id="menu">
+                <ul class="col-12 navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="col-12 col-sm-auto nav-item mx-3">
+                        <form class="d-flex" role="search">
+                            <input class="form-control mr-sm-2 search" type="search" placeholder="Buscar por nombre" aria-label="Search" />
+                        </form>
+                        <ul class="list"></ul>
+                    </li>
+                    <li class="col-12 col-sm-auto nav-item mx-3">
+                        <button type="button" class="btn border text-light py-2" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                            Ingresar
+                        </button>
+                        <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalRole" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body d-flex flex-column align-items-center">
+                                        <div class=" col-12 d-flex flex-row justify-content-end">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <h4 class="fst-italic pb-3">Elegí tu rol</h4>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <div class="px-3 d-flex flex-column align-items-center">
+                                                <img src="" class="d-inline-block align-top" alt="" />
+                                                <h5 class="pb-3">¿Sos un Artista?</h5>
+                                                <a style="color: #522e96;"th:href="@{/auth-group/login}">Ingresa aqui</a>
+                                            </div>
+                                            <div class="px-3 d-flex flex-column align-items-center">
+                                                <img src="" class="d-inline-block align-top" alt="" />
+                                                <h5 class="pb-3">¿Buscas un Artista?</h5>
+                                                <a style="color: #522e96;"th:href="@{/auth-client/login}">Ingresa aqui</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="col-12 col-sm-auto nav-item mx-3">
+                        <button type="button" class="btn border text-light py-2" data-bs-toggle="modal" data-bs-target="#modalRegister">
+                            Registrarme
+                        </button>
+                        <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="modalRole" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body d-flex flex-column align-items-center">
+                                        <div class=" col-12 d-flex flex-row justify-content-end">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <h4 class="fst-italic pb-3">Elegí tu rol</h4>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <div class="px-3 d-flex flex-column align-items-center">
+                                                <img src="" class="d-inline-block align-top" alt="" />
+                                                <h5 class="pb-3">¿Sos un Artista?</h5>
+                                                <a class="fw-bold fst-italic" style="color: #522e96;" th:href="@{/auth-group/sign-up}">Registrate</a>
+                                                <p class="text-center pb-3">y sé parte de esta comunidad!</p>
+                                                <p style="font-size: 12px;">Ya tenés una cuenta? <a style="color: #522e96;"th:href="@{/auth-group/login}">Ingresa aqui</a></p>
+                                            </div>
+                                            <div class="px-3 d-flex flex-column align-items-center">
+                                                <img src="" class="d-inline-block align-top" alt="" />
+                                                <h5 class="pb-3">¿Buscas un Artista?</h5>
+                                                <a class="fw-bold fst-italic" style="color: #522e96;" th:href="@{/auth-client/sign-up}">Registrate</a>
+                                                <p class="text-center pb-3">y comenza a buscar artistas!</p>
+                                                <p style="font-size: 12px;">Ya tenés una cuenta? <a style="color: #522e96;"th:href="@{/auth-client/login}">Ingresa aqui</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+        </div>
+    </nav>
 </header>
