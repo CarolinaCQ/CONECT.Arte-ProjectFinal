@@ -40,7 +40,7 @@ public class Group implements Serializable {
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "group_service_list",
             joinColumns = @JoinColumn(name = "group_id"))
-    @Column(name = "group_service", nullable = false)
+    @Column(name = "group_service")
     private List<String> service;
 
     @ElementCollection(targetClass = String.class)

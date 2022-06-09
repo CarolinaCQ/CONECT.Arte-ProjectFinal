@@ -25,7 +25,7 @@ public class Contact {
     @Column(name="contact_instagramUrl")
     private String instagramUrl;
 
-    @Column(name="contact_whatsAppNumber")
+    @Column(name="contact_whatsAppNumber", nullable = false)
     private Long whatsAppNumber;
 
 
