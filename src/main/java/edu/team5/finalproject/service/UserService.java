@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder encoder;
 
     public void create(UserDto dto) throws MyException {
-        User user = mapper.mapToUser(dto);        
+        User user = mapper.map(dto, User.class);        
         validateUser(user);  
         user.setPassword(encoder.encode(user.getPassword()));              
         userRepository.save(user);
@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void update(UserDto dto) throws MyException {
-        User user = mapper.mapToUser(dto);        
+        User user = mapper.map(dto, User.class);        
         validateUser(user);        
         userRepository.save(user);
     }
