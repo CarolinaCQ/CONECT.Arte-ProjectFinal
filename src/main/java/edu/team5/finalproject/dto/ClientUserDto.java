@@ -1,9 +1,5 @@
 package edu.team5.finalproject.dto;
 
-import java.io.Serializable;
-
-
-import edu.team5.finalproject.entity.enums.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,15 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ClientUserDto implements Serializable{
+public class ClientUserDto extends UserDto{
 
-    private Long id;
-    private String nickname; 
-    private String email;
-    private String password;
-    private Role role;
-    private String profileImage;
-    
+    //client atributes
+    private String clientNickname;    
+    private String clientProfileImage;
 
     /*
      * aca van los atributos de la/s tablas 

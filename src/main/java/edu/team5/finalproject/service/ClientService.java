@@ -41,12 +41,12 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
-    private void validateClient(Client newClient) throws MyException {
-        if (newClient == null)
+    private void validateClient(Client client) throws MyException {
+        if (client == null)
             throw new MyException("Exception message here.");
-        Utility.validate(Utility.ONLY_NAMES, newClient.getNickname());
-        Utility.validate(Utility.PASSWORD_PATTERN, newClient.getUser().getPassword());
-        Utility.validate(Utility.MAIL_PATTERN, newClient.getUser().getEmail());
+        Utility.validate(Utility.ONLY_NAMES, client.getNickname());
+        Utility.validate(Utility.PASSWORD_PATTERN, client.getUser().getPassword());
+        Utility.validate(Utility.MAIL_PATTERN, client.getUser().getEmail());
     }
 
    
