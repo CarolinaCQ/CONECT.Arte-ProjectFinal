@@ -1,9 +1,7 @@
 package edu.team5.finalproject.controller;
 
 import edu.team5.finalproject.dto.ClientUserDto;
-import edu.team5.finalproject.entity.Client;
 import edu.team5.finalproject.exception.MyException;
-import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
@@ -30,15 +28,12 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequiredArgsConstructor
 public class ClientController {
 
-    private final ClientService clientService;
-    private final GenericModelMapper mapper;
+    private final ClientService clientService;    
 
-// creacion
     @GetMapping("/form")
     public ModelAndView getForm(HttpServletRequest request, Principal principal){
         ModelAndView mav = new ModelAndView("form-sign-up-client");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-
 
         if(principal!=null) mav.setViewName("/"); // modificar
         
@@ -50,23 +45,6 @@ public class ClientController {
         }
         return mav;
     }
-
-   
-    @PostMapping
-    public RedirectView create(@RequestParam String nickname, @RequestParam String profileImage, @RequestParam User user) {
-        //  clientService.create(nickname, profileImage, user);
-        return new RedirectView("/");
-    }
-
-
-    @PostMapping
-    public RedirectView update(Client client, RedirectAttributes attributes){
-        RedirectView redirect = new RedirectView("/");
-       // clientService.update(Client);
-        attributes.addFlashAttribute("success","");
-        return redirect;
-
-
  
 
     @GetMapping("/form/{id}")
@@ -92,8 +70,7 @@ public class ClientController {
         return redirect;
     }
 
-
-
+/* 
     @GetMapping
     public ModelAndView getById(Long id){
         ModelAndView mav = new ModelAndView("");
@@ -107,6 +84,6 @@ public class ClientController {
         clientService.deleteById(id);
         return redirect;
     }
-
+*/
     
 }

@@ -1,9 +1,12 @@
 package edu.team5.finalproject.controller;
 
+import edu.team5.finalproject.dto.UserDto;
+import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,25 +21,27 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
     @GetMapping
-    public ModelAndView getUser(HttpServletRequest request){
+    public ModelAndView getUsers(HttpServletRequest request){
         ModelAndView mav = new ModelAndView("");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+
         if(inputFlashMap!= null) mav.addObject("success", inputFlashMap.get("success"));
          mav.addObject("users", userService.getAll());
+
          return mav;
     }
 
     //PreAuthorize("")
-    @GetMapping
+    @GetMapping("/form")
     public ModelAndView getForm(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("");              //que form va acá?
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
         if (inputFlashMap != null) {
@@ -51,40 +56,51 @@ public class UserController {
     }
 
     //@PreAuthorize("")
-    @GetMapping("//{id}")
+    @GetMapping("/form/{id}")
     public ModelAndView getForm(@PathVariable Long id) {
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("");               //que form va acá?
         mav.addObject("user", userService.getById(id));
         mav.addObject("action", "update");
         return mav;
     }
 
    // @PreAuthorize("")
-    @PostMapping("/")
-    public RedirectView create(User user1, RedirectAttributes attributes) {
-        RedirectView redirect = new RedirectView("");
-        //try{
-        //userService.create(user1);
-        attributes.addFlashAttribute("Success", "");
-        //catch(Exception e){
-        attributes.addFlashAttribute("user", user1);
-        // attributes.addFlashAttribute("exception",message );
-        redirect.setUrl("");
+   @PostMapping("/create")
+   public RedirectView create(UserDto dto, RedirectAttributes attributes) {
+       RedirectView redirect = new RedirectView("/users");
+
+       try {
+           userService.create(dto);
+           attributes.addFlashAttribute("success", "The operation has been carried out successfully");
+       } catch (IllegalArgumentException | MyException e) {
+           attributes.addFlashAttribute("user", dto);
+           attributes.addFlashAttribute("exception", e.getMessage());
+           redirect.setUrl("");                 // redirección acá
+       }
+
+       return redirect;
+   }
+
+    //@PreAuthorize("")
+    @PostMapping("/update")
+    public RedirectView update(UserDto dto, RedirectAttributes attributes) {
+        RedirectView redirect = new RedirectView("/users");
+
+        try{
+            userService.update(dto);
+            attributes.addFlashAttribute("success", "The operation has been carried out successfully");
+        }catch (IllegalArgumentException | MyException e){
+            attributes.addFlashAttribute("user", dto);
+           attributes.addFlashAttribute("exception", e.getMessage());
+           redirect.setUrl("");                       // redirección acá
+        }
         return redirect;
     }
 
     //@PreAuthorize("")
-   @PostMapping("/")
-    public RedirectView update(User user1, RedirectAttributes attributes) {
-        RedirectView redirect = new RedirectView("");
-       // userService.update(user1);
-        attributes.addFlashAttribute("success", "");
-        return redirect;
-    }
-    //@PreAuthorize("")
-    @PostMapping("//{id}")
+    @PostMapping("/delete/{id}")
     public RedirectView delete(@PathVariable Long id) {
-        RedirectView redirect = new RedirectView("");
+        RedirectView redirect = new RedirectView("/users");
         userService.deleteById(id);
         return redirect;
     }

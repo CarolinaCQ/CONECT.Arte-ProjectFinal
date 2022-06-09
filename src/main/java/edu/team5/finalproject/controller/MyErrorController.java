@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MyErrorController implements ErrorController {
 
-    @RequestMapping("/")
+    @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request){
 
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("error");
         Integer status = (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String message;
 
