@@ -57,6 +57,9 @@ public class AuthGroupController {
         if(inputFlashMap !=null) {
             mav.addObject("exception", inputFlashMap.get("exception"));
             mav.addObject("group", inputFlashMap.get("group"));
+            mav.addObject("types", Type.values());
+            mav.addObject("styles", Style.values());
+            mav.addObject("locales", Locale.values());
         }else {
             mav.addObject("group", new GroupUserContactDto());
             mav.addObject("types", Type.values());
