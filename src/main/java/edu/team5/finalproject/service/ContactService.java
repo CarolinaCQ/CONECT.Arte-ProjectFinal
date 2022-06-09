@@ -19,14 +19,17 @@ public class ContactService {
 
    @Transactional
    public void create(GroupUserContactDto dto) throws MyException {
-      Contact contact = mapper.mapToContact(dto);      
-      validateContact(contact);  
+      Contact contact = mapper.map(dto, Contact.class);      
+      //validateContact(contact); 
+      
+      
+      
       contactRepository.save(contact);
    }
 
    @Transactional
    public void update(GroupUserContactDto dto) throws MyException {
-      Contact contact = mapper.mapToContact(dto);      
+      Contact contact = mapper.map(dto, Contact.class);      
       validateContact(contact);  
       contactRepository.save(contact);
    }
