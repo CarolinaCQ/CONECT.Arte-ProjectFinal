@@ -28,7 +28,7 @@ public class User implements Serializable {
     private String password;
 
     @Enumerated(STRING)
-    @Column(name="roles")
+    @Column(name="user_role")
     private Role role;
 
 
