@@ -6,6 +6,9 @@ import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.EnumType.STRING;
 import javax.persistence.*;
+
+import org.hibernate.annotations.SQLDelete;
+
 import edu.team5.finalproject.entity.enums.Locale;
 import edu.team5.finalproject.entity.enums.Style;
 import edu.team5.finalproject.entity.enums.Type;
@@ -14,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@SQLDelete(sql = "UPDATE group_bands SET group_deleted = true WHERE id = ?")
 @Getter
 @Setter
 @NoArgsConstructor
