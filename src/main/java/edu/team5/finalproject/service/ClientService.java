@@ -41,14 +41,22 @@ public class ClientService {
         clientRepository.save(client);
     }
 
-    @Transactional(readOnly = true)
-    public Client getById(Long id) {
-        return clientRepository.findById(id).get();
+    @Transactional
+    public void updateDeleted(Long id) { 
+        Client client = clientRepository.findById(id).get();
+        client.getUser().setDeleted(true);
+        clientRepository.save(client);
     }
 
     @Transactional
-    public void deleteById(Long id) {
+    public void deleteById(Long id) {          
+        updateDeleted(id);     
         clientRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Client getById(Long id) {
+        return clientRepository.findById(id).get();
     }
 
     private void validateClient(Client client) throws MyException {

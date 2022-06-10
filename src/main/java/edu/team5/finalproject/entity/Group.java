@@ -61,6 +61,9 @@ public class Group implements Serializable {
     @Column(name = "group_locale", nullable = false)
     private Locale locale;
 
+    @Column(name="group_deleted")
+    private Boolean deleted;
+
     @JoinColumn(name = "group_contact", referencedColumnName = "contact_id")
     @OneToOne(fetch = EAGER)
     private Contact contact;

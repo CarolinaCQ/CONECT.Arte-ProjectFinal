@@ -24,6 +24,9 @@ public class Client implements Serializable {
     @Column(name="client_profile_image")
     private String profileImage;
 
+    @Column(name="client_deleted")
+    private Boolean deleted;
+
     @JoinColumn(name="client_user", referencedColumnName = "user_id")
     @OneToOne(fetch = FetchType.EAGER)
     private User user;

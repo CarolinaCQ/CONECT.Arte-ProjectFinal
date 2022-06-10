@@ -24,8 +24,11 @@ public class User implements Serializable {
     @Column(name="user_email", nullable = false, unique = true)
     private String email;
 
-    @Column(name="user_password", nullable = false, unique = true)
+    @Column(name="user_password", nullable = false)
     private String password;
+
+    @Column(name="user_deleted")
+    private Boolean deleted;
 
     @Enumerated(STRING)
     @Column(name="user_role")
