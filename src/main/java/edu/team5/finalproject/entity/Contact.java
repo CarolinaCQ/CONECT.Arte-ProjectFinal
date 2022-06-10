@@ -28,6 +28,9 @@ public class Contact {
     @Column(name="contact_whatsAppNumber", nullable = false)
     private Long whatsAppNumber;
 
+    @Column(name="contact_deleted")
+    private Boolean deleted;
+
 
 
 }

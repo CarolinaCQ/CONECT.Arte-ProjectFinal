@@ -2,11 +2,15 @@ package edu.team5.finalproject.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.SQLDelete;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@SQLDelete(sql = "UPDATE clients SET client_deleted = true WHERE id = ?")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +27,9 @@ public class Client implements Serializable {
 
     @Column(name="client_profile_image")
     private String profileImage;
+
+    @Column(name="client_deleted")
+    private Boolean deleted;
 
     @JoinColumn(name="client_user", referencedColumnName = "user_id")
     @OneToOne(fetch = FetchType.EAGER)

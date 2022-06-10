@@ -47,14 +47,28 @@ public class GroupService {
         groupRepository.save(group);
     }
 
+    @Transactional
+    public void updateDeleted(Long id) { 
+        Group group = groupRepository.findById(id).get();
+        group.getUser().setDeleted(true);
+        group.getContact().setDeleted(true);
+        groupRepository.save(group);
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        updateDeleted(id);
+        groupRepository.deleteById(id);
+    }
+
     @Transactional(readOnly = true)
     public Group getById(Long id) {
         return groupRepository.findById(id).get();
     }
 
-    @Transactional
-    public void deleteById(Long id) {
-        groupRepository.deleteById(id);
+    @Transactional(readOnly = true)
+    public List<Group> getAll() {
+        return groupRepository.findAll();
     }
 
     private void validateGroup(Group group) throws MyException {
@@ -62,10 +76,5 @@ public class GroupService {
         Utility.validate(Utility.ONLY_NAMES, group.getName());
         Utility.validate(Utility.MAIL_PATTERN, group.getUser().getEmail());
         Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword());        
-    }
-
-    @Transactional(readOnly = true)
-    public List<Group> getAll() {
-        return groupRepository.findAll();
     }
 }
