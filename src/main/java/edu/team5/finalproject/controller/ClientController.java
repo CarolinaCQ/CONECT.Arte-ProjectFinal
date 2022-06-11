@@ -44,8 +44,16 @@ public class ClientController {
         return redirect;
     }    
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/update/{id}")
+    public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
+        RedirectView redirect = new RedirectView("/"); 
+        clientService.updateDeletedHigh(id);               
+        return redirect;
+    }
+
     @PreAuthorize("anyRole('CLIENT, ADMIN')")
-    @PostMapping
+    @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id) {
         RedirectView redirect = new RedirectView("");
         clientService.deleteById(id);
