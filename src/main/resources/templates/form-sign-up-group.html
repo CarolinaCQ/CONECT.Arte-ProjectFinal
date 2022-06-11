@@ -25,36 +25,37 @@
                         <form th:action="@{/auth-group/__${action}__}" method="POST" th:object="${group}" autocompleted="off" class="needs-validation" novalidate>
                             <div class="mt-2 container-form">
 
-<!--                                <input type="hidden" th:field="*{userId}">-->
+                                <input type="hidden" name="{userId}">
+                                <input type="hidden" name="{groupId}">
 
                                 <div class="form1">
 
                                     <div>
                                         <div class="my-3">
-                                            <label th:for="name" class="form-label">Nombre artístico</label>
-                                            <input type="text" class="form-control" th:field="*{groupName}" id="name" required
-                                                   autofocus>
+                                            <label th:for="name" class="form-label">Nombre artístico<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" th:field="*{groupName}" id="name" required autofocus>
                                             <div class="invalid-feedback">El nombre artístico es un campo requerido!</div>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
-                                        <div class="my-3 d-flex flex-column">
-                                            <label th:for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" th:field="*{userEmail}" id="email"
-                                                   required>
+                                        <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
+                                            <label th:for="email" class="form-label">Email<span class="text-danger">*</span></label>
+                                            <input type="email" class="form-control" th:field="*{userEmail}" id="email" required>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                             <div class="invalid-feedback">El email es un campo requerido!</div>
                                         </div>
 
-                                        <div class="my-3 d-flex flex-column">
-                                            <label th:for="password" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" th:field="*{userPassword}" id="password"
-                                                   required>
+                                        <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
+                                            <label th:for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
+                                            <input type="password" class="form-control" th:field="*{userPassword}" id="password" required>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                             <div class="invalid-feedback">La contraseña es un campo requerido!</div>
                                         </div>
 
                                         <div class="my-3 d-flex flex-column">
                                             <label th:for="profileImage" class="form-label">Foto de perfil</label>
-                                            <input type="file" accept="image/*" th:field="*{groupProfileImage}"
-                                                   class="form-control" id="profileImage">
+                                            <input type="file" accept="image/*" th:field="*{groupProfileImage}" class="form-control" id="profileImage">
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                     </div>
@@ -70,25 +71,28 @@
 
                                     <div>
                                         <div class="my-3">
-                                            <label th:for="type" class="form-label">Música o danza?</label>
+                                            <label th:for="type" class="form-label">Música o danza?<span class="text-danger">*</span></label>
                                             <select class="form-control form-select" th:field="*{groupType}" id="type" aria-label="Select type" required>
                                                 <option th:each="type : ${types}" th:value="${type}" th:text="${type.name}"></option>
                                             </select>
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
-                                            <label th:for="description">Descripción</label>
+                                            <label th:for="description">Descripción<span class="text-danger">*</span></label>
                                             <textarea th:field="*{groupDescription}" id="description" class="form-control" aria-label="description"></textarea>
                                             <div class="invalid-feedback">La descripción es un campo requerido!</div>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
-                                            <label th:for="locale" class="form-label">Ubicación</label>
+                                            <label th:for="locale" class="form-label">Ubicación<span class="text-danger">*</span></label>
                                             <select class="form-control form-select" th:field="*{groupLocale}" id="locale" aria-label="Select locale" required>
                                                 <option th:each="locale : ${locales}" th:value="${locale}" th:text="${locale.name}"></option>
                                             </select>
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3 form-group">
@@ -106,11 +110,12 @@
                                         </div>
 
                                         <div class="my-3">
-                                            <label th:for="style" class="form-label">Estilos</label>
+                                            <label th:for="style" class="form-label">Estilos<span class="text-danger">*</span></label>
                                             <select class="form-control form-select" th:field="*{groupStyle}" id="style" aria-label="Select style" required>
                                                 <option th:each="style : ${styles}" th:value="${style}" th:text="${style.name}"></option>
                                             </select>
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
                                     </div>
 
@@ -127,20 +132,22 @@
 
                                     <div>
                                         <div class="my-3">
-                                            <label th:for="numberWhatsapp" class="form-label">Número de celular</label>
+                                            <label th:for="numberWhatsapp" class="form-label">Número de celular<span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" th:field="*{contactWhatsAppNumber}" id="numberWhatsapp" required>
                                             <div class="invalid-feedback">El número de celular es un campo requerido!</div>
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
                                             <label th:for="facebookUrl" class="form-label">Url Facebook</label>
-                                            <input type="text" class="form-control" th:field="*{contactFacebookUrl}"
-                                                   id="facebookUrl">
+                                            <input type="text" class="form-control" th:field="*{contactFacebookUrl}" id="facebookUrl">
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
                                             <label th:for="instagramUrl" class="form-label">Url Instagram</label>
                                             <input type="text" class="form-control" th:field="*{contactInstagramUrl}" id="instagramUrl">
+                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
                                     </div>
 
