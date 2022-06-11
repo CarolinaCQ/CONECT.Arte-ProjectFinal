@@ -19,16 +19,16 @@
                             <form th:action="@{/logincheck}" method="POST" autocompleted="off" class="needs-validation"
                                 novalidate>
                                 <div></div>
-                                <input type="hidden" th:field="*{id}">
+                                <input type="hidden" name="id}">
                                 <div class="form-group my-5">
                                     <label th:for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" th:field="*{email}" id="email" required
+                                    <input type="email" class="form-control" name="email" id="email" required
                                         autofocus>
                                     <div class="invalid-feedback">El email es un campo requerido!</div>
                                 </div>
                                 <div class="form-group my-5">
                                     <label th:for="password" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" th:field="*{password}" id="password"
+                                    <input type="password" class="form-control" name="password" id="password"
                                         required>
                                     <div class="invalid-feedback">La contraseña es un campo requerido!</div>
                                 </div>
@@ -46,9 +46,9 @@
 
     <footer th:replace="fragments/footer :: footer"></footer>
 
-    <script th:src="@{./js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{./js/validation.js}"></script>
-    <script th:src="@{./js/search.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/validation.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
 </body>
 
 </html>
