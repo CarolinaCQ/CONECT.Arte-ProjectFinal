@@ -49,6 +49,14 @@ public class ClientService {
     }
 
     @Transactional
+    public void updateDeletedHigh(Long id) { 
+        Client client = clientRepository.findById(id).get();
+        client.getUser().setDeleted(false);
+        client.setDeleted(false);
+        clientRepository.save(client);
+    }
+
+    @Transactional
     public void deleteById(Long id) {          
         updateDeleted(id);     
         clientRepository.deleteById(id);

@@ -80,8 +80,16 @@ public class GroupController {
         return redirect;
     }
 
+    @PreAuthorize("hasRole('GROUP')")
+    @PostMapping("/update/{id}")
+    public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
+        RedirectView redirect = new RedirectView("/"); 
+        groupService.updateDeletedHigh(id);               
+        return redirect;
+    }
+
     @PreAuthorize("anyRole('GROUP, ADMIN')")
-    @PostMapping
+    @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id) {
         RedirectView redirect = new RedirectView("");
         groupService.deleteById(id);
