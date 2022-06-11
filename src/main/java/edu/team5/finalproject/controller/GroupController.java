@@ -80,7 +80,7 @@ public class GroupController {
         return redirect;
     }
 
-    @PreAuthorize("hasRole('GROUP')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update/{id}")
     public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
         RedirectView redirect = new RedirectView("/"); 
