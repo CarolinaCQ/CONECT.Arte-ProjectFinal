@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head th:replace="fragments/head :: head"></head>
+    
+    <body>
+        
+        <header th:replace="fragments/header :: header"></header>
+        
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col">
+                    
+                    <div th:if="${success}" th:text="${success}" class="alert alert-info"></div>
+                    
+                    <div th:if="${users.isEmpty()}">
+                        <p class="alert alert-info">No existen usuarios con rol de administrador</p>
+                        <a class="btn btn-primary" type="submit" th:href="@{/users/get-form}">Agregar usuario administrador</a>
+                    </div>
+                    
+                    <div th:unless="${users.isEmpty()}" class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-3">Email</th>
+                                    <th class="col-3">Role</th>
+                                    <th class="col-3">Baja/Alta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="user : ${users}">
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.role}"></td>
+                                    <td>
+                                        <form th:if="${user.deleted} == false" th:action="@{/users/delete/__${user.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-danger">Baja</button>
+                                        </form>
+                                        <form th:if="${user.deleted} == true" th:action="@{/users/delete/__${user.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-success">Alta</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    
+                    <div th:if="${success}" th:text="${success}" class="alert alert-info"></div>
+                    
+                    <div th:if="${clients.isEmpty()}">
+                        <p class="alert alert-info">No existen usuarios con rol de cliente</p>
+                    </div>
+                    
+                    <div th:unless="${clients.isEmpty()}" class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-3">Nombre de usuario</th>
+                                    <th class="col-3">Email</th>
+                                    <th class="col-3">Role</th>
+                                    <th class="col-3" >Baja/Alta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="client : ${clients}">
+                                    <td th:text="${client.email}"></td>
+                                    <td th:text="${client.role}"></td>
+                                    <td>
+                                        <form th:if="${client.deleted} == false" th:action="@{/clients/delete/__${client.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-danger">Baja</button>
+                                        </form>
+                                        <form th:if="${client.deleted} == true" th:action="@{/clients/delete/__${client.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-success">Alta</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col">
+                    
+                    <div th:if="${success}" th:text="${success}" class="alert alert-info"></div>
+                    
+                    <div th:if="${groups.isEmpty()}">
+                        <p class="alert alert-info">No existen usuarios con rol de grupo</p>
+                    </div>
+                    
+                    <div th:unless="${groups.isEmpty()}" class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-3">Nombre artístico</th>
+                                    <th class="col-3">Email</th>
+                                    <th class="col-3">Role</th>
+                                    <th class="col-3" sec:authorize="hasRole('ADMIN')">Baja/Alta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="group : ${groups}">
+                                    <td th:text="${group.email}"></td>
+                                    <td th:text="${group.role}"></td>
+                                    <td sec:authorize="hasRole('ADMIN')">
+                                        <form th:if="${group.deleted} == false" th:action="@{/groups/delete/__${group.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-danger">Baja</button>
+                                        </form>
+                                        <form th:if="${group.deleted} == true" th:action="@{/groups/delete/__${group.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-success">Alta</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    
+        <footer th:replace="fragments/footer :: footer"></footer>
+        
+        <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        
+    </body>
+</html>

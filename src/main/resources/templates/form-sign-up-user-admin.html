@@ -16,41 +16,24 @@
                             </div>
                             <div class="card mt-2">
                                 <div class="card-body d-flex flex-row justify-content-center">
-                                    <form th:action="@{/auth-client/__${action}__}" method="POST" th:object="${client}"
+                                    <form th:action="@{/users/__${action}__}" method="POST" th:object="${user}"
                                           autocompleted="off" class="needs-validation" novalidate>
 
-                                        <input type="hidden" name="{userId}">
-                                        <input type="hidden" name="{groupId}">
+<!--                                        <input type="hidden" th:field="*{userId}">-->
 
-                                        <div class="my-3">
-                                            <label th:fo="nickname" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" th:field="*{clientNickname}" id="nickname" required autofocus>
-                                            <div class="invalid-feedback">El nombre de usuario es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
-                                        </div>
 
                                         <div th:if="${action}=='register'" class="form-group my-3">
-                                            <label th:fo="email" class="form-label">Email<span class="text-danger">*</span></label>
+                                            <label th:fo="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" th:field="*{userEmail}" id="email" required
                                                    autofocus>
                                             <div class="invalid-feedback">El email es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
-
-
-                                        <div th:if="${action}=='register'" class="form-group my-3">
-                                            <label th:for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
+                                        <div class="form-group my-3">
+                                            <label th:fo="password" class="form-label">Contraseña</label>
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password"
                                                    required>
                                             <div class="invalid-feedback">La contraseña es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
-                                        </div>
-
-                                        <div class="my-3 d-flex flex-column">
-                                            <label th:fo="profileImage" class="form-label">Foto de perfil</label>
-                                            <input type="file" accept="image/*" th:field="*{clientProfileImage}" class="form-control" id="profileImage">
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3 d-flex flex-row justify-content-end">
@@ -70,7 +53,7 @@
         <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
         <script th:src="@{/js/search.js}"></script>
         <script th:src="@{/js/validation.js}"></script>
-
+        
     </body>
 
 </html>
