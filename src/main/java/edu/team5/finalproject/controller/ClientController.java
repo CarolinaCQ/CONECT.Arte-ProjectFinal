@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ClientController {
 
     private final ClientService clientService; 
-    private final GenericModelMapper mapper;   
+    private final GenericModelMapper mapper;  
  
     @PreAuthorize("hasRole('CLIENT')")
     @GetMapping("/form/{id}")

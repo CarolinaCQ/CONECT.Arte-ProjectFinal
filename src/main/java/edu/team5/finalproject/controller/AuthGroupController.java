@@ -47,6 +47,7 @@ public class AuthGroupController {
         return  mav;
 
     }
+    
     @GetMapping("/sign-up")
     public ModelAndView signup(HttpServletRequest request, Principal principal){
         ModelAndView mav = new ModelAndView("form-sign-up-group");                            //preguntar acá que sign-up va.

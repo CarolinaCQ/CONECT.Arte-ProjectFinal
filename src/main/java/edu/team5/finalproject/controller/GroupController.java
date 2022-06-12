@@ -62,6 +62,24 @@ public class GroupController {
         return mav;
     }
 
+    @GetMapping("/profile")
+    public ModelAndView getProfile(@PathVariable Long id){
+        ModelAndView mav = new ModelAndView("profile-artist");
+        GroupUserContactDto groupDto = mapper.map(groupService.getById(id), GroupUserContactDto.class);
+
+        mav.addObject("group", groupDto);
+        mav.addObject("action", "profile");
+
+        return mav;
+    }
+
+    @PostMapping("/profile/{id}")
+    public RedirectView profile(Long id, RedirectAttributes attributes) throws MyException{
+        RedirectView redirect = new RedirectView("/profile-artist");                
+        attributes.addFlashAttribute("success","mensaje de exito"); // MODIFICAR MENSAJE 
+        return redirect;
+    }
+
     @PreAuthorize("hasRole('GROUP')")
     @GetMapping("/form/{id}")
     public ModelAndView getForm(@PathVariable Long id){
