@@ -37,7 +37,7 @@ public class GroupController {
         ModelAndView mav = new ModelAndView("");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
-        List<GroupUserContactDto> groupListDto = mapper.mapList(groupService.getAll(), GroupUserContactDto.class);
+        List<GroupUserContactDto> groupListDto = mapper.mapAll(groupService.getAll(), GroupUserContactDto.class);
 
         if(inputFlashMap!= null) mav.addObject("success", inputFlashMap.get("success"));
          mav.addObject("groups", groupListDto);

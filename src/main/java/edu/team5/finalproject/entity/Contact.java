@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="contacts")
+@Table(name="contacts", indexes = {@Index(name = "idx_whatsAppNumber", columnList = "contact_whatsAppNumber")})
 public class Contact {
 
     @Id

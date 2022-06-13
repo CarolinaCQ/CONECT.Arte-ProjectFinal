@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "group_bands")
+@Table(name = "group_bands", indexes = {@Index(name = "idx_name", columnList = "group_name")})
 public class Group implements Serializable {
 
     @Id
