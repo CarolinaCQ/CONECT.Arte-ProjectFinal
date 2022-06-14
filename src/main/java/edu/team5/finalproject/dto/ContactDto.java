@@ -13,5 +13,4 @@ public class ContactDto {
     private String contactInstagramUrl;
     private Long contactWhatsAppNumber;
 
-
 }

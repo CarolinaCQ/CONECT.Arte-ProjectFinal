@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "clients")
+@Table(name = "clients", indexes = {@Index(name = "idx_nickname", columnList = "client_nickname")})
 public class Client implements Serializable {
 
     @Id

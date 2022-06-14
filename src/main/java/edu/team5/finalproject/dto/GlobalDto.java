@@ -41,4 +41,5 @@ public class GlobalDto {
     //client
     private String clientNickname;    
     private String clientProfileImage;
+
 }

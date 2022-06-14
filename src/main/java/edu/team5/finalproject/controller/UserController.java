@@ -2,6 +2,7 @@ package edu.team5.finalproject.controller;
 
 import edu.team5.finalproject.dto.UserDto;
 import edu.team5.finalproject.exception.MyException;
+import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.User;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,14 +29,17 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final GenericModelMapper mapper;
 
     @GetMapping
     public ModelAndView getUsers(HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("table-user");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
+        List<UserDto> userListDto = mapper.mapAll(userService.getAll(), UserDto.class);
+
         if(inputFlashMap!= null) mav.addObject("success", inputFlashMap.get("success"));
-         mav.addObject("users", userService.getAll());
+         mav.addObject("users", userListDto);
 
          return mav;
     }
@@ -41,14 +47,14 @@ public class UserController {
     //PreAuthorize("")
     @GetMapping("/form")
     public ModelAndView getForm(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("");              //que form va acá?
+        ModelAndView mav = new ModelAndView("form-sign-up-user-admin");              //que form va acá?
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
         if (inputFlashMap != null) {
             mav.addObject("user", inputFlashMap.get("user"));
             mav.addObject("exception", inputFlashMap.get("exception"));
         } else {
-            mav.addObject("user", new User());
+            mav.addObject("user", new UserDto());
         }
 
         mav.addObject("action", "create");
@@ -70,7 +76,7 @@ public class UserController {
        RedirectView redirect = new RedirectView("/users");
 
        try {
-           userService.create(dto);
+           userService.create(dto); // createadmin 
            attributes.addFlashAttribute("success", "The operation has been carried out successfully");
        } catch (IllegalArgumentException | MyException e) {
            attributes.addFlashAttribute("user", dto);
@@ -94,6 +100,14 @@ public class UserController {
            attributes.addFlashAttribute("exception", e.getMessage());
            redirect.setUrl("");                       // redirección acá
         }
+        return redirect;
+    }
+
+    //@PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/update/{id}")
+    public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
+        RedirectView redirect = new RedirectView("/"); 
+        userService.updateDeletedHigh(id);               
         return redirect;
     }
 

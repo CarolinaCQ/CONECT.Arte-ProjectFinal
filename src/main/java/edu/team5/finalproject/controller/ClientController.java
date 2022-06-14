@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ClientController {
 
     private final ClientService clientService; 
-    private final GenericModelMapper mapper;   
+    private final GenericModelMapper mapper;  
  
     @PreAuthorize("hasRole('CLIENT')")
     @GetMapping("/form/{id}")
@@ -32,6 +32,16 @@ public class ClientController {
 
         mav.addObject("client", clientUserDto);
         mav.addObject("action", "update");
+        return mav;
+    }
+
+    @GetMapping("/profile/{id}")
+    public ModelAndView getProfile(@PathVariable Long id){
+        ModelAndView mav = new ModelAndView("profile-client");
+        ClientUserDto clientUserDto = mapper.map(clientService.getById(id), ClientUserDto.class);
+
+        mav.addObject("client", clientUserDto);
+        
         return mav;
     }
 
@@ -48,9 +58,9 @@ public class ClientController {
     @PostMapping("/update/{id}")
     public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
         RedirectView redirect = new RedirectView("/"); 
-        clientService.updateDeletedHigh(id);               
+        clientService.updateDeletedHigh(id);                
         return redirect;
-    }
+    }    
 
     @PreAuthorize("anyRole('CLIENT, ADMIN')")
     @PostMapping("/delete/{id}")

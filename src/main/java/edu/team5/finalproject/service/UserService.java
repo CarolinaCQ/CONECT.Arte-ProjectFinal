@@ -3,6 +3,8 @@ package edu.team5.finalproject.service;
 
 import edu.team5.finalproject.dto.UserDto;
 import edu.team5.finalproject.entity.User;
+import edu.team5.finalproject.entity.enums.Role;
+import edu.team5.finalproject.exception.ExceptionMessages;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.repository.UserRepository;
@@ -35,16 +37,34 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder encoder;
 
     public void create(UserDto dto) throws MyException {
-        User user = mapper.map(dto, User.class);        
-        validateUser(user);  
-        user.setPassword(encoder.encode(user.getPassword()));              
+        User user = mapper.map(dto, User.class);
+
+        if (userRepository.existsByEmail(user.getEmail()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL);
+
+        validateUser(user);
+
+        user.setPassword(encoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    public void createAdmin(UserDto dto) throws MyException {
+        User user = mapper.map(dto, User.class);
+
+        if (userRepository.existsByEmail(user.getEmail()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL);
+
+        validateUser(user);
+
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setRole(Role.ADMIN);
         userRepository.save(user);
     }
 
     @Transactional
     public void update(UserDto dto) throws MyException {
-        User user = mapper.map(dto, User.class);        
-        validateUser(user);        
+        User user = mapper.map(dto, User.class);
+        validateUser(user);
         userRepository.save(user);
     }
 
@@ -63,27 +83,36 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    @Transactional
+    public void updateDeletedHigh(Long id) {
+        User user = userRepository.findById(id).get();
+        user.setDeleted(false);
+        userRepository.save(user);
+    }
+
     private void validateUser(User user) throws MyException {
-        if (user == null)
-            throw new MyException("Exception message here.");
-        Utility.validate(Utility.MAIL_PATTERN, user.getEmail());
-        Utility.validate(Utility.PASSWORD_PATTERN, user.getPassword());
+        if (!Utility.validate(Utility.EMAIL_PATTERN, user.getEmail()))
+            throw new MyException(ExceptionMessages.INVALID_EMAIL);
+
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, user.getPassword()))
+            throw new MyException(ExceptionMessages.INVALID_PASSWORD);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(( )-> new UsernameNotFoundException(""));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encotrado."));
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
-        
+
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attributes.getRequest().getSession(true);
-        
+
         session.setAttribute("id", user.getId());
         session.setAttribute("email", user.getEmail());
         session.setAttribute("role", user.getRole());
-        
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.singletonList(authority));
-    } 
 
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                Collections.singletonList(authority));
+    }
 
 }

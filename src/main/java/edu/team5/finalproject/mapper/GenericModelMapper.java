@@ -18,7 +18,7 @@ public class GenericModelMapper implements Serializable{
       return mapper.map(sourceClass, destinationClass);      
    } 
 
-   public <S, D> List<D> mapList(List<S> sourceList, Class<D> destinationClass) {
+   public <S, D> List<D> mapAll(List<S> sourceList, Class<D> destinationClass) {
       return sourceList.stream()
                        .map(e -> map(e, destinationClass))
                        .collect(Collectors.toList());      
