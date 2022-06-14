@@ -2,3 +2,56 @@ ul li button{
     width: 100%
 }
 
+.navbar-color{
+    background-color: #080E16;
+}
+
+.navbar-transparent{
+    background-color: red;
+}
+
+.search{
+    background-color: #080E16;
+}
+
+.search:focus{
+    background-color: #080E16;
+}
+
+.btn-register{
+    background-color: #44093A;
+    border-radius: 20px;
+}
+
+.btn-login{
+    background-color: #080E16;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+
+.btn-register:hover, .btn-login:hover{
+    background-color: #DA91DA;
+}
+
+.dropdown-menu{
+    background-color: #080E16;
+}
+
+.dropdown-item:hover{
+    background-color: #929092;
+}
+
+.modal-content{
+    background-color: #080E16;
+    color: aliceblue;
+}
+
+.btn-close{
+    background-color: white;
+}
+
+.navbar-toggler{
+    border-color: white;
+    color: white;
+}
+
