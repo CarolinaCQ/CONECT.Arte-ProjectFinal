@@ -22,22 +22,22 @@ public class MyErrorController implements ErrorController {
 
         switch (status){
             case 200:
-                message = ExceptionMessages.SUCCESS_STATUS_CODE_200.getName();
+                message = ExceptionMessages.SUCCESS_STATUS_CODE_200.get();
                 break;
             case 300:
-                message = ExceptionMessages.ERROR_STATUS_CODE_300.getName();
+                message = ExceptionMessages.ERROR_STATUS_CODE_300.get();
                 break;
             case 403:
-                message = ExceptionMessages.ERROR_STATUS_CODE_403.getName();
+                message = ExceptionMessages.ERROR_STATUS_CODE_403.get();
                 break;
             case 404:
-                message = ExceptionMessages.ERROR_STATUS_CODE_404.getName();
+                message = ExceptionMessages.ERROR_STATUS_CODE_404.get();
                 break;
             case 500:
-                message = ExceptionMessages.ERROR_STATUS_CODE_500.getName();
+                message = ExceptionMessages.ERROR_STATUS_CODE_500.get();
                 break;
             default:
-                message = ExceptionMessages.ERROR_STATUS_CODE_DEFAULT.getName();
+                message = ExceptionMessages.ERROR_STATUS_CODE_DEFAULT.get();
         }
         mav.addObject("message",message);
         mav.addObject("status", status);

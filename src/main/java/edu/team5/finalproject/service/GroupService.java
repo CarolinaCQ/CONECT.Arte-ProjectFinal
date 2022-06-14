@@ -32,7 +32,7 @@ public class GroupService {
         Group group = mapper.map(dto, Group.class);
 
         if (groupRepository.existsByName(group.getName()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME);
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
 
         validateGroup(group);
 
@@ -86,13 +86,13 @@ public class GroupService {
     }
 
     private void validateGroup(Group group) throws MyException { // fijarse que mas falta validar
-        if (Utility.validate(Utility.ONLY_NAMES, group.getName()))
-            throw new MyException(ExceptionMessages.INVALID_GROUP_NAME);
+        if (Utility.validate(Utility.NAME_PATTERN, group.getName()))
+            throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
 
         if (Utility.validate(Utility.EMAIL_PATTERN, group.getUser().getEmail()))
-            throw new MyException(ExceptionMessages.INVALID_EMAIL);
+            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
 
         if (Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword()))
-            throw new MyException(ExceptionMessages.INVALID_PASSWORD);
+            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
     }
 }

@@ -25,6 +25,6 @@ public enum Locale {
     SAN_PEDRO("San Pedro"),
     VEINTICINCO_DE_MAYO("25 de Mayo");
 
-    private String name;
+    private String locale;
 
 }

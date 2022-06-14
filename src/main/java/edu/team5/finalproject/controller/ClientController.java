@@ -58,7 +58,7 @@ public class ClientController {
     @PostMapping("/update/{id}")
     public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
         RedirectView redirect = new RedirectView("/"); 
-        clientService.updateDeletedHigh(id);                
+        clientService.updateEnableById(id);                
         return redirect;
     }    
 

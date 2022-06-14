@@ -11,6 +11,6 @@ public enum Role {
     GROUP("Group"),
     ADMIN("Admin");
 
-    private String name;
+    private String role;
 
 }

@@ -28,7 +28,7 @@ public class ClientService {
         Client client = mapper.map(dto, Client.class);
 
         if (clientRepository.existsByNickname(client.getNickname()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME);
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
 
         validateClient(client);
 
@@ -47,23 +47,14 @@ public class ClientService {
     }
 
     @Transactional
-    public void updateDeleted(Long id) {
-        Client client = clientRepository.findById(id).get();
-        client.getUser().setDeleted(true);
-        clientRepository.save(client);
-    }
-
-    @Transactional
-    public void updateDeletedHigh(Long id) {
-        Client client = clientRepository.findById(id).get();
-        client.getUser().setDeleted(false);
-        client.setDeleted(false);
-        clientRepository.save(client);
+    public void updateEnableById(Long id) {       
+        userRepository.enableById(clientRepository.findById(id).get().getUser().getId());
+        clientRepository.enableById(id);        
     }
 
     @Transactional
     public void deleteById(Long id) {
-        updateDeleted(id);
+        userRepository.deleteById(clientRepository.findById(id).get().getUser().getId());
         clientRepository.deleteById(id);
     }
 
@@ -73,14 +64,14 @@ public class ClientService {
     }
 
     private void validateClient(Client client) throws MyException {
-        if (!Utility.validate(Utility.USERNAME, client.getNickname()))
-            throw new MyException(ExceptionMessages.INVALID_USERNAME);
+        if (!Utility.validate(Utility.USERNAME_PATTERN, client.getNickname()))
+            throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
 
         if (!Utility.validate(Utility.PASSWORD_PATTERN, client.getUser().getPassword()))
-            throw new MyException(ExceptionMessages.INVALID_PASSWORD);
+            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
 
         if (!Utility.validate(Utility.EMAIL_PATTERN, client.getUser().getEmail()))
-            throw new MyException(ExceptionMessages.INVALID_EMAIL);
+            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
     }
 
 }

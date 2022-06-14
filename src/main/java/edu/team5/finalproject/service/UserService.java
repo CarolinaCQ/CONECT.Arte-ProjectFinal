@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
         User user = mapper.map(dto, User.class);
 
         if (userRepository.existsByEmail(user.getEmail()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL);
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
 
         validateUser(user);
 
@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
         User user = mapper.map(dto, User.class);
 
         if (userRepository.existsByEmail(user.getEmail()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL);
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
 
         validateUser(user);
 
@@ -92,10 +92,10 @@ public class UserService implements UserDetailsService {
 
     private void validateUser(User user) throws MyException {
         if (!Utility.validate(Utility.EMAIL_PATTERN, user.getEmail()))
-            throw new MyException(ExceptionMessages.INVALID_EMAIL);
+            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
 
         if (!Utility.validate(Utility.PASSWORD_PATTERN, user.getPassword()))
-            throw new MyException(ExceptionMessages.INVALID_PASSWORD);
+            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
     }
 
     @Override

@@ -10,6 +10,6 @@ public enum Type {
     MUSIC("Solistas y bandas musicales"),
     DANCE("Solistas y grupos de danza");
 
-    private String name;
+    private String type;
 
 }
