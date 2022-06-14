@@ -1,6 +1,10 @@
 package edu.team5.finalproject.controller;
 
+import edu.team5.finalproject.dto.GroupSimpleDto;
 import edu.team5.finalproject.dto.GroupUserContactDto;
+import edu.team5.finalproject.entity.enums.Locale;
+import edu.team5.finalproject.entity.enums.Style;
+import edu.team5.finalproject.entity.enums.Type;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.service.GroupService;
@@ -34,10 +38,10 @@ public class GroupController {
     @PreAuthorize("hasRole('GROUP')")
     @GetMapping
     public ModelAndView getGroups(HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("artists");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
-        List<GroupUserContactDto> groupListDto = mapper.mapAll(groupService.getAll(), GroupUserContactDto.class);
+        List<GroupSimpleDto> groupListDto = mapper.mapAll(groupService.getAll(), GroupSimpleDto.class);
 
         if(inputFlashMap!= null) mav.addObject("success", inputFlashMap.get("success"));
          mav.addObject("groups", groupListDto);
@@ -45,46 +49,25 @@ public class GroupController {
          return mav;
     }
 
-    @PreAuthorize("hasRole('GROUP')")
-    @GetMapping("/form")
-    public ModelAndView getForm(HttpServletRequest request, Principal principal){
-        ModelAndView mav = new ModelAndView("form-sign-up-group");
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-
-        if(principal!=null) mav.setViewName("/"); // modificar
-        
-        if(inputFlashMap!=null){
-            mav.addObject("exception", inputFlashMap.get("exception"));
-            mav.addObject("group", inputFlashMap.get("group"));
-        } else{
-            mav.addObject("group", new GroupUserContactDto());
-        }
-        return mav;
-    }
-
-    @GetMapping("/profile")
+    @GetMapping("/profile/{id}")
     public ModelAndView getProfile(@PathVariable Long id){
         ModelAndView mav = new ModelAndView("profile-artist");
-        GroupUserContactDto groupDto = mapper.map(groupService.getById(id), GroupUserContactDto.class);
+        GroupUserContactDto groupUserContactDto = mapper.map(groupService.getById(id), GroupUserContactDto.class);
 
-        mav.addObject("group", groupDto);
-        mav.addObject("action", "profile");
-
+        mav.addObject("group", groupUserContactDto);
+        
         return mav;
-    }
-
-    @PostMapping("/profile/{id}")
-    public RedirectView profile(Long id, RedirectAttributes attributes) throws MyException{
-        RedirectView redirect = new RedirectView("/profile-artist");                
-        attributes.addFlashAttribute("success","mensaje de exito"); // MODIFICAR MENSAJE 
-        return redirect;
     }
 
     @PreAuthorize("hasRole('GROUP')")
     @GetMapping("/form/{id}")
     public ModelAndView getForm(@PathVariable Long id){
-        ModelAndView mav = new ModelAndView("form-sign-up-group");        
-        mav.addObject("group");
+        ModelAndView mav = new ModelAndView("form-sign-up-group");  
+        GroupUserContactDto groupUserContactDto = mapper.map(groupService.getById(id), GroupUserContactDto.class);      
+        mav.addObject("group", groupUserContactDto);
+        mav.addObject("types", Type.values());
+        mav.addObject("locales", Locale.values());
+        mav.addObject("styles", Style.values());
         mav.addObject("action", "update");
         return mav;
     }
@@ -92,7 +75,7 @@ public class GroupController {
     @PreAuthorize("hasRole('GROUP')")
     @PostMapping("/update")
     public RedirectView update(GroupUserContactDto dto, RedirectAttributes attributes) throws MyException{
-        RedirectView redirect = new RedirectView("/"); //MODIFICAR RE-DIRECCION
+        RedirectView redirect = new RedirectView("/groups/profile/{id}");
         groupService.update(dto);                
         attributes.addFlashAttribute("success","mensaje de exito"); // MODIFICAR MENSAJE 
         return redirect;
@@ -106,10 +89,10 @@ public class GroupController {
         return redirect;
     }
 
-    @PreAuthorize("anyRole('GROUP, ADMIN')")
+    @PreAuthorize("anyRole('GROUP')")
     @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id) {
-        RedirectView redirect = new RedirectView("");
+        RedirectView redirect = new RedirectView("/logout");
         groupService.deleteById(id);
         return redirect;
     }

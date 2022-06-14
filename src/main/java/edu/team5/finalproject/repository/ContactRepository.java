@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
     Optional<Contact> findByWhatsAppNumber(Long whatsAppNumber);
+
+    boolean existsByWhatsAppNumber (String whatsAppNumber);
 }

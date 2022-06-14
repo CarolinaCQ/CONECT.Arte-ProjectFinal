@@ -35,6 +35,16 @@ public class ClientController {
         return mav;
     }
 
+    @GetMapping("/profile/{id}")
+    public ModelAndView getProfile(@PathVariable Long id){
+        ModelAndView mav = new ModelAndView("profile-client");
+        ClientUserDto clientUserDto = mapper.map(clientService.getById(id), ClientUserDto.class);
+
+        mav.addObject("client", clientUserDto);
+        
+        return mav;
+    }
+
     @PreAuthorize("hasRole('CLIENT')")
     @PostMapping("/update")
     public RedirectView update(ClientUserDto dto, RedirectAttributes attributes) throws MyException{

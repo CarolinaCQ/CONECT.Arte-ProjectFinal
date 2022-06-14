@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.team5.finalproject.exception.ExceptionMessages;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,25 +21,23 @@ public class MyErrorController implements ErrorController {
         String message;
 
         switch (status){
-            case 100:
-                message = "Usted se encuentra en la seccion informativa";
-                break;
             case 200:
-                message = "Su peticion se ha realizado con exito";
+                message = ExceptionMessages.ERROR_STATUS_CODE_200.toString();
                 break;
             case 300:
-                message = "La pagina solicitada se puede encontrar en una URI distinta";
+                message = ExceptionMessages.ERROR_STATUS_CODE_300.toString();
+                break;
             case 403:
-                message = "No tiene los permisos para acceder a esta pagina o el servidos se niega a acceder ";
+                message = ExceptionMessages.ERROR_STATUS_CODE_403.toString();
                 break;
             case 404:
-                message = "La direccion ingresada no existe o podria estar disponible en el futuro";
+                message = ExceptionMessages.ERROR_STATUS_CODE_404.toString();
                 break;
             case 500:
-                message = "Esta pagina no esta disponible por mantenimiento";
+                message = ExceptionMessages.ERROR_STATUS_CODE_500.toString();
                 break;
             default:
-                message = "Error inesperado al cargar la pagina";
+                message = ExceptionMessages.ERROR_STATUS_CODE_DEFAULT.toString();
         }
         mav.addObject("message",message);
         mav.addObject("status", status);

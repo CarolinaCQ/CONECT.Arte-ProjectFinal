@@ -39,7 +39,6 @@ public class AuthClientController {
         if(principal != null) mav.setViewName("redirect:/");
 
         return  mav;
-
     }
     
     @GetMapping("/sign-up")
