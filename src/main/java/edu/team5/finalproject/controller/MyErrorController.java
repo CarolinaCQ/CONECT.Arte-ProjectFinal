@@ -22,7 +22,7 @@ public class MyErrorController implements ErrorController {
 
         switch (status){
             case 200:
-                message = ExceptionMessages.ERROR_STATUS_CODE_200.toString();
+                message = ExceptionMessages.SUCCESS_STATUS_CODE_200.toString();
                 break;
             case 300:
                 message = ExceptionMessages.ERROR_STATUS_CODE_300.toString();

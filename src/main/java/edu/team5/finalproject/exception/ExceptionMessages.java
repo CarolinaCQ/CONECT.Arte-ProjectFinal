@@ -16,7 +16,7 @@ public enum ExceptionMessages {
     ALREADY_EXISTS_USERNAME("El nombre de usuario ingresado ya se encuentra en uso."),
     ALREADY_EXISTS_GROUP_NAME("El nombre de grupo/artísta ingresado ya se encuentra en uso."),
 
-    ERROR_STATUS_CODE_200("Su petición se ha realizado con Éxito."),
+    SUCCESS_STATUS_CODE_200("Su petición se ha realizado con éxito."),
     ERROR_STATUS_CODE_300("Lo sentimos, la página solicitada pudo haber sido modificada o se encuentra en una URI distinta."),
     ERROR_STATUS_CODE_403("Acceso denegado, no tiene los permisos para acceder a esta página, verifique si se encuentra en sesión o comuníquese con la administración."),
     ERROR_STATUS_CODE_404("Lo sentimos, La direccion ingresada no existe o podria no estar disponible en este momento."),
