@@ -21,11 +21,12 @@
 
                                         <input type="hidden" th:field="*{id}">
                                         
+                                        <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
+                                        
                                         <div class="my-3">
                                             <label th:fo="nickname" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" th:field="*{clientNickname}" id="nickname" required autofocus>
                                             <div class="invalid-feedback">El nombre de usuario es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="form-group my-3">
@@ -33,7 +34,6 @@
                                             <input type="email" class="form-control" th:field="*{userEmail}" id="email" required
                                                    autofocus>
                                             <div class="invalid-feedback">El email es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="form-group my-3">
@@ -41,13 +41,11 @@
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password"
                                                    required>
                                             <div class="invalid-feedback">La contraseña es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
                                             <label th:fo="profileImage" class="form-label">Foto de perfil</label>
                                             <input type="file" accept="image/*" name="image" class="form-control" id="profileImage">
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3 d-flex flex-row justify-content-end">
