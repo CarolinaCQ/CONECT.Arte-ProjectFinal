@@ -77,13 +77,13 @@ public class GroupService {
     }
 
     private void validateGroup(Group group) throws MyException { // fijarse que mas falta validar
-        if (Utility.validate(Utility.NAME_PATTERN, group.getName()))
+        if (!Utility.validate(Utility.NAME_PATTERN, group.getName()))
             throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
 
-        if (Utility.validate(Utility.EMAIL_PATTERN, group.getUser().getEmail()))
+        if (!Utility.validate(Utility.EMAIL_PATTERN, group.getUser().getEmail()))
             throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
 
-        if (Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword()))
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword()))
             throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
     }
 }

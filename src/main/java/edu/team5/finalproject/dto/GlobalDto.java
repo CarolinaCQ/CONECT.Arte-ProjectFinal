@@ -25,7 +25,6 @@ public class GlobalDto extends UserDto{
     private Style groupStyle; 
     private Type groupType;
     private Locale groupLocale;
-    private Boolean groupDeleted;
     
     //contact
     private String contactFacebookUrl;  

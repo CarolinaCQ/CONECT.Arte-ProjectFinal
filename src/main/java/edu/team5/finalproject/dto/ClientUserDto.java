@@ -10,7 +10,5 @@ import lombok.Setter;
 public class ClientUserDto extends UserDto{
 
     private String clientNickname;    
-    private String clientProfileImage;
-    private Boolean clientDeleted;
-    
+    private String clientProfileImage;    
 }
