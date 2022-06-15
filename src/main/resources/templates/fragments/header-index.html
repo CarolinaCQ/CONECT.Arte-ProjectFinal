@@ -1,5 +1,5 @@
 <header th:fragment="header-index">
-    <nav class="navbar navbar-expand-lg" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'navbar-transparent':'navbar-color'}" >
+    <nav class="navbar navbar-expand-lg" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'navbar-transparent navbar navbar-dark bg-dark bg-opacity-50':'navbar-color'}" >
         <div class="container-fluid">
             <a class="col-6 navbar-brand px-5 text-light">
                 NombreApp
