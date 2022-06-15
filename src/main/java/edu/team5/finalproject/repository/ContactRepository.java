@@ -18,5 +18,5 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 
     Optional<Contact> findByWhatsAppNumber(Long whatsAppNumber);
 
-    boolean existsByWhatsAppNumber (String whatsAppNumber);
+    boolean existsByWhatsAppNumber (Long whatsAppNumber);
 }

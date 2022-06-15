@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -74,9 +76,9 @@ public class GroupController {
 
     @PreAuthorize("hasRole('GROUP')")
     @PostMapping("/update")
-    public RedirectView update(GroupUserContactDto dto, RedirectAttributes attributes) throws MyException{
+    public RedirectView update(GroupUserContactDto dto, @RequestParam(required = false) MultipartFile image, @RequestParam(required = false) List<MultipartFile> imageList, RedirectAttributes attributes) throws MyException{
         RedirectView redirect = new RedirectView("/groups/profile/{id}");
-        groupService.update(dto);                
+        groupService.update(dto, image, imageList);                
         attributes.addFlashAttribute("success","mensaje de exito"); // MODIFICAR MENSAJE 
         return redirect;
     }

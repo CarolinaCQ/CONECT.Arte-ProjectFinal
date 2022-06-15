@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -59,7 +60,7 @@ public class AuthClientController {
     }
 
     @PostMapping("/register")
-    public RedirectView signup(ClientUserDto dto, RedirectAttributes attributes) { 
+    public RedirectView signup(ClientUserDto dto, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
         RedirectView redirect = new RedirectView("/");
         
         UserDto userDto = mapper.map(dto, UserDto.class);
@@ -67,7 +68,7 @@ public class AuthClientController {
 
         try {            
             if(userDto.getUserEmail() != null) userService.create(userDto);            
-            if(clientUserDto.getClientNickname() != null) clientService.create(clientUserDto);         
+            if(clientUserDto.getClientNickname() != null) clientService.create(clientUserDto, image);         
             
         } catch (IllegalArgumentException | MyException e) {
             attributes.addFlashAttribute("client", dto);

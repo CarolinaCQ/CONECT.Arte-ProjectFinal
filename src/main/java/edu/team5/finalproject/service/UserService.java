@@ -9,14 +9,10 @@ import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.repository.UserRepository;
 import edu.team5.finalproject.utility.Utility;
-
 import java.util.Collections;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,20 +35,19 @@ public class UserService implements UserDetailsService {
     public void create(UserDto dto) throws MyException {
         User user = mapper.map(dto, User.class);
 
-        if (userRepository.existsByEmail(user.getEmail()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
+        if (userRepository.existsByEmail(user.getEmail())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
 
         validateUser(user);
 
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setDeleted(false);
         userRepository.save(user);
     }
 
     public void createAdmin(UserDto dto) throws MyException {
         User user = mapper.map(dto, User.class);
 
-        if (userRepository.existsByEmail(user.getEmail()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
+        if (userRepository.existsByEmail(user.getEmail())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
 
         validateUser(user);
 
@@ -90,17 +85,14 @@ public class UserService implements UserDetailsService {
     }
 
     private void validateUser(User user) throws MyException {
-        if (!Utility.validate(Utility.EMAIL_PATTERN, user.getEmail()))
-            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
+        if (!Utility.validate(Utility.EMAIL_PATTERN, user.getEmail())) throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
 
-        if (!Utility.validate(Utility.PASSWORD_PATTERN, user.getPassword()))
-            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, user.getPassword())) throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encotrado."));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuario no encotrado."));
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -110,8 +102,7 @@ public class UserService implements UserDetailsService {
         session.setAttribute("email", user.getEmail());
         session.setAttribute("role", user.getRole());
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-                Collections.singletonList(authority));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.singletonList(authority));
     }
 
 }

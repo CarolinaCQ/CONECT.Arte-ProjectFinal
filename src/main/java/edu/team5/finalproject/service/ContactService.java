@@ -2,6 +2,7 @@ package edu.team5.finalproject.service;
 
 import edu.team5.finalproject.dto.GroupUserContactDto;
 import edu.team5.finalproject.entity.Contact;
+import edu.team5.finalproject.exception.ExceptionMessages;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.repository.ContactRepository;
@@ -19,11 +20,13 @@ public class ContactService {
 
    @Transactional
    public void create(GroupUserContactDto dto) throws MyException {
-      Contact contact = mapper.map(dto, Contact.class);      
-      //validateContact(contact); 
+      Contact contact = mapper.map(dto, Contact.class);    
+
+      if (contactRepository.existsByWhatsAppNumber(contact.getWhatsAppNumber())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_WHATSAPP_NUMBER.get());
+
+      validateContact(contact); 
       
-      
-      
+      contact.setDeleted(false);
       contactRepository.save(contact);
    }
 
@@ -46,7 +49,7 @@ public class ContactService {
 
    private void validateContact(Contact contact) throws MyException {
       if (contact == null) throw new MyException("Exception message here.");
-      Utility.validate(Utility.ONLY_NUMBERS_PATTERN, contact.getWhatsAppNumber().toString()); // consultar como hacer esto
+      Utility.validate(Utility.ONLY_NUMBERS_PATTERN, contact.getWhatsAppNumber().toString()); 
    }
 
 }

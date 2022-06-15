@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -47,9 +49,9 @@ public class ClientController {
 
     @PreAuthorize("hasRole('CLIENT')")
     @PostMapping("/update")
-    public RedirectView update(ClientUserDto dto, RedirectAttributes attributes) throws MyException{
+    public RedirectView update(ClientUserDto dto,@RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) throws MyException{
         RedirectView redirect = new RedirectView("/"); //MODIFICAR RE-DIRECCION
-        clientService.update(dto);                
+        clientService.update(dto, image);                
         attributes.addFlashAttribute("success","mensaje de exito"); // MODIFICAR MENSAJE 
         return redirect;
     }    
