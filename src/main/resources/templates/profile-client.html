@@ -42,7 +42,9 @@
                                                         <div class="px-3 d-flex flex-column align-items-center">
                                                             <h5 class="pb-3 text-center">¿Confirma baja de usuario?</h5>
                                                             <div>
-                                                                <a type="button" style="color: #B774B7;" class="text-center btn-deleted p-2 nav-link text-ligh" th:href="@{/clients/delete/__${client.id}__}">Si, confirmo</a>
+                                                                <form th:action="@{/clients/delete/__${client.id}__}" method="POST">
+                                                                    <button type="submit" style="color: #B774B7;" class="text-center btn-deleted p-2 nav-link text-ligh">Si, confirmo</button>
+                                                                </form>
                                                                 <a type="button" class="text-center nav-link mx-2 btn-update" th:href="@{/clients/profile/__${client.id}__}">No, quiero volver</a>
                                                             </div>
                                                         </div>
