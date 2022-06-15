@@ -1,84 +1,86 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <title>Profile</title>
+<html lang="en">
 
-    <link rel="stylesheet" th:href="@{/css/styleBody.css}">
-    <link rel="stylesheet" th:href="@{/css/grupStyle.css}">
-    <link rel="stylesheet" th:href="@{/css/profileStyle.css}">
-    
+    <head th:replace="fragments/head :: head"></head>
 
-</head>
-<body>
-<header th:replace="fragments/header-index :: header-index"></header>
-<main>
-    <br><br>
-    <div class="social-bar">
-        <a th:href="@{facebook}" class="icon icon-facebook" target="_blank">
-            <img th:src="@{/image/fb.png}" alt="" width="32">
-        </a>
-        <a th:href="@{instagram}" class="icon icon-instagram" target="_blank">
-            <img th:src="@{/image/insta.png}" alt="" width="32">
-        </a>
-        <a th:href="@{whatsapp}" class="icon icon-whatsapp" target="_blank">
-            <img th:src="@{/image/wsp.png}" alt="" width="32">
-        </a>
+    <body>
 
-    </div>
+        <div th:if="${session.id} == null">
+            <header th:replace="fragments/header-index :: header-index"></header>
+        </div>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <h2 class=" rounded shadow-lg strong font-weight-bold">Billie Eilish</h2>
-                <button class="btn btn">Editar</button>
+        <div th:unless="${session.id} == null">
+            <header th:replace="fragments/header-login :: header-login"></header>
+        </div>
 
+        <main>
+            <br><br>
+            <div class="social-bar">
+                <a th:href="@{facebook}" class="icon icon-facebook" target="_blank">
+                    <img th:src="@{/image/fb.png}" alt="" width="32">
+                </a>
+                <a th:href="@{instagram}" class="icon icon-instagram" target="_blank">
+                    <img th:src="@{/image/insta.png}" alt="" width="32">
+                </a>
+                <a th:href="@{whatsapp}" class="icon icon-whatsapp" target="_blank">
+                    <img th:src="@{/image/wsp.png}" alt="" width="32">
+                </a>
 
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 rounded shadow">
-                        <img th:src="@{/image/image6.jpg}" class="img-fluid">
-                    </div>
-                    <div class="col-md-7">
-                        <p class=" rounded shadow-lg">Billie Eilish Pirate Baird O'Connell cantante y compositora estadounidense. Adquirió fama como artista cuando tenía 13 años, a raíz del sencillo «Ocean Eyes» que se publicó en 2015 en SoundCloud y volvió a lanzarse con un vídeo musical en YouTube en 2016, a la edad de 14 años, lo que la convirtió en un fenómeno viral. En 2017, publicó su EP Don't Smile at Me, producido por su hermano Finneas O'Connell
 
-                            Su primer álbum de estudio, When We All Fall Asleep, Where Do We Go?, se publicó el 29 de marzo de 2019. Según la RIAA, a lo largo de su carrera ha logrado dos canciones con disco de platino: «Ocean Eyes» y «Lovely», esta última con Khalid, y siete sencillos con disco de oro. El álbum se llevó el Grammy al álbum del año y al mejor álbum de pop vocal en los premios de 2020. Asimismo, Eilish ganó el premio a la mejor artista novel y su éxito «Bad Guy» ganó la canción del año.</p>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2 class=" rounded shadow-lg strong font-weight-bold">Billie Eilish</h2>
+                        <button class="btn btn">Editar</button>
+
+
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-5 rounded shadow">
+                                <img th:src="@{/image/image6.jpg}" class="img-fluid">
+                            </div>
+                            <div class="col-md-7">
+                                <p class=" rounded shadow-lg">Billie Eilish Pirate Baird O'Connell cantante y compositora estadounidense. Adquirió fama como artista cuando tenía 13 años, a raíz del sencillo «Ocean Eyes» que se publicó en 2015 en SoundCloud y volvió a lanzarse con un vídeo musical en YouTube en 2016, a la edad de 14 años, lo que la convirtió en un fenómeno viral. En 2017, publicó su EP Don't Smile at Me, producido por su hermano Finneas O'Connell
+
+                                    Su primer álbum de estudio, When We All Fall Asleep, Where Do We Go?, se publicó el 29 de marzo de 2019. Según la RIAA, a lo largo de su carrera ha logrado dos canciones con disco de platino: «Ocean Eyes» y «Lovely», esta última con Khalid, y siete sencillos con disco de oro. El álbum se llevó el Grammy al álbum del año y al mejor álbum de pop vocal en los premios de 2020. Asimismo, Eilish ganó el premio a la mejor artista novel y su éxito «Bad Guy» ganó la canción del año.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="text-center">
-            <h3 class="shadow-sm">Escucha Mis Ultimos Hits</h3>
-        </div>
-    </div>
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/XfdgwJenJKY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer;
-             autoplay; clipboard-write; encrypted-media;
-              gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="container mt-5">
+                <div class="text-center">
+                    <h3 class="shadow-sm">Escucha Mis Ultimos Hits</h3>
+                </div>
             </div>
-            <div class="col-md-6">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/EgBJmlPo8Xw"
-                        title="YouTube video player" frameborder="0" allow="accelerometer;
-             autoplay; clipboard-write; encrypted-media;
-              gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/XfdgwJenJKY"
+                                title="YouTube video player" frameborder="0" allow="accelerometer;
+                                autoplay; clipboard-write; encrypted-media;
+                                gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-6">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/EgBJmlPo8Xw"
+                                title="YouTube video player" frameborder="0" allow="accelerometer;
+                                autoplay; clipboard-write; encrypted-media;
+                                gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
-        </div>
+
+        </main>
+
     </div>
 
-</main>
+    <footer th:replace="fragments/footer :: footer"></footer>
 
-
-</div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+    
 </body>
 </html>
