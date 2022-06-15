@@ -45,7 +45,6 @@ public class AuthGroupController {
         if(principal != null) mav.setViewName("redirect:/");
 
         return  mav;
-
     }
     
     @GetMapping("/sign-up")
@@ -57,17 +56,16 @@ public class AuthGroupController {
 
         if(inputFlashMap !=null) {
             mav.addObject("exception", inputFlashMap.get("exception"));
-            mav.addObject("group", inputFlashMap.get("group"));
-            mav.addObject("types", Type.values());
-            mav.addObject("styles", Style.values());
-            mav.addObject("locales", Locale.values());
+            mav.addObject("group", inputFlashMap.get("group"));           
         }else {
-            mav.addObject("group", new GroupUserContactDto());
-            mav.addObject("types", Type.values());
-            mav.addObject("styles", Style.values());
-            mav.addObject("locales", Locale.values());
-            mav.addObject("action", "register");
+            mav.addObject("group", new GroupUserContactDto());           
         }
+
+        mav.addObject("types", Type.values());
+        mav.addObject("styles", Style.values());
+        mav.addObject("locales", Locale.values());
+        mav.addObject("action", "register");
+        
         return mav;
     }
 
@@ -89,7 +87,6 @@ public class AuthGroupController {
             attributes.addFlashAttribute("exception", e.getMessage());
             redirect.setUrl("/auth-group/sign-up");
         }
-
         return redirect;
     }
 

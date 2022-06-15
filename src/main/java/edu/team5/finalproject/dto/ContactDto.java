@@ -12,5 +12,6 @@ public class ContactDto {
     private String contactFacebookUrl;  
     private String contactInstagramUrl;
     private Long contactWhatsAppNumber;
+    private Boolean contactDeleted;
 
 }

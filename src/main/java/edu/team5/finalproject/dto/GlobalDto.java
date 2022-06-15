@@ -13,15 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GlobalDto {
-
-    private Long id;
+public class GlobalDto extends UserDto{
     
-    //user
-    private String userEmail;
-    private String userPassword;
-    private Role userRole;
-
     //group
     private String groupName;
     private String groupProfileImage;
@@ -32,14 +25,17 @@ public class GlobalDto {
     private Style groupStyle; 
     private Type groupType;
     private Locale groupLocale;
+    private Boolean groupDeleted;
     
     //contact
     private String contactFacebookUrl;  
     private String contactInstagramUrl;
     private Long contactWhatsAppNumber;
+    private Boolean contactDeleted;
 
     //client
     private String clientNickname;    
     private String clientProfileImage;
+    private Boolean clientDeleted;
 
 }

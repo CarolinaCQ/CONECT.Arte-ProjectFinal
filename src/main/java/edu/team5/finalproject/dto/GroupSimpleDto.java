@@ -13,5 +13,5 @@ public class GroupSimpleDto {
 	private String groupName;
 	private String groupDescription;
 	private String groupProfileImage;
-    
+	private Boolean groupDeleted;  
 }

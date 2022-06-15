@@ -11,5 +11,6 @@ public class ClientUserDto extends UserDto{
 
     private String clientNickname;    
     private String clientProfileImage;
+    private Boolean clientDeleted;
     
 }
