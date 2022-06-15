@@ -7,11 +7,11 @@
 
         <header th:replace="fragments/header-index :: header-index"></header>
 
-        <main class="mb-3">
-            <div class="container">
+        <main>
+            <div class="container my-3">
                 <div class="row d-flex flex-column align-items-center">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex flex-column align-items-center">
-                        <div class="progress d-flex flex-row justify-content-between mt-3">
+                        <div class="progress d-flex flex-row justify-content-between mt-2">
                             <div class="step1">
                                 Registro
                             </div>
@@ -22,46 +22,40 @@
                                 Contacto
                             </div>
                         </div>
-                        <form th:action="@{/auth-group/__${action}__}" method="POST" th:object="${group}" autocompleted="off" class="needs-validation" novalidate>
+                        <form th:action="${action}=='register' ? @{/auth-group/__${action}__} : @{/groups/update}" method="POST" th:object="${group}" autocompleted="off" class="needs-validation" novalidate>
                             <div class="mt-2 container-form">
 
-                                <input type="hidden" name="{userId}">
-                                <input type="hidden" name="{groupId}">
+                                <input type="hidden" th:field="*{id}">
 
                                 <div class="form1">
-
+                                    <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
+                                    
                                     <div>
                                         <div class="my-3">
                                             <label th:for="name" class="form-label">Nombre artístico<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" th:field="*{groupName}" id="name" required autofocus>
                                             <div class="invalid-feedback">El nombre artístico es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
                                             <label th:for="email" class="form-label">Email<span class="text-danger">*</span></label>
                                             <input type="email" class="form-control" th:field="*{userEmail}" id="email" required>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
-                                            <div class="invalid-feedback">El email es un campo requerido!</div>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
                                             <label th:for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password" required>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
-                                            <div class="invalid-feedback">La contraseña es un campo requerido!</div>
                                         </div>
 
                                         <div class="my-3 d-flex flex-column">
-                                            <label th:for="profileImage" class="form-label">Foto de perfil</label>
-                                            <input type="file" accept="image/*" th:field="*{groupProfileImage}" class="form-control" id="profileImage">
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
+                                            <label th:for="image" class="form-label">Foto de perfil</label>
+                                            <input type="file" accept="image/*" name="image" class="form-control" id="profileImage">
                                         </div>
 
                                     </div>
                                     <div>
-                                        <div class="mt-5 mb-3 d-flex flex-row justify-content-end">
-                                            <button type="button" class="btn next1 text-light border rounded">Siguiente</button>
+                                        <div class="mb-2 d-flex flex-row justify-content-end">
+                                            <button type="button" class="next1 text-light">Siguiente</button>
                                         </div>
                                     </div>
 
@@ -76,14 +70,12 @@
                                                 <option th:each="type : ${types}" th:value="${type}" th:text="${type.name}"></option>
                                             </select>
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
                                             <label th:for="description">Descripción<span class="text-danger">*</span></label>
                                             <textarea th:field="*{groupDescription}" id="description" class="form-control" aria-label="description"></textarea>
                                             <div class="invalid-feedback">La descripción es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
@@ -92,7 +84,6 @@
                                                 <option th:each="locale : ${locales}" th:value="${locale}" th:text="${locale.name}"></option>
                                             </select>
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3 form-group">
@@ -115,14 +106,13 @@
                                                 <option th:each="style : ${styles}" th:value="${style}" th:text="${style.name}"></option>
                                             </select>
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <div class="my-3 d-flex flex-row justify-content-end">
-                                            <button type="button" class="btn back1 text-light border rounded">Volver</button>
-                                            <button type="button" class="btn next2 text-light border rounded">Siguiente</button>
+                                        <div class="mb-2 d-flex flex-row justify-content-end">
+                                            <button type="button" class="back1 text-light mx-2">Volver</button>
+                                            <button type="button" class="next2 text-light">Siguiente</button>
                                         </div>
                                     </div>
 
@@ -135,26 +125,23 @@
                                             <label th:for="numberWhatsapp" class="form-label">Número de celular<span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" th:field="*{contactWhatsAppNumber}" id="numberWhatsapp" required>
                                             <div class="invalid-feedback">El número de celular es un campo requerido!</div>
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
                                             <label th:for="facebookUrl" class="form-label">Url Facebook</label>
                                             <input type="text" class="form-control" th:field="*{contactFacebookUrl}" id="facebookUrl">
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
 
                                         <div class="my-3">
                                             <label th:for="instagramUrl" class="form-label">Url Instagram</label>
                                             <input type="text" class="form-control" th:field="*{contactInstagramUrl}" id="instagramUrl">
-                                            <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <div class="my-3 d-flex flex-row justify-content-end">
-                                            <button type="button" class="btn back2 text-light border rounded">Volver</button>
-                                            <button type="submit" class="btn save text-light border rounded">Guardar</button>
+                                        <div class="mb-2 d-flex flex-row justify-content-end">
+                                            <button type="button" class="back2 text-light mx-2">Volver</button>
+                                            <button type="submit" class="save text-light">Guardar</button>
                                         </div>
                                     </div>
 

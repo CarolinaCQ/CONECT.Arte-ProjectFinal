@@ -1,12 +1,6 @@
-body{
-    font-size: 14px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgba(0, 0, 0, 0.548);
-} 
-
 .container-form{
     width: 360px;
-    height: 560px;
+    height: 530px;
     position: relative;
     background-color: white;
     border-radius: 5px;
@@ -19,7 +13,7 @@ body{
     position: absolute;
     transition: 0.3s;
     width: 300px;
-    height: 550px;
+    height: 520px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,17 +23,32 @@ body{
     display: none;
 }
 
+.form-control{
+    border-radius: 15px;
+}
+
 .next1, .next2, .next3, .back1, .back2, .back3, .save{
     border: none;
     outline: none;
-    background: linear-gradient(#6d0a40, rgb(82, 11, 66));
-    
+    background-color: #44093A;
+    border-radius: 20px;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.next1:hover, .next2:hover, .next3:hover, .back1:hover, .back2:hover, .back3:hover{
+    background-color: #DA91DA;
+}
+
+.save:hover{
+    background-color: #DA91DA;
 }
 
 .progress{
     background-color: white;
     width: 360px;
     height: 30px;
+    border-radius: 20px;
 }
 
 .step1, .step2, .step3{
@@ -51,6 +60,16 @@ body{
 }
 
 .step1{
-    background-color: #a55481;
+    background-color: #44093A;
+    border-radius: 20px 0px 0px 20px;
     color: white;
 }
+
+.step{
+    width: 100%;
+    background-color: #44093A;
+    border-radius: 20px;
+    padding: 5px 0px;
+    color: white;
+}
+
