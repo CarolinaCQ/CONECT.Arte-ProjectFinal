@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -23,33 +24,40 @@ public class ClientService {
     private final GenericModelMapper mapper;
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
+    private final ImageService imageService;
 
-    public void create(ClientUserDto dto) throws MyException {
+    public void create(ClientUserDto dto, MultipartFile image) throws MyException {
         Client client = mapper.map(dto, Client.class);
 
-        if (clientRepository.existsByNickname(client.getNickname()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
+        if (clientRepository.existsByNickname(client.getNickname())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
+        
+        client.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());
 
-        validateClient(client);
+        validateCreate(client);
 
         User user = userRepository.findByEmail(dto.getUserEmail()).get();
 
         client.setUser(user);
+        client.setDeleted(false);
         client.getUser().setRole(Role.CLIENT);
         clientRepository.save(client);
     }
 
     @Transactional
-    public void update(ClientUserDto dto) throws MyException {
+    public void update(ClientUserDto dto, MultipartFile image) throws MyException {
         Client client = mapper.map(dto, Client.class);
-        validateClient(client);
+
+        if (!image.isEmpty()) client.setProfileImage(imageService.imageToString(image));
+        client.setUser(clientRepository.findById(dto.getId()).get().getUser());
+
+        validateUpdate(client);
         clientRepository.save(client);
     }
 
     @Transactional
-    public void updateEnableById(Long id) {       
+    public void updateEnableById(Long id) {
         userRepository.enableById(clientRepository.findById(id).get().getUser().getId());
-        clientRepository.enableById(id);        
+        clientRepository.enableById(id);
     }
 
     @Transactional
@@ -63,7 +71,7 @@ public class ClientService {
         return clientRepository.findById(id).get();
     }
 
-    private void validateClient(Client client) throws MyException {
+    private void validateCreate(Client client) throws MyException {
         if (!Utility.validate(Utility.USERNAME_PATTERN, client.getNickname()))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
 
@@ -74,4 +82,11 @@ public class ClientService {
             throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
     }
 
+    private void validateUpdate(Client client) throws MyException {
+        if (!Utility.validate(Utility.USERNAME_PATTERN, client.getNickname()))
+            throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
+
+    }
 }
+
+

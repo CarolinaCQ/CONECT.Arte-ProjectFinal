@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -70,7 +71,7 @@ public class AuthGroupController {
     }
 
     @PostMapping("/register")
-    public RedirectView signup(GroupUserContactDto dto, RedirectAttributes attributes) { 
+    public RedirectView signup(GroupUserContactDto dto, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
         RedirectView redirect = new RedirectView("/");
         
         UserDto userDto = mapper.map(dto, UserDto.class);        
@@ -80,7 +81,7 @@ public class AuthGroupController {
         try {            
             if(userDto.getUserEmail() != null) userService.create(userDto);
             if(contactDto.getContactWhatsAppNumber() != null)contactService.create(dto);                        
-            if(groupUserContactDto.getGroupName() != null) groupService.create(groupUserContactDto);
+            if(groupUserContactDto.getGroupName() != null) groupService.create(groupUserContactDto, image);
             
         } catch (IllegalArgumentException | MyException e) {
             attributes.addFlashAttribute("group", dto);
