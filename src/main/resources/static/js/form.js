@@ -16,7 +16,7 @@ let form1 = document.querySelectorAll('.form1')[0];
             form1.style.display = "none";
             form2.style.display = "flex";
             form3.style.display = "none";
-            step2.style.background = "#a55481";
+            step2.style.background = "#44093A";
             step2.style.color = "white";
         })
 
@@ -24,7 +24,7 @@ let form1 = document.querySelectorAll('.form1')[0];
             form1.style.display = "none";
             form2.style.display = "none";
             form3.style.display = "flex";
-            step3.style.background = "#a55481";
+            step3.style.background = "#44093A";
             step3.style.color = "white";
         })
 
@@ -34,7 +34,7 @@ let form1 = document.querySelectorAll('.form1')[0];
             form3.style.display = "none";
             step2.style.background = "white";
             step2.style.color = "black";
-            step1.style.background = "#a55481";
+            step1.style.background = "#44093A";
             step1.style.color = "white";
         })
 
