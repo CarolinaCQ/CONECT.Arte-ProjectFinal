@@ -22,6 +22,6 @@ public enum Style {
     CUMBIA("Cumbia"),
     MELODICO("Melódico");
 
-    private String style;
+    private String name;
 
 }

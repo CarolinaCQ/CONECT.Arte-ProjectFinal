@@ -85,7 +85,7 @@ public class GroupController {
     @PostMapping("/update/{id}")
     public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
         RedirectView redirect = new RedirectView("/"); 
-        groupService.updateDeletedHigh(id);               
+        groupService.updateEnableById(id);               
         return redirect;
     }
 

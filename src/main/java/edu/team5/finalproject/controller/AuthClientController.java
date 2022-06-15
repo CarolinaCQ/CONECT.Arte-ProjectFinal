@@ -50,11 +50,11 @@ public class AuthClientController {
 
         if(inputFlashMap !=null) {
             mav.addObject("exception", inputFlashMap.get("exception"));
-            mav.addObject("client", inputFlashMap.get("client"));
+            mav.addObject("client", inputFlashMap.get("client"));           
         }else {
-            mav.addObject("client", new ClientUserDto());
-            mav.addObject("action", "register");
+            mav.addObject("client", new ClientUserDto());            
         }
+        mav.addObject("action", "register");
         return mav;
     }
 

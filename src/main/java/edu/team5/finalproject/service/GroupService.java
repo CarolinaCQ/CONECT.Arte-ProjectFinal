@@ -53,25 +53,16 @@ public class GroupService {
     }
 
     @Transactional
-    public void updateDeleted(Long id) {
-        Group group = groupRepository.findById(id).get();
-        group.getUser().setDeleted(true);
-        group.getContact().setDeleted(true);
-        groupRepository.save(group);
-    }
-
-    @Transactional
-    public void updateDeletedHigh(Long id) {
-        Group group = groupRepository.findById(id).get();
-        group.getUser().setDeleted(false);
-        group.getContact().setDeleted(false);
-        group.setDeleted(false);
-        groupRepository.save(group);
+    public void updateEnableById(Long id) {
+        userRepository.enableById(groupRepository.findById(id).get().getUser().getId());
+        contactRepository.enableById(groupRepository.findById(id).get().getUser().getId());
+        groupRepository.enableById(id);
     }
 
     @Transactional
     public void deleteById(Long id) {
-        updateDeleted(id);
+        userRepository.deleteById(groupRepository.findById(id).get().getUser().getId());
+        contactRepository.deleteById(groupRepository.findById(id).get().getUser().getId());
         groupRepository.deleteById(id);
     }
 

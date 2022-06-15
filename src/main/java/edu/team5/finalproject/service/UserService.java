@@ -58,6 +58,7 @@ public class UserService implements UserDetailsService {
 
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRole(Role.ADMIN);
+        user.setDeleted(false);
         userRepository.save(user);
     }
 
@@ -79,15 +80,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
+    public void updateEnableById(Long id) {
+        userRepository.enableById(id);
     }
 
     @Transactional
-    public void updateDeletedHigh(Long id) {
-        User user = userRepository.findById(id).get();
-        user.setDeleted(false);
-        userRepository.save(user);
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
     private void validateUser(User user) throws MyException {

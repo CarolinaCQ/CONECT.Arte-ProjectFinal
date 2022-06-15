@@ -21,11 +21,8 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query("SELECT g FROM Group g WHERE g.locale LIKE '?1'")
     List<Group> getByLocale(Locale locale);
 
-    @Query("SELECT g FROM Group g WHERE g.style LIKE '?1'")
-    List<Group> getByStyle(Style style);
-
-    @Query("SELECT g FROM Group g WHERE g.user.role LIKE '?1'")
-    List<Group> getByRole(Role role);
+    @Query("SELECT g FROM Group g WHERE g.style LIKE '?1' AND g.locale LIKE '?2'")
+    List<Group> getByStyleAndLocale(Style style, Locale locale);
 
     @Modifying
     @Query("UPDATE Group g SET g.deleted = false WHERE g.id = ?1")
