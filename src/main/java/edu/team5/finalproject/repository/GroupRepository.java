@@ -2,7 +2,6 @@ package edu.team5.finalproject.repository;
 
 import edu.team5.finalproject.entity.Group;
 import edu.team5.finalproject.entity.enums.Locale;
-import edu.team5.finalproject.entity.enums.Role;
 import edu.team5.finalproject.entity.enums.Style;
 
 import java.util.List;
@@ -23,6 +22,12 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     @Query("SELECT g FROM Group g WHERE g.style LIKE '?1' AND g.locale LIKE '?2'")
     List<Group> getByStyleAndLocale(Style style, Locale locale);
+
+    @Query("SELECT g FROM Group g WHERE g.type LIKE 'DANCE'")
+    List<Group> getByTypeDance();
+
+    @Query("SELECT g FROM Group g WHERE g.type LIKE 'MUSIC'")
+    List<Group> getByTypeMusic();
 
     @Modifying
     @Query("UPDATE Group g SET g.deleted = false WHERE g.id = ?1")

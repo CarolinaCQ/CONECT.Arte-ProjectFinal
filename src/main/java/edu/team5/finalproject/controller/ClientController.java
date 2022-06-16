@@ -51,7 +51,6 @@ public class ClientController {
 
     @GetMapping("/profile/{id}")
     public ModelAndView getProfile(@PathVariable Long id){
-
         ModelAndView mav = new ModelAndView("profile-client");
         ClientUserDto clientUserDto = mapper.map(clientService.getById(id), ClientUserDto.class);
 
@@ -63,16 +62,14 @@ public class ClientController {
     @PreAuthorize("hasRole('CLIENT')")
     @PostMapping("/update")
     public RedirectView update(ClientUserDto dto,@RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) throws MyException{
-        RedirectView redirect = new RedirectView("/"); //MODIFICAR RE-DIRECCION
-        String id = dto.getId().toString();
+        RedirectView redirect = new RedirectView("/clients/profile/" + dto.getId().toString());
 
         try{
-            clientService.update(dto, image);
-            
+            clientService.update(dto, image);            
         }catch(MyException e){
             attributes.addFlashAttribute("exception", e.getMessage());
             attributes.addFlashAttribute("client", dto);
-            redirect.setUrl("/clients/form/" + id);
+            redirect.setUrl("/clients/form/" + dto.getId().toString());
         }
                         
          // MODIFICAR MENSAJE 
@@ -91,7 +88,7 @@ public class ClientController {
     @PreAuthorize("anyRole('CLIENT, ADMIN')")
     @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id) {
-        RedirectView redirect = new RedirectView("/");
+        RedirectView redirect = new RedirectView("/logout");
         userService.deleteById(clientService.getById(id).getUser().getId());
         clientService.deleteById(id);
         return redirect;

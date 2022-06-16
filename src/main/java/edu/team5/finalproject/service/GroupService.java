@@ -33,7 +33,7 @@ public class GroupService {
     public void create(GroupUserContactDto dto, MultipartFile image) throws MyException {
         Group group = mapper.map(dto, Group.class);
 
-        //group.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());    
+        group.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());    
 
         validateCreate(group);
 

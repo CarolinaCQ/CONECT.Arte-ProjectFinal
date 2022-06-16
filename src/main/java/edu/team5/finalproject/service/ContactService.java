@@ -1,7 +1,6 @@
 package edu.team5.finalproject.service;
 
 import edu.team5.finalproject.dto.ContactDto;
-import edu.team5.finalproject.dto.GroupUserContactDto;
 import edu.team5.finalproject.entity.Contact;
 import edu.team5.finalproject.exception.ExceptionMessages;
 import edu.team5.finalproject.exception.MyException;

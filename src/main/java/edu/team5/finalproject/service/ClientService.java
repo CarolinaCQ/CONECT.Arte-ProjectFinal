@@ -47,9 +47,10 @@ public class ClientService {
         
         if (clientRepository.existsByNickname(dto.getClientNickname())) 
             throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
+        String newName = dto.getClientNickname();
 
-        validateUpdate(client);
-        //if (!image.isEmpty()) client.setProfileImage(imageService.imageToString(image));
+        validateUpdate(newName);
+        if (!image.isEmpty()) client.setProfileImage(imageService.imageToString(image));
 
         client.setNickname(dto.getClientNickname());        
         clientRepository.save(client);
@@ -84,8 +85,8 @@ public class ClientService {
             throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
     }
  
-    private void validateUpdate(Client client) throws MyException {
-        if (!Utility.validate(Utility.USERNAME_PATTERN, client.getNickname()))
+    private void validateUpdate(String newName) throws MyException {
+        if (!Utility.validate(Utility.USERNAME_PATTERN, newName))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
     }
     
