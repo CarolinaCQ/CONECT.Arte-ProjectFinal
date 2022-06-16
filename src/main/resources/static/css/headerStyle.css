@@ -8,6 +8,7 @@ ul li button{
 
 .search{
     background-color: #080E16;
+    border-radius: 20px;
 }
 
 .search:focus{
