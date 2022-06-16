@@ -24,7 +24,13 @@ public enum ExceptionMessages {
 
     ERROR_SAVING_IMAGE("Error al guardar la imagen."),
     ERROR_FORMAT_IMAGE("Error al guardar la imagen, el formato de la imagen debe ser (.png) o (.jpg)."),
-    ERROR_SIZE_IMAGE("Error al guardar la imagen, el tamaño de la imagen máximo permitido es de 1 MB.");
+    ERROR_SIZE_IMAGE("Error al guardar la imagen, el tamaño de la imagen máximo permitido es de 1 MB."),
+
+    INFO_GROUP_NAME("No se permiten caracteres especiales."),
+    INFO_USERNAME("El nombre de usuario no debe contener espacios."),
+    INFO_EMAIL("Ejemplo: contact.Arte@hotmail.com"),
+    INFO_PASSWORD("Mínimo de 4, máximo 16, al menos una minúscula, al menos una mayúscula y al menos un número"),
+    INFO_IMAGE("El formato de la imagen debe ser .jpg o .png y debe tener un máximo de 1 mb.");
 
     private String value;
 

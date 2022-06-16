@@ -7,7 +7,9 @@ import edu.team5.finalproject.entity.enums.Style;
 import edu.team5.finalproject.entity.enums.Type;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
+import edu.team5.finalproject.service.ContactService;
 import edu.team5.finalproject.service.GroupService;
+import edu.team5.finalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import java.security.Principal;
@@ -35,6 +37,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class GroupController {
 
     private final GroupService groupService;
+    private final UserService userService;
+    private final ContactService contactService;
     private final GenericModelMapper mapper;
 
     @PreAuthorize("hasRole('GROUP')")
@@ -77,7 +81,9 @@ public class GroupController {
     @PreAuthorize("hasRole('GROUP')")
     @PostMapping("/update")
     public RedirectView update(GroupUserContactDto dto, @RequestParam(required = false) MultipartFile image, @RequestParam(required = false) List<MultipartFile> imageList, RedirectAttributes attributes) throws MyException{
-        RedirectView redirect = new RedirectView("/groups/profile/{id}");
+        String url = "/groups/profile/" + dto.getId().toString();
+        
+        RedirectView redirect = new RedirectView(url);
         groupService.update(dto, image, imageList);                
         attributes.addFlashAttribute("success","mensaje de exito"); // MODIFICAR MENSAJE 
         return redirect;
@@ -86,7 +92,9 @@ public class GroupController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update/{id}")
     public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
-        RedirectView redirect = new RedirectView("/"); 
+        RedirectView redirect = new RedirectView("/");
+        userService.updateEnableById(groupService.getById(id).getUser().getId());
+        contactService.updateEnableById(groupService.getById(id).getUser().getId());
         groupService.updateEnableById(id);               
         return redirect;
     }
@@ -95,6 +103,8 @@ public class GroupController {
     @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id) {
         RedirectView redirect = new RedirectView("/logout");
+        userService.deleteById(groupService.getById(id).getUser().getId());
+        contactService.deleteById(groupService.getById(id).getUser().getId());
         groupService.deleteById(id);
         return redirect;
     }

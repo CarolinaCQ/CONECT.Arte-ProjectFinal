@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@SQLDelete(sql = "UPDATE clients SET client_deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE clients SET client_deleted = true WHERE client_id = ?")
 @Getter
 @Setter
 @NoArgsConstructor

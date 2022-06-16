@@ -18,8 +18,8 @@ import edu.team5.finalproject.exception.ExceptionMessages;
 public class ImageService {
     
     private static final String DIRECTORY = "src/main/resources/static/uploads";
-    private static final String DEFAULT_PROFILE_IMAGE = "C:\\Users\\TELCOM MPC\\Desktop\\Proyecto Final\\FinalProject-EGG-Team5\\src\\main\\resources\\static\\uploads\\default-profile-image.png";
-
+    private static final String DEFAULT_PROFILE_IMAGE = "default-profile-image.png";
+    
     public String defaultImage(){
         return DEFAULT_PROFILE_IMAGE;
     }
@@ -92,4 +92,5 @@ public class ImageService {
        }
        return false;
    }
+
 }

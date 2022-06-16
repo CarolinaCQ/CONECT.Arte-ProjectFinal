@@ -17,7 +17,7 @@
                             <div class="card mt-2">
                                 <div class="card-body d-flex flex-row justify-content-center">
                                     <form th:action="${action}=='register' ? @{/auth-client/__${action}__} : @{/clients/update}" method="POST" th:object="${client}"
-                                          autocompleted="off" class="needs-validation" novalidate>
+                                          autocompleted="off" class="needs-validation" enctype="multipart/form-data" novalidate>
 
                                         <input type="hidden" th:field="*{id}">
                                         
