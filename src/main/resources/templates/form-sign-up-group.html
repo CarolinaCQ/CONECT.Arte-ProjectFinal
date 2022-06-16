@@ -22,7 +22,7 @@
                                 Contacto
                             </div>
                         </div>
-                        <form th:action="${action}=='register' ? @{/auth-group/__${action}__} : @{/groups/update}" method="POST" th:object="${group}" autocompleted="off" class="needs-validation" novalidate>
+                        <form th:action="${action}=='register' ? @{/auth-group/__${action}__} : @{/groups/update}" method="POST" th:object="${group}" autocompleted="off" class="needs-validation" novalidate enctype="multipart/form-data">
                             <div class="mt-2 container-form">
 
                                 <input type="hidden" th:field="*{id}">
