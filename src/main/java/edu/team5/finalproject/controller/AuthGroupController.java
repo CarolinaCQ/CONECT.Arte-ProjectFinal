@@ -80,7 +80,7 @@ public class AuthGroupController {
 
         try {            
             if(userDto.getUserEmail() != null) userService.create(userDto);
-            if(contactDto.getContactWhatsAppNumber() != null)contactService.create(dto);                        
+            if(contactDto.getContactWhatsAppNumber() != null)contactService.create(contactDto);                        
             if(groupUserContactDto.getGroupName() != null) groupService.create(groupUserContactDto, image);
             
         } catch (IllegalArgumentException | MyException e) {

@@ -29,11 +29,9 @@ public class ClientService {
     public void create(ClientUserDto dto, MultipartFile image) throws MyException {
         Client client = mapper.map(dto, Client.class);
 
-        if (clientRepository.existsByNickname(client.getNickname())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
-        
-        client.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());
-
         validateCreate(client);
+
+        client.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());        
 
         User user = userRepository.findByEmail(dto.getUserEmail()).get();
 
@@ -45,25 +43,26 @@ public class ClientService {
 
     @Transactional
     public void update(ClientUserDto dto, MultipartFile image) throws MyException {
-        Client client = mapper.map(dto, Client.class);
-
-        if (!image.isEmpty()) client.setProfileImage(imageService.imageToString(image));
-        client.setUser(clientRepository.findById(dto.getId()).get().getUser());
+        Client client = getById(dto.getId());
+        
+        if (clientRepository.existsByNickname(dto.getClientNickname())) 
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
 
         validateUpdate(client);
+        //if (!image.isEmpty()) client.setProfileImage(imageService.imageToString(image));
+
+        client.setNickname(dto.getClientNickname());        
         clientRepository.save(client);
     }
 
     @Transactional
     public void updateEnableById(Long id) {
-        userRepository.enableById(clientRepository.findById(id).get().getUser().getId());
         clientRepository.enableById(id);
     }
 
     @Transactional
     public void deleteById(Long id) {
-        userRepository.deleteById(clientRepository.findById(id).get().getUser().getId());
-        clientRepository.deleteById(id);
+        clientRepository.deleteById(id);        
     }
 
     @Transactional(readOnly = true)
@@ -80,13 +79,16 @@ public class ClientService {
 
         if (!Utility.validate(Utility.EMAIL_PATTERN, client.getUser().getEmail()))
             throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
-    }
 
+        if (clientRepository.existsByNickname(client.getNickname())) 
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
+    }
+ 
     private void validateUpdate(Client client) throws MyException {
         if (!Utility.validate(Utility.USERNAME_PATTERN, client.getNickname()))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
-
     }
+    
 }
 
 

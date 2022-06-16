@@ -33,9 +33,7 @@ public class GroupService {
     public void create(GroupUserContactDto dto, MultipartFile image) throws MyException {
         Group group = mapper.map(dto, Group.class);
 
-        if (groupRepository.existsByName(group.getName())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
-
-        group.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());    
+        //group.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());    
 
         validateCreate(group);
 
@@ -53,8 +51,8 @@ public class GroupService {
     public void update(GroupUserContactDto dto, MultipartFile image, List<MultipartFile> imageList) throws MyException {
         Group group = mapper.map(dto, Group.class); 
        
-        if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
-        if(!imageList.isEmpty()) group.setImageList(imageService.imagesToString(imageList));
+        //if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
+        //if(!imageList.isEmpty()) group.setImageList(imageService.imagesToString(imageList));
 
         group.setUser(groupRepository.findById(dto.getId()).get().getUser());
         group.setContact(groupRepository.findById(dto.getId()).get().getContact());
@@ -65,15 +63,11 @@ public class GroupService {
 
     @Transactional
     public void updateEnableById(Long id) {
-        userRepository.enableById(groupRepository.findById(id).get().getUser().getId());
-        contactRepository.enableById(groupRepository.findById(id).get().getUser().getId());
         groupRepository.enableById(id);
     }
 
     @Transactional
     public void deleteById(Long id) {
-        userRepository.deleteById(groupRepository.findById(id).get().getUser().getId());
-        contactRepository.deleteById(groupRepository.findById(id).get().getUser().getId());
         groupRepository.deleteById(id);
     }
 
@@ -96,10 +90,16 @@ public class GroupService {
 
         if (!Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword()))
             throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
+
+        if (groupRepository.existsByName(group.getName())) 
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
     }
 
     private void validateUpdate(Group group) throws MyException { // fijarse que mas falta validar
         if (!Utility.validate(Utility.NAME_PATTERN, group.getName()))
             throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
+
+        if (groupRepository.existsByName(group.getName())) 
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
     }
 }
