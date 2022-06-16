@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -45,8 +46,8 @@ public class AuthGroupController {
         if(principal != null) mav.setViewName("redirect:/");
 
         return  mav;
-
     }
+    
     @GetMapping("/sign-up")
     public ModelAndView signup(HttpServletRequest request, Principal principal){
         ModelAndView mav = new ModelAndView("form-sign-up-group");                            //preguntar acá que sign-up va.
@@ -56,22 +57,21 @@ public class AuthGroupController {
 
         if(inputFlashMap !=null) {
             mav.addObject("exception", inputFlashMap.get("exception"));
-            mav.addObject("group", inputFlashMap.get("group"));
-            mav.addObject("types", Type.values());
-            mav.addObject("styles", Style.values());
-            mav.addObject("locales", Locale.values());
+            mav.addObject("group", inputFlashMap.get("group"));           
         }else {
-            mav.addObject("group", new GroupUserContactDto());
-            mav.addObject("types", Type.values());
-            mav.addObject("styles", Style.values());
-            mav.addObject("locales", Locale.values());
-            mav.addObject("action", "register");
+            mav.addObject("group", new GroupUserContactDto());           
         }
+
+        mav.addObject("types", Type.values());
+        mav.addObject("styles", Style.values());
+        mav.addObject("locales", Locale.values());
+        mav.addObject("action", "register");
+        
         return mav;
     }
 
     @PostMapping("/register")
-    public RedirectView signup(GroupUserContactDto dto, RedirectAttributes attributes) { 
+    public RedirectView signup(GroupUserContactDto dto, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
         RedirectView redirect = new RedirectView("/");
         
         UserDto userDto = mapper.map(dto, UserDto.class);        
@@ -80,15 +80,14 @@ public class AuthGroupController {
 
         try {            
             if(userDto.getUserEmail() != null) userService.create(userDto);
-            if(contactDto.getContactWhatsAppNumber() != null)contactService.create(dto);                        
-            if(groupUserContactDto.getGroupName() != null) groupService.create(groupUserContactDto);
+            if(contactDto.getContactWhatsAppNumber() != null)contactService.create(contactDto);                        
+            if(groupUserContactDto.getGroupName() != null) groupService.create(groupUserContactDto, image);
             
         } catch (IllegalArgumentException | MyException e) {
             attributes.addFlashAttribute("group", dto);
             attributes.addFlashAttribute("exception", e.getMessage());
             redirect.setUrl("/auth-group/sign-up");
         }
-
         return redirect;
     }
 

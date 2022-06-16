@@ -1,136 +1,129 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <title>Artist</title>
+<html lang="en">
     
-         <link rel="stylesheet" th:href="@{/css/styleBody.css}">
-         <link rel="stylesheet" th:href="@{/css/grupsStyle.css}">
-         <link rel="stylesheet" th:href="@{/css/buttonStyle.css}">
+    <head th:replace="fragments/head :: head"></head>
 
-
-</head>
-
-<body>
-    <header th:replace="fragments/header-index :: header-index"></header>
-<main>
-<div class="container mt-5">
-    <div class="row d-flex flex-row justify-content-center">
-        <div class="col-6">
-            <form class="d-flex" role="search">
-                <input class="form-control mr-sm-2 search" type="search" placeholder="Buscar por nombre" aria-label="Search" />
-            </form>
+    <body>
+        <div th:if="${session.id} == null">
+            <header th:replace="fragments/header-index :: header-index"></header>
         </div>
-    </div>
-</div>
 
-
-
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="title-cards">
-                    <a href="#" class="btn-neon">
-                        <span id="span1"></span>
-                        <span id="span2"></span>
-                        <span id="span3"></span>
-                        <span id="span4"></span>
-                        BANDA MUSICAL
-                    </a>
-                    <a href="#" class="btn-neon">
-                        <span id="span1"></span>
-                        <span id="span2"></span>
-                        <span id="span3"></span>
-                        <span id="span4"></span>
-                        GRUPO DE DANZA
-                    </a>
+        <div th:unless="${session.id} == null">
+            <header th:replace="fragments/header-login :: header-login"></header>
+        </div>
+        <main>
+            <div class="container mt-5">
+                <div class="row d-flex flex-row justify-content-center">
+                    <div class="col-6">
+                        <form class="d-flex" role="search">
+                            <input class="form-control mr-sm-2 search" type="search" placeholder="Buscar por nombre" aria-label="Search" />
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="title-cards">
+                            <a href="#" class="btn-neon">
+                                <span id="span1"></span>
+                                <span id="span2"></span>
+                                <span id="span3"></span>
+                                <span id="span4"></span>
+                                BANDA MUSICAL
+                            </a>
+                            <a href="#" class="btn-neon">
+                                <span id="span1"></span>
+                                <span id="span2"></span>
+                                <span id="span3"></span>
+                                <span id="span4"></span>
+                                GRUPO DE DANZA
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-card">
+                <div class="container-img">
+                    <img th:src=@{/image/image1.jpg} alt="">
+                    <div class="text">
+                        <h3 class="title">ROLLING STONES</h3>
+                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Architecto odio doloribus tempore quod dicta, perferendis
+                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
+                            Magnam possimus sapiente porro natus.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="container-img">
+                    <img th:src=@{/image/image2.jpg} alt="">
+                    <div class="text">
+                        <h3 class="title">AC/DC</h3>
+                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Architecto odio doloribus tempore quod dicta, perferendis
+                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
+                            Magnam possimus sapiente porro natus.
+                        </p>
+                    </div>
+                </div>
+                <div class="container-img">
+                    <img th:src=@{/image/image3.jpg} alt="">
+                    <div class="text">
+                        <h3 class="title">NICKELBACK</h3>
+                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Architecto odio doloribus tempore quod dicta, perferendis
+                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
+                            Magnam possimus sapiente porro natus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-card">
+                <div class="container-img">
+                    <img th:src=@{/image/image4.jpg} alt="">
+                    <div class="text">
+                        <h3 class="title">ROLLING STONES</h3>
+                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Architecto odio doloribus tempore quod dicta, perferendis
+                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
+                            Magnam possimus sapiente porro natus.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="container-img">
+                    <img th:src=@{/image/image5.jpg} alt="">
+                    <div class="text">
+                        <h3 class="title">AC/DC</h3>
+                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Architecto odio doloribus tempore quod dicta, perferendis
+                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
+                            Magnam possimus sapiente porro natus.
+                        </p>
+                    </div>
+                </div>
+                <div class="container-img">
+                    <img th:src=@{/image/image6.jpg} alt="">
+                    <div class="text">
+                        <h3 class="title">NICKELBACK</h3>
+                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Architecto odio doloribus tempore quod dicta, perferendis
+                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
+                            Magnam possimus sapiente porro natus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-
-    <div class="container-card">
-        <div class="container-img">
-            <img th:src=@{/image/image1.jpg} alt="">
-            <div class="text">
-                <h3 class="title">ROLLING STONES</h3>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Architecto odio doloribus tempore quod dicta, perferendis
-                    iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus.
-                </p>
-            </div>
-        </div>
-
-        <div class="container-img">
-            <img th:src=@{/image/image2.jpg} alt="">
-            <div class="text">
-                <h3 class="title">AC/DC</h3>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Architecto odio doloribus tempore quod dicta, perferendis
-                    iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus.
-                </p>
-            </div>
-        </div>
-        <div class="container-img">
-            <img th:src=@{/image/image3.jpg} alt="">
-            <div class="text">
-                <h3 class="title">NICKELBACK</h3>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Architecto odio doloribus tempore quod dicta, perferendis
-                    iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container-card">
-        <div class="container-img">
-            <img th:src=@{/image/image4.jpg} alt="">
-            <div class="text">
-                <h3 class="title">ROLLING STONES</h3>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Architecto odio doloribus tempore quod dicta, perferendis
-                    iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus.
-                </p>
-            </div>
-        </div>
-
-        <div class="container-img">
-            <img th:src=@{/image/image5.jpg} alt="">
-            <div class="text">
-                <h3 class="title">AC/DC</h3>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Architecto odio doloribus tempore quod dicta, perferendis
-                    iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus.
-                </p>
-            </div>
-        </div>
-        <div class="container-img">
-            <img th:src=@{/image/image6.jpg} alt="">
-            <div class="text">
-                <h3 class="title">NICKELBACK</h3>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Architecto odio doloribus tempore quod dicta, perferendis
-                    iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus.
-                </p>
-            </div>
-        </div>
-    </div>
-</main>
-
-
-</div>
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    
+    <footer th:replace="fragments/footer :: footer"></footer>
+    
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+    
 </body>
 </html>

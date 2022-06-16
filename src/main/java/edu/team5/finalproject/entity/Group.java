@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@SQLDelete(sql = "UPDATE group_bands SET group_deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE group_bands SET group_deleted = true WHERE group_id = ?")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "group_bands")
+@Table(name = "group_bands", indexes = {@Index(name = "idx_name", columnList = "group_name")})
 public class Group implements Serializable {
 
     @Id

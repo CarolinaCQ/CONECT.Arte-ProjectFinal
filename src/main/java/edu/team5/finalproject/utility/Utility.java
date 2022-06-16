@@ -2,23 +2,17 @@ package edu.team5.finalproject.utility;
 
 import java.util.regex.Pattern;
 
-import edu.team5.finalproject.exception.MyException;
-
 public class Utility {
 
-    private static boolean flag;
-    public static final String ONLY_NAMES = "[a-zA-Z]+";
-    public static final String MAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    public static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\S])[A-Za-z\\d\\S]{6,12}$";
-    public static final String ONLY_NUMBERS = "[0-9]+";
+    public static final String NAME_PATTERN = "^[a-zA-Z0-9\\s]+$";  //se permite: minúsculas,mayúsculas numeros y espacio
+    public static final String USERNAME_PATTERN = "^[a-zA-Z0-9]+$"; //se permite: minúsculas,mayúsculas numeros
+    public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    public static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\S])[A-Za-z\\d\\S]{4,16}$"; // Mínimo de 4, máximo 16, al menos una minúscula, al menos una mayúscula y al menos un número.
+    public static final String ONLY_NUMBERS_PATTERN = "^[0-9]+$"; //solo numeros
 
-    public static void validate(String pattern, String value) throws MyException{
-        flag = Pattern.compile(pattern).matcher(value).find();
-        if(!flag) throw new MyException("Exception message here.");        //preguntar si usar true o false para la condición
-    }   
-
-        
-
+    public static boolean validate(String pattern, String value){
+      return Pattern.compile(pattern).matcher(value).find();        
+    }      
 }
 
 

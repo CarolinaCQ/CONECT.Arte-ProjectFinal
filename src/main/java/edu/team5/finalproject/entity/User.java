@@ -2,6 +2,9 @@ package edu.team5.finalproject.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.SQLDelete;
+
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 import edu.team5.finalproject.entity.enums.Role;
@@ -12,8 +15,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE users SET user_deleted = true WHERE user_id = ?")
 @NoArgsConstructor
-@Table(name="users")
+@Table(name="users", indexes = {@Index(name = "idx_email", columnList = "user_email")})
 public class User implements Serializable {
 
     @Id
