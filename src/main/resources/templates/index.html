@@ -2,7 +2,13 @@
 <html lang="en">
 <head th:replace="fragments/head :: head"></head>
 <body>
+<div th:if="${session.id} == null">
     <header th:replace="fragments/header-index :: header-index"></header>
+</div>
+
+<div th:unless="${session.id} == null">
+    <header th:replace="fragments/header-login :: header-login"></header>
+</div>
 
 <main>
 
@@ -17,36 +23,31 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/static/css/image1.jpg" class="d-block w-100" alt="banda 1">
+                    <img th:src="@{/image/image1.jpg}" class="d-block w-100" alt="banda 1">
                     <div class="carousel-caption d-md-block">
-                        <h5>Banda 1</h5>
-                        <p>Descripción banda 1</p>
+                        <h4>Banda 1</h4>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="/static/css/image2.jpg" class="d-block w-100" alt="banda 2">
+                    <img th:src="@{/image/image2.jpg}" class="d-block w-100" alt="banda 2">
                     <div class="carousel-caption d-md-block">
-                        <h5>Banda 2</h5>
-                        <p>Descripción banda 2</p>
+                        <h4>Banda 2</h4>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="/static/css/image3.jpg" class="d-block w-100" alt="banda 3">
+                    <img th:src="@{/image/image3.jpg}" class="d-block w-100" alt="banda 3">
                     <div class="carousel-caption d-md-block">
-                        <h5>Banda 3</h5>
-                        <p>Descripción banda 3</p>
+                        <h4>Banda 3</h4>
                     </div>
                 </div><div class="carousel-item">
-                <img src="/static/css/image4.jpg" class="d-block w-100" alt="banda 4">
+                <img th:src="@{/image/image4.jpg}" class="d-block w-100" alt="banda 4">
                 <div class="carousel-caption d-md-block">
-                    <h5>Banda 4</h5>
-                    <p>Descripción banda 4</p>
+                    <h4>Banda 4</h4>
                 </div>
             </div><div class="carousel-item">
-                <img src="/static/css/image5.jpg" class="d-block w-100" alt="banda 5">
+                <img th:src="@{/image/image5.jpg}" class="d-block w-100" alt="banda 5">
                 <div class="carousel-caption d-md-block">
-                    <h5>Banda 5</h5>
-                    <p>Descripción banda 5</p>
+                    <h4>Banda 5</h4>
                 </div>
             </div>
 
@@ -62,7 +63,100 @@
         </div>
     </div>
 
-    <div class="container-ft">
+    <div id="howitworks" class="bg-dark pb-5">
+        <div class="px-2 py-2 pt-md-4 pb-md-4 mx-auto text-center">
+            <h2 class="text-white">
+                Cómo funciona la página
+            </h2>
+
+            <h3 class="text-white">
+                Busco un artista
+            </h3>
+        </div>
+
+        <div class="card-group">
+            <div class="col">
+                <div class="card h-100 align-items-center">
+                    <div class="card-header">Paso 1</div>
+                    <img th:src="@{/image/howitworks/lupa.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Buscá la banda o grupo de danza que se ajuste a tu evento.
+                            Los podés elegir según el estilo y la localidad</p>
+                        <div class=" text-center">
+                            <a th:href="@{/groups}" class="btn btn-dark">Buscar artistas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 align-items-center">
+                    <div class="card-header">Paso 2</div>
+                    <img th:src="@{/image/howitworks/registro.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text link-dark"><a th:href="@{/auth-client/sign-up}" class="btn btn-dark">Registrate</a> si aún no lo hiciste ó
+                            <a th:href="@{/auth-client/login}" class="btn btn-dark">iniciá sesión</a>
+                            para contactar a los artistas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 align-items-center">
+                    <div class="card-header">Paso 3</div>
+                    <img th:src="@{/image/howitworks/contrato.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Listo! Ya podés comunicarte con los artistas y armar ese evento inolvidable
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="px-2 py-2 pt-md-4 pb-md-4 mx-auto text-center">
+            <h3 class="text-white ">
+                Soy un artista
+            </h3>
+        </div>
+
+        <div class="card-group">
+            <div class="col">
+                <div class="card h-100 align-items-center">
+                    <div class="card-header">Paso 1</div>
+                    <img th:src="@{/image/howitworks/artista.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Registrá tu perfil!</p>
+                        <div class=" text-center">
+                            <a th:href="@{/auth-group/sign-up}" class="btn btn-dark">Registrarse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 align-items-center">
+                    <div class="card-header">Paso 2</div>
+                    <img th:src="@{/image/howitworks/perfil.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Subí fotos y videos de tus presentaciones para mostrar tu arte</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 align-items-center">
+                    <div class="card-header">Paso 3</div>
+                    <img th:src="@{/image/howitworks/dialogo.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Esperá el contacto del cliente, éxitos y a brillar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-2 py-2 pt-5 mx-auto text-white text-center">
+        <h2>Grupos Destacados</h2>
+    </div>
+
+    <div class="container-ft px-2 py-2 pt-md-4 pb-md-4">
         <div class="container-img">
             <img src="/static/css/img1.jpg" alt="">
             <div class="text">
@@ -82,8 +176,6 @@
                 <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
                     elit. Architecto odio doloribus tempore quod dicta, perferendis
                     iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                    Magnam possimus sapiente porro natus. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Omnis dolorem, sit, error rerum doloribus dolorum provident beatae molestiae ducimus, impedit eius?
                 </p>
             </div>
         </div>
@@ -133,87 +225,6 @@
                     iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
                     Magnam possimus sapiente porro natus.
                 </p>
-            </div>
-        </div>
-    </div>
-
-    <div id="howitworksTitle" class="bg-dark">
-        <h2 class="text-center text-white">
-            Cómo funciona la página
-        </h2>
-
-        <h3 class="text-white">
-            Busco un artista
-        </h3>
-
-        <div class="card-group">
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">Paso 1</div>
-                    <img src="/static/images/lupa.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Paso 1</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">Paso 2</div>
-                    <img src="/static/images/registro.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Paso 2</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">Paso 3</div>
-                    <img src="/static/images/dialogo.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Paso 3</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <h3 class="text-white ">
-            Soy un artista
-        </h3>
-
-        <div class="card-group">
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">Paso 1</div>
-                    <img src="/static/images/artista.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Paso 1</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">Paso 2</div>
-                    <img src="/static/images/perfil.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Paso 2</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">Paso 3</div>
-                    <img src="/static/images/contrato.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Paso 3</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
