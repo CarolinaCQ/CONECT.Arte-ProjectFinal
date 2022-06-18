@@ -1,9 +1,9 @@
 <footer class="footer" th:fragment="footer">
-    <div class="group-1">
+    <div class="group-1 text-white">
         <div class="box">
             <figure>
                 <a href="#">
-                    <img th:src="@{/imagenes/Logo.png}" alt="logotipo" width="32">
+                    <img th:src="@{/image/Logo.png}" alt="logotipo" width="32">
                 </a>
             </figure>
         </div>
@@ -13,19 +13,25 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, porro.
         </div>
         <div class="box">
-            <h2>SIGUENOS</h2>
+            <h2 class="text-center">SIGUENOS</h2>
             <div class="social-networks">
-                <a href="url facebook" class="fa fa-facebook">
-                    <img th:src="@{/imagenes/fb.png}" alt="" width="32">
-                </a>
-                <a href="url insta">
-                    <img th:src="@{/imagenes/insta.png}" width="32">
-                </a>
+                <div class="row">
+                    <div class="block">
+                        <a href="url facebook">
+                            <img th:src="@{/image/fb.png}">
+                        </a>
+                    </div>
+                    <div class="block">
+                        <a href="url insta">
+                            <img th:src="@{/image/insta.png}">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     </div>
-    <div class="group-2">
-        <small>&copy; 2021 <b>TEAM5</b> - Todos Los Derechos Reservados. </small>
+    <div class="group-2 text-white text-center pt-3 pb-2">
+        <h6>&copy; 2022 <b>TEAM5</b> - Todos Los Derechos Reservados.</h6>
     </div>
 </footer>
