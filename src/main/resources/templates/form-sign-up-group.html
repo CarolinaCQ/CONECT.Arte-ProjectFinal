@@ -35,7 +35,7 @@
                                             <label th:for="name" class="form-label">Nombre artístico<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" th:field="*{groupName}" id="name" required autofocus>
                                             <div class="invalid-feedback">El nombre artístico es un campo requerido!</div>
-                                            <p class="alert" >Se permite minúsculas, mayúsculas y espacios.</p>
+                                            <p class="alert-group" >Se permite minúsculas, mayúsculas y espacios.</p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
@@ -46,7 +46,7 @@
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
                                             <label th:for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password" required>
-                                            <p class="alert" >La contraseña debe contener al menos una minúscula, una mayúscula y un número.</p>
+                                            <p class="alert-group" >La contraseña debe contener al menos una minúscula, una mayúscula y un número.</p>
                                         </div>
 
                                         <div class="my-3 d-flex flex-column">
@@ -127,7 +127,7 @@
                                             <label th:for="numberWhatsapp" class="form-label">Número de celular<span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" th:field="*{contactWhatsAppNumber}" id="numberWhatsapp" required>
                                             <div class="invalid-feedback">El número de celular es un campo requerido!</div>
-                                            <p class="alert" >Debe contener solo números.</p>
+                                            <p class="alert-group" >Debe contener solo números.</p>
                                         </div>
 
                                         <div class="my-3">
