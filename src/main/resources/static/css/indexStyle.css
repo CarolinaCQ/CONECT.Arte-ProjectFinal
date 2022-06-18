@@ -184,7 +184,18 @@ img{
     transition: all .3s;
 }
 
-.alert{
+.alert-client{
+    position: relative;
+    font-size: 10px;
+    left: -5%;
+    top: 47%;
+    top: -10px;
+    line-height: 0.9;
+    padding: 1rem 1rem 0px 1rem;
+    margin: 0px;
+}
+
+.alert-group{
     position: relative;
     font-size: 10px;
     left: -5%;

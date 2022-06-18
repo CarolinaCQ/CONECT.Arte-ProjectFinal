@@ -28,6 +28,7 @@
                                             <label th:fo="nickname" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" th:field="*{clientNickname}" id="nickname" required autofocus>
                                             <div class="invalid-feedback">El nombre de usuario es un campo requerido!</div>
+                                            <p class="alert-client" >Se permite minúsculas, mayúsculas y espacios.</p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="form-group my-3">
@@ -42,6 +43,7 @@
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password"
                                                    required>
                                             <div class="invalid-feedback">La contraseña es un campo requerido!</div>
+                                            <p class="alert-client" >La contraseña debe contener al menos una minúscula, una mayúscula y un número.</p>
                                         </div>
 
                                         <div class="my-3 d-flex flex-column">
