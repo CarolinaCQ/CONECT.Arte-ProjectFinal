@@ -35,7 +35,7 @@
                                             <label th:for="name" class="form-label">Nombre artístico<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" th:field="*{groupName}" id="name" required autofocus>
                                             <div class="invalid-feedback">El nombre artístico es un campo requerido!</div>
-                                            <p class="alert-group" >Se permite minúsculas, mayúsculas y espacios.</p>
+                                            <p class="alert-group" >Se permite minúsculas, mayúsculas, acentos, números y espacios.</p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
@@ -46,7 +46,8 @@
                                         <div th:if="${action}=='register'" class="my-3 d-flex flex-column">
                                             <label th:for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password" required>
-                                            <p class="alert-group" >La contraseña debe contener al menos una minúscula, una mayúscula y un número.</p>
+                                            <p class="alert-group" >La contraseña debe contener al menos una minúscula, una mayúscula y un número.
+                                            Mín-4/Max-16</p>
                                         </div>
 
                                         <div class="my-3 d-flex flex-column">

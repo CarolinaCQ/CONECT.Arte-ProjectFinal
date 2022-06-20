@@ -28,7 +28,7 @@
                                             <label th:fo="nickname" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" th:field="*{clientNickname}" id="nickname" required autofocus>
                                             <div class="invalid-feedback">El nombre de usuario es un campo requerido!</div>
-                                            <p class="alert-client" >Se permite minúsculas, mayúsculas y espacios.</p>
+                                            <p class="alert-client" >Se permite minúsculas, mayúsculas, acentos, números, espacios y guiones.</p>
                                         </div>
 
                                         <div th:if="${action}=='register'" class="form-group my-3">
