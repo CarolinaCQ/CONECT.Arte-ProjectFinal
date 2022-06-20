@@ -2,7 +2,6 @@ package edu.team5.finalproject.controller;
 
 import edu.team5.finalproject.dto.GroupSimpleDto;
 import edu.team5.finalproject.dto.GroupUserContactDto;
-import edu.team5.finalproject.entity.Group;
 import edu.team5.finalproject.entity.enums.Locale;
 import edu.team5.finalproject.entity.enums.Style;
 import edu.team5.finalproject.entity.enums.Type;
@@ -100,10 +99,10 @@ public class GroupController {
         return mav;
     }
 
-    @GetMapping("/profile/{id}")
-    public ModelAndView getProfile(@PathVariable Long id){
+    @GetMapping("/profile")
+    public ModelAndView getProfile(@RequestParam(value="id") Long id){
         ModelAndView mav = new ModelAndView("profile-artist");
-        GroupUserContactDto groupUserContactDto = mapper.map(groupService.getById(id), GroupUserContactDto.class);
+        GroupUserContactDto groupUserContactDto = mapper.map(groupService.getByIdUser(id), GroupUserContactDto.class);
 
         mav.addObject("group", groupUserContactDto);
         

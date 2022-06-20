@@ -51,10 +51,10 @@ public class ClientController {
         return mav;
     }
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profile")
     public ModelAndView getProfile(@PathVariable Long id){
         ModelAndView mav = new ModelAndView("profile-client");
-        ClientUserDto clientUserDto = mapper.map(clientService.getById(id), ClientUserDto.class);
+        ClientUserDto clientUserDto = mapper.map(clientService.getByIdUser(id), ClientUserDto.class);
 
         mav.addObject("client", clientUserDto);
         

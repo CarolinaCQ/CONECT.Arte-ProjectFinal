@@ -68,6 +68,11 @@ public class ClientService {
     }
     
     @Transactional(readOnly = true)
+    public Client getByIdUser(Long id) {
+        return clientRepository.getByIdUser(id).get();
+    }
+    
+    @Transactional(readOnly = true)
     public List<Client> getAll() {
         return clientRepository.findAll();
     }

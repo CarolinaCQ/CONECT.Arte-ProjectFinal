@@ -5,6 +5,7 @@ import edu.team5.finalproject.entity.enums.Locale;
 import edu.team5.finalproject.entity.enums.Style;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,6 +33,9 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     @Query("SELECT g FROM Group g WHERE g.type='MUSIC'")
     List<Group> getByTypeMusic();
+    
+    @Query("SELECT g FROM Group g WHERE g.user.id=:id")
+    Optional<Group> getByIdUser(@Param("id") Long id);
 
     @Modifying
     @Query("UPDATE Group g SET g.deleted = false WHERE g.id = ?1")

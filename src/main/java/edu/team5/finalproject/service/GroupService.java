@@ -77,6 +77,11 @@ public class GroupService {
     public Group getById(Long id) {
         return groupRepository.findById(id).get();
     }
+    
+    @Transactional(readOnly = true)
+    public Group getByIdUser(Long id) {
+        return groupRepository.getByIdUser(id).get();
+    }
 
     @Transactional(readOnly = true)
     public List<Group> getAll() {
