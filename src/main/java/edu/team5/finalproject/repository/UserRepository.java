@@ -2,6 +2,7 @@
 package edu.team5.finalproject.repository;
 
 import edu.team5.finalproject.entity.User;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -16,6 +17,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.deleted = false WHERE u.id = ?1")
     void enableById(Long id);
+    
+    @Query("SELECT u FROM User u WHERE u.role='ADMIN'")
+    List<User> findAllAdmin();
 
     Optional<User> findByEmail(String email);
 

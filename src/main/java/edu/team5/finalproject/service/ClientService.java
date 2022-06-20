@@ -10,6 +10,7 @@ import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.repository.ClientRepository;
 import edu.team5.finalproject.repository.UserRepository;
 import edu.team5.finalproject.utility.Utility;
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -64,6 +65,11 @@ public class ClientService {
     @Transactional
     public void deleteById(Long id) {
         clientRepository.deleteById(id);        
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Client> getAll() {
+        return clientRepository.findAll();
     }
 
     @Transactional(readOnly = true)

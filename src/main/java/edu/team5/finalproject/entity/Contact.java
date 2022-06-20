@@ -6,11 +6,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE contacts SET contact_deleted = true WHERE contact_id = ?")
 @Table(name="contacts", indexes = {@Index(name = "idx_whatsAppNumber", columnList = "contact_whatsAppNumber")})
 public class Contact {
 

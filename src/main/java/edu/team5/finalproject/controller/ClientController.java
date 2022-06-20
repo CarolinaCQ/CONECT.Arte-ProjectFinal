@@ -43,9 +43,11 @@ public class ClientController {
         ClientUserDto clientUserDto = mapper.map(clientService.getById(id), ClientUserDto.class);
 
         if(inputFlashMap!= null) mav.addObject("exception", inputFlashMap.get("exception"));
-
+       
+        
         mav.addObject("client", clientUserDto);
         mav.addObject("action", "update");
+        
         return mav;
     }
 
@@ -71,15 +73,13 @@ public class ClientController {
             attributes.addFlashAttribute("client", dto);
             redirect.setUrl("/clients/form/" + dto.getId().toString());
         }
-                        
-         // MODIFICAR MENSAJE 
         return redirect;
     }    
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update/{id}")
     public RedirectView updateDeletedHigh(@PathVariable Long id) throws MyException{
-        RedirectView redirect = new RedirectView("/");
+        RedirectView redirect = new RedirectView("/users");
         userService.updateEnableById(clientService.getById(id).getUser().getId()); 
         clientService.updateEnableById(id);                
         return redirect;

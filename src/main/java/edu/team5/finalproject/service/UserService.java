@@ -68,6 +68,11 @@ public class UserService implements UserDetailsService {
     public List<User> getAll() {
         return userRepository.findAll();
     }
+    
+    @Transactional(readOnly = true)
+    public List<User> getAllAdmin() {
+        return userRepository.findAllAdmin();
+    }
 
     @Transactional(readOnly = true)
     public User getById(Long id) {

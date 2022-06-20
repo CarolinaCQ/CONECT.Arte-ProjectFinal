@@ -41,8 +41,8 @@ public class AuthGroupController {
     public ModelAndView login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Principal principal){
         ModelAndView mav = new ModelAndView("form-login");
 
-        if(error != null) mav.addObject("error","Invalid email or password");
-        if(logout != null) mav.addObject("logout", "You have successfully exisd the platform");
+        if(error != null) mav.addObject("error","Email o contraseña inválido");
+        if(logout != null) mav.addObject("logout", "Ha salido con éxito de la plataforma");
         if(principal != null) mav.setViewName("redirect:/");
 
         return  mav;
@@ -50,7 +50,7 @@ public class AuthGroupController {
     
     @GetMapping("/sign-up")
     public ModelAndView signup(HttpServletRequest request, Principal principal){
-        ModelAndView mav = new ModelAndView("form-sign-up-group");                            //preguntar acá que sign-up va.
+        ModelAndView mav = new ModelAndView("form-sign-up-group");                          
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
         if(principal != null) mav.setViewName("redirect:/");
