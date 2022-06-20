@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,13 +21,16 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query("SELECT g FROM Group g WHERE g.locale LIKE '?1'")
     List<Group> getByLocale(Locale locale);
 
-    @Query("SELECT g FROM Group g WHERE g.style LIKE '?1' AND g.locale LIKE '?2'")
-    List<Group> getByStyleAndLocale(Style style, Locale locale);
+    @Query("SELECT g FROM Group g WHERE g.style=:style AND g.locale=:locale AND g.type='DANCE'")
+    List<Group> getByStyleAndLocaleDance(@Param("style") Style style,@Param("locale") Locale locale);
+    
+    @Query("SELECT g FROM Group g WHERE g.style=:style AND g.locale=:locale AND g.type='MUSIC'")
+    List<Group> getByStyleAndLocaleMusic(@Param("style") Style style,@Param("locale") Locale locale);
 
-    @Query("SELECT g FROM Group g WHERE g.type LIKE 'DANCE'")
+    @Query("SELECT g FROM Group g WHERE g.type='DANCE'")
     List<Group> getByTypeDance();
 
-    @Query("SELECT g FROM Group g WHERE g.type LIKE 'MUSIC'")
+    @Query("SELECT g FROM Group g WHERE g.type='MUSIC'")
     List<Group> getByTypeMusic();
 
     @Modifying

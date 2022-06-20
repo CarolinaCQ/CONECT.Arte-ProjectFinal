@@ -4,7 +4,9 @@ import edu.team5.finalproject.dto.GroupUserContactDto;
 import edu.team5.finalproject.entity.Contact;
 import edu.team5.finalproject.entity.Group;
 import edu.team5.finalproject.entity.User;
+import edu.team5.finalproject.entity.enums.Locale;
 import edu.team5.finalproject.entity.enums.Role;
+import edu.team5.finalproject.entity.enums.Style;
 import edu.team5.finalproject.exception.ExceptionMessages;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
@@ -51,7 +53,7 @@ public class GroupService {
     public void update(GroupUserContactDto dto, MultipartFile image, List<MultipartFile> imageList) throws MyException {
         Group group = mapper.map(dto, Group.class); 
        
-        //if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
+        if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
         //if(!imageList.isEmpty()) group.setImageList(imageService.imagesToString(imageList));
 
         group.setUser(groupRepository.findById(dto.getId()).get().getUser());
@@ -79,6 +81,26 @@ public class GroupService {
     @Transactional(readOnly = true)
     public List<Group> getAll() {
         return groupRepository.findAll();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Group> getAllDance() {
+        return groupRepository.getByTypeDance();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Group> getAllMusic() {
+        return groupRepository.getByTypeMusic();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Group> getByStyleAndLocaleDance(Style style, Locale locale) {
+        return groupRepository.getByStyleAndLocaleDance(style, locale);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Group> getByStyleAndLocaleMusic(Style style, Locale locale) {
+        return groupRepository.getByStyleAndLocaleMusic(style, locale);
     }
 
     private void validateCreate(Group group) throws MyException { // fijarse que mas falta validar

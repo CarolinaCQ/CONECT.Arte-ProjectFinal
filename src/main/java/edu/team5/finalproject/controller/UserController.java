@@ -1,9 +1,13 @@
 package edu.team5.finalproject.controller;
 
+import edu.team5.finalproject.dto.ClientUserDto;
+import edu.team5.finalproject.dto.GroupUserContactDto;
 import edu.team5.finalproject.dto.UserDto;
 import edu.team5.finalproject.exception.ExceptionMessages;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
+import edu.team5.finalproject.service.ClientService;
+import edu.team5.finalproject.service.GroupService;
 import edu.team5.finalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -31,6 +33,8 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final ClientService clientService;
+    private final GroupService groupService;
     private final GenericModelMapper mapper;
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -39,11 +43,15 @@ public class UserController {
         ModelAndView mav = new ModelAndView("table-user");
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 
-        List<UserDto> userListDto = mapper.mapAll(userService.getAll(), UserDto.class);
+        List<UserDto> userAdmin= mapper.mapAll(userService.getAllAdmin(), UserDto.class);
+        List<ClientUserDto> clientUserDto = mapper.mapAll(clientService.getAll(), ClientUserDto.class);
+        List<GroupUserContactDto> groupUserContactDto = mapper.mapAll(groupService.getAll(), GroupUserContactDto.class);
 
         if (inputFlashMap != null)
             mav.addObject("success", inputFlashMap.get("success"));
-            mav.addObject("users", userListDto);
+            mav.addObject("users", userAdmin);
+            mav.addObject("clients", clientUserDto);
+            mav.addObject("groups", groupUserContactDto);
 
         return mav;
     }
