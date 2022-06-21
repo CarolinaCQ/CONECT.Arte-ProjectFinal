@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
-    
-    <head th:replace="fragments/head :: head"></head>
+
+    <head th:replace="fragments/head-artists :: head-artists"></head>
 
     <body>
         <div th:if="${session.id} == null">
@@ -12,28 +12,18 @@
             <header th:replace="fragments/header-login :: header-login"></header>
         </div>
         <main>
-            <div class="container mt-5">
-                <div class="row d-flex flex-row justify-content-center">
-                    <div class="col-6">
-                        <form class="d-flex" role="search">
-                            <input class="form-control mr-sm-2 search" type="search" placeholder="Buscar por nombre" aria-label="Search" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-
             <div class="container">
-                <div class="row">
+                <div class="row my-5">
                     <div class="col">
                         <div class="title-cards">
-                            <a href="#" class="btn-neon">
+                            <a th:href="@{/groups/music}" class="btn-neon">
                                 <span id="span1"></span>
                                 <span id="span2"></span>
                                 <span id="span3"></span>
                                 <span id="span4"></span>
                                 BANDA MUSICAL
                             </a>
-                            <a href="#" class="btn-neon">
+                            <a th:href="@{/groups/dance}" class="btn-neon">
                                 <span id="span1"></span>
                                 <span id="span2"></span>
                                 <span id="span3"></span>
@@ -45,85 +35,28 @@
                 </div>
             </div>
 
-            <div class="container-card">
-                <div class="container-img">
-                    <img th:src=@{/image/image1.jpg} alt="">
-                    <div class="text">
-                        <h3 class="title">ROLLING STONES</h3>
-                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Architecto odio doloribus tempore quod dicta, perferendis
-                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                            Magnam possimus sapiente porro natus.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="container-img">
-                    <img th:src=@{/image/image2.jpg} alt="">
-                    <div class="text">
-                        <h3 class="title">AC/DC</h3>
-                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Architecto odio doloribus tempore quod dicta, perferendis
-                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                            Magnam possimus sapiente porro natus.
-                        </p>
-                    </div>
-                </div>
-                <div class="container-img">
-                    <img th:src=@{/image/image3.jpg} alt="">
-                    <div class="text">
-                        <h3 class="title">NICKELBACK</h3>
-                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Architecto odio doloribus tempore quod dicta, perferendis
-                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                            Magnam possimus sapiente porro natus.
-                        </p>
-                    </div>
-                </div>
+            <div th:if="${isEmpty}" class="d-flex flex-row justify-content-center">
+                <p th:text="${isEmpty}" class="col-4 alert alert-secondary text-center mb-5"></p>
             </div>
-            <div class="container-card">
-                <div class="container-img">
-                    <img th:src=@{/image/image4.jpg} alt="">
-                    <div class="text">
-                        <h3 class="title">ROLLING STONES</h3>
-                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Architecto odio doloribus tempore quod dicta, perferendis
-                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                            Magnam possimus sapiente porro natus.
-                        </p>
-                    </div>
-                </div>
 
-                <div class="container-img">
-                    <img th:src=@{/image/image5.jpg} alt="">
+            <div class="container-card">
+                <div class="container-img" th:each="group : ${groups}">
+                    <img th:src="@{|/uploads/__${group.groupProfileImage}__|}" alt="">
                     <div class="text">
-                        <h3 class="title">AC/DC</h3>
-                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Architecto odio doloribus tempore quod dicta, perferendis
-                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                            Magnam possimus sapiente porro natus.
-                        </p>
-                    </div>
-                </div>
-                <div class="container-img">
-                    <img th:src=@{/image/image6.jpg} alt="">
-                    <div class="text">
-                        <h3 class="title">NICKELBACK</h3>
-                        <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Architecto odio doloribus tempore quod dicta, perferendis
-                            iure mollitia tempora rem nemo ad voluptatibus ex qui impedit.
-                            Magnam possimus sapiente porro natus.
+                        <h3 class="title" th:text="${group.groupName}"></h3>
+                        <p class="paragraph" th:text="${group.groupDescription}">
                         </p>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    
+
     <footer th:replace="fragments/footer :: footer"></footer>
-    
+
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/search.js}"></script>
-    
+    <script th:src="@{/js/searchFilter.js}"></script>
+
 </body>
 </html>
