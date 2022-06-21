@@ -38,7 +38,7 @@ public class GroupController {
     private final ContactService contactService;
     private final GenericModelMapper mapper;
     
-    @PreAuthorize("hasRole('GROUP')")
+    
     @GetMapping
     public ModelAndView getGroups(){
         ModelAndView mav = new ModelAndView("artists");
@@ -50,9 +50,8 @@ public class GroupController {
         return mav;
     } 
     
-    @PreAuthorize("hasRole('GROUP')")
     @GetMapping("/dance")
-    public ModelAndView getGroupsDance(@RequestParam(required = false) Style style,  @RequestParam(required = false) Locale locale){
+    public ModelAndView getGroupsDance(@RequestParam(value="style", required = false) Style style,  @RequestParam(value="locale", required = false) Locale locale){
         ModelAndView mav = new ModelAndView("");
 
         List<GroupSimpleDto> groupListDto = mapper.mapAll(groupService.getAllDance(), GroupSimpleDto.class);
@@ -74,9 +73,8 @@ public class GroupController {
         return mav;
     } 
     
-    @PreAuthorize("hasRole('GROUP')")
     @GetMapping("/music")
-    public ModelAndView getGroupsMusic( @RequestParam(required = false) Style style,  @RequestParam(required = false) Locale locale){
+    public ModelAndView getGroupsMusic(@RequestParam(value="style", required = false) Style style,  @RequestParam(value="locale", required = false) Locale locale){
         ModelAndView mav = new ModelAndView("");
         
         List<GroupSimpleDto> groupListDto = mapper.mapAll(groupService.getAllMusic(), GroupSimpleDto.class);

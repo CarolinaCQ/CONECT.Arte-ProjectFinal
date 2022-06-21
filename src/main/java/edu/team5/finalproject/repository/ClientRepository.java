@@ -15,7 +15,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("UPDATE Client c SET c.deleted = false WHERE c.id = ?1")
     void enableById(Long id);
 
-    @Query("SELECT g FROM Group g WHERE g.user.id=:id")
+    @Query("SELECT c FROM Client c WHERE c.user.id=:id")
     Optional<Client> getByIdUser(@Param("id") Long id);
     
     boolean existsByNickname (String nickname);
