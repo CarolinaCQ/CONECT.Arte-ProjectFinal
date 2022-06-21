@@ -50,7 +50,7 @@ public class UserController {
         List<User> users = userService.getAllAdmin(delete);
         List<Client> clients = clientService.getByBoolean(delete);
         List<Group> groups = groupService.getByBoolean(delete);
-
+    
         mav.addObject("users", users);
         mav.addObject("clients", clients);
         mav.addObject("groups", groups);

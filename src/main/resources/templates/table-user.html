@@ -33,22 +33,24 @@
                         <table class="table table-hover table-striped table-secondary">
                             <thead>
                                 <tr>
-                                    <th class="col-3 text-dark">Email</th>
-                                    <th class="col-3 text-dark">Role</th>
-                                    <th class="col-3 text-dark">Baja/Alta</th>
+                                    <th class="col-6 text-dark">Email</th>
+                                    <th class="col-2 text-dark">Role</th>
+                                    <th class="col-2 text-dark">Baja/Alta</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${users}" th:if="${user.id}!=${session.id}">
+                                <tr th:each="user : ${users}">
                                     <td th:text="${user.email}" class="text-dark"></td>
                                     <td th:text="${user.role}" class="text-dark"></td>
                                     <td>
-                                        <form th:if="${user.deleted}==FALSE" th:action="@{/users/delete/__${user.id}__}" method="POST">
+                                        <div th:if="${user.id}!=${session.id}">
+                                            <form th:if="${user.deleted}==FALSE" th:action="@{/users/delete/__${user.id}__}" method="POST">
                                             <button type="submit" class="btn btn-danger text-light">Dar de baja</button>
                                         </form>
                                         <form th:unless="${user.deleted}==FALSE" th:action="@{/users/update/__${user.id}__}" method="POST">
                                             <button type="submit" class="btn btn-success text-light" >Dar de alta</button>
                                         </form>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
