@@ -73,6 +73,11 @@ public class ClientService {
     }
     
     @Transactional(readOnly = true)
+    public List<Client> getByBoolean(Boolean delete) {
+        return clientRepository.getByBoolean(delete);
+    }
+    
+    @Transactional(readOnly = true)
     public List<Client> getAll() {
         return clientRepository.findAll();
     }

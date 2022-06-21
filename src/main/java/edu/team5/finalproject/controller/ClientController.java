@@ -2,6 +2,7 @@ package edu.team5.finalproject.controller;
 
 import edu.team5.finalproject.dto.ClientUserDto;
 import edu.team5.finalproject.entity.Client;
+import edu.team5.finalproject.entity.enums.Role;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
 import edu.team5.finalproject.service.ClientService;
@@ -87,8 +88,11 @@ public class ClientController {
 
     @PreAuthorize("anyRole('CLIENT, ADMIN')")
     @PostMapping("/delete/{id}")
-    public RedirectView deleteById(@PathVariable Long id) {
-        RedirectView redirect = new RedirectView("/logout");
+    public RedirectView deleteById(@PathVariable Long id, @RequestParam(value="role") Role role) {
+        String url = (role==Role.ADMIN) ? "/users" : "/logout";
+    
+        RedirectView redirect = new RedirectView(url);
+        
         userService.deleteById(clientService.getById(id).getUser().getId());
         clientService.deleteById(id);
         return redirect;

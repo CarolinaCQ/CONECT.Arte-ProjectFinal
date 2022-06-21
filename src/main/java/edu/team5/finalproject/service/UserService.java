@@ -70,8 +70,8 @@ public class UserService implements UserDetailsService {
     }
     
     @Transactional(readOnly = true)
-    public List<User> getAllAdmin() {
-        return userRepository.findAllAdmin();
+    public List<User> getAllAdmin(Boolean delete) {
+        return userRepository.findAllAdmin(delete);
     }
 
     @Transactional(readOnly = true)

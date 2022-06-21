@@ -3,7 +3,7 @@
 
     <head th:replace="fragments/head :: head"></head>
 
-    <body>
+    <body class="body-user">
 
         <div th:if="${session.id} == null">
             <header th:replace="fragments/header-index :: header-index"></header>
@@ -17,37 +17,37 @@
             <div class="row mt-5">
                 <div class="col">
 
-
+                    <div class="d-flex flex-row justify-content-center">
+                        <a class="btn btn-light mx-3" th:href="@{/users(boolean=FALSE)}">Activos</a>
+                        <a class="btn btn-dark mx-3" th:href="@{/users(boolean=TRUE)}">Inactivos</a>
+                    </div>
 
                     <h2 class="text-light fs-5 fw-bold fst-italic table-secondary mt-2">Administradores</h2>
                     <div th:if="${users.isEmpty()}">
                         <p class="alert alert-secondary">No existen usuarios con rol de administrador</p>
                     </div>
 
-                    <a class="btn btn-secondary mb-5" type="submit" th:href="@{/users/form}">Agregar usuario administrador</a>
+                    <a class="btn btn-secondary my-2" type="submit" th:href="@{/users/form}">Agregar usuario administrador</a>
 
                     <div th:unless="${users.isEmpty()}" class="table-responsive">
-                        <table class="table table-hover table-striped">
+                        <table class="table table-hover table-striped table-secondary">
                             <thead>
                                 <tr>
-                                    <th class="col-3 text-light">Email</th>
-                                    <th class="col-3 text-light">Role</th>
-                                    <th class="col-3 text-light">Dar de baja</th>
-                                    <th class="col-3 text-light">Dar de alta</th>
+                                    <th class="col-3 text-dark">Email</th>
+                                    <th class="col-3 text-dark">Role</th>
+                                    <th class="col-3 text-dark">Baja/Alta</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${users}">
-                                    <td th:text="${user.userEmail}" class="text-light"></td>
-                                    <td th:text="${user.userRole}" class="text-light"></td>
+                                <tr th:each="user : ${users}" th:if="${user.id}!=${session.id}">
+                                    <td th:text="${user.email}" class="text-dark"></td>
+                                    <td th:text="${user.role}" class="text-dark"></td>
                                     <td>
-                                        <form th:action="@{/users/delete/__${user.id}__}" method="POST">
-                                            <button type="submit" class="btn btn-login text-light">Dar de baja</button>
+                                        <form th:if="${user.deleted}==FALSE" th:action="@{/users/delete/__${user.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-danger text-light">Dar de baja</button>
                                         </form>
-                                    </td>
-                                    <td>
-                                        <form th:action="@{/users/update/__${user.id}__}" method="POST">
-                                            <button type="submit" class="btn btn-register text-light" >Dar de alta</button>
+                                        <form th:unless="${user.deleted}==FALSE" th:action="@{/users/update/__${user.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-success text-light" >Dar de alta</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -57,7 +57,7 @@
 
 
 
-                    <h2 class="text-light fs-5 fw-bold fst-italic">Clientes</h2>
+                    <h2 class="text-light fs-5 fw-bold fst-italic mt-4">Clientes</h2>
                     <div th:if="${clients.isEmpty()}">
                         <p class="alert alert-secondary mb-5">No existen usuarios con rol de cliente</p>
                     </div>
@@ -69,23 +69,20 @@
                                     <th class="col-3 text-dark">Email</th>
                                     <th class="col-3 text-dark">Nombre de usuario</th>
                                     <th class="col-2 text-dark">Role</th>
-                                    <th class="col-2 text-dark">Dar de baja</th>
-                                    <th class="col-2 text-dark">Dar de alta</th>
+                                    <th class="col-2 text-dark">Baja/Alta</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="client : ${clients}">
-                                    <td th:text="${client.userEmail}" class="text-light"></td>
-                                    <td th:text="${client.clientNickname}" class="text-light"></td>
-                                    <td th:text="${client.userRole}" class="text-light"></td>
+                                    <td th:text="${client.user.email}" class="text-dark"></td>
+                                    <td th:text="${client.nickname}" class="text-dark"></td>
+                                    <td th:text="${client.user.role}" class="text-dark"></td>
                                     <td>
-                                        <form th:action="@{/clients/delete/__${client.id}__}" method="POST">
-                                            <button type="submit" class="btn btn-login text-light">Dar de baja</button>
+                                        <form th:if="${client.deleted}==FALSE" th:action="@{/clients/delete/__${client.id}__(role=${session.role})}" method="POST">
+                                            <button type="submit" class="btn btn-danger text-light">Dar de baja</button>
                                         </form>
-                                    </td>
-                                    <td>
-                                        <form th:action="@{/clients/update/__${client.id}__}" method="POST">
-                                            <button type="submit" class="btn btn-register text-light" >Dar de alta</button>
+                                        <form th:unless="${client.deleted}==FALSE" th:action="@{/clients/update/__${client.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-suscces text-light" >Dar de alta</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -94,7 +91,7 @@
                     </div>
 
 
-                    <h2 class="text-light fs-5 fw-bold fst-italic">Grupos</h2>
+                    <h2 class="text-light fs-5 fw-bold fst-italic mt-4">Grupos</h2>
                     <div th:if="${groups.isEmpty()}">
                         <p class="alert alert-secondary">No existen usuarios con rol de grupo</p>
                     </div>
@@ -106,23 +103,20 @@
                                     <th class="col-3 text-dark">Email</th>
                                     <th class="col-3 text-dark">Nombre artístico</th>
                                     <th class="col-2 text-dark">Role</th>
-                                    <th class="col-2 text-dark">Dar de baja</th>
-                                    <th class="col-2 text-dark">Dar de alta</th>
+                                    <th class="col-2 text-dark">Baja/Alta</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="group : ${groups}">
-                                    <td th:text="${group.userEmail}" class="text-dark"></td>
-                                    <td th:text="${group.groupName}" class="text-dark"></td>
-                                    <td th:text="${group.userRole}" class="text-dark"></td>
+                                    <td th:text="${group.user.email}" class="text-dark"></td>
+                                    <td th:text="${group.name}" class="text-dark"></td>
+                                    <td th:text="${group.user.role}" class="text-dark"></td>
                                     <td>
-                                        <form th:action="@{/groups/delete/__${group.id}__}" method="POST">
-                                            <button type="submit" class="btn btn-login text-light">Dar de baja</button>
+                                        <form th:if="${group.deleted}==FALSE" th:action="@{/groups/delete/__${group.id}__(role=${session.role})}" method="POST">
+                                            <button type="submit" class="btn btn-danger text-light">Dar de baja</button>
                                         </form>
-                                    </td>
-                                    <td>
-                                        <form th:action="@{/groups/update/__${group.id}__}" method="POST">
-                                            <button type="submit" class="btn btn-register text-light" >Dar de alta</button>
+                                        <form th:unless="${group.deleted}==FALSE" th:action="@{/groups/update/__${group.id}__}" method="POST">
+                                            <button type="submit" class="btn btn-success text-light" >Dar de alta</button>
                                         </form>
                                     </td>
                                 </tr>

@@ -1,2 +1,36 @@
+.btn-active{
+    border: 1px solid black;
+    background: aliceblue;
+    color: black;
+}
 
+.btn-active:hover{
+    background: violet;
+    color: aliceblue;
+}
 
+.btn-active:visited{
+    background: black;
+    color: aliceblue;
+}
+
+.btn-inactive{
+    border: 1px solid black;
+    background: aliceblue;
+    color: black;
+}
+
+.btn-inactive:hover{
+    background: violet;
+    color: aliceblue;
+}
+
+.btn-inactive:visited{
+    background: black;
+    color: aliceblue;
+}
+
+.body-user{
+    background: rgb(2,0,36);
+    background: linear-gradient(36deg, rgba(2,0,36,1) 0%, rgba(47,33,209,1) 42%, rgba(179,83,187,1) 100%);
+}

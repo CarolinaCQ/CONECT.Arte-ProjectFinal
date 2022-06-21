@@ -36,6 +36,9 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     
     @Query("SELECT g FROM Group g WHERE g.user.id=:id")
     Optional<Group> getByIdUser(@Param("id") Long id);
+    
+    @Query("SELECT g FROM Group g WHERE g.deleted=:boolean")
+    List<Group> getByBoolean(@Param("boolean") Boolean delete);
 
     @Modifying
     @Query("UPDATE Group g SET g.deleted = false WHERE g.id = ?1")
