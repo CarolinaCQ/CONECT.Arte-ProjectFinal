@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <title>Artist</title>
+
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/styleBody.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/groupsStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/buttonStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/footerStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/searchStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/headerStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/groupsStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/buttonStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/styleBody.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/logoStyle.css}" text="text/css">
+
+
+    </head>
+
+
+    <body>
+        
+        <div th:if="${session.id} == null">
+            <header th:replace="fragments/header-index :: header-index"></header>
+        </div>
+
+        <div th:unless="${session.id} == null">
+            <header th:replace="fragments/header-login :: header-login"></header>
+        </div>
+        
+        <main>
+            <div class="d-flex flex-row">
+                <div class="col-3 px-5 py-5 container-style shadow-lg">
+                    <form th:action="@{/groups/music}" method="GET">
+                        <div>
+                            <p class="container-card text-light mb-3 mt-5 py-2">Ubicación</p>
+                            <select class="form-control form-select" th:name="locale" id="locale"
+                                    aria-label="Select locale" required>
+                                <option th:each="locale : ${locales}" th:value="${locale}" th:text="${locale.name}"></option>
+                            </select>
+                        </div>
+                        <p class="container-card text-light mb-3 mt-5">Seleccione el Estilo</p>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="FOLKLORE_ARGENTINO" id="check1">
+                            <label for="check1" class="fomr-check-label">Folklore Argentino</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="ROCK" id="check2">
+                            <label for="check2" class="fomr-check-label">Rock</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="ESPAÑOL" id="check3">
+                            <label for="check3" class="fomr-check-label">Español</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="ELECTRONICA" id="check4">
+                            <label for="check4" class="fomr-check-label">Electrónica</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="CLASICO" id="check5">
+                            <label for="check5" class="fomr-check-label">Clasico</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="POP" id="check6">
+                            <label for="check6" class="fomr-check-label">Pop</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="INDEPENDIENTE" id="check7">
+                            <label for="check7" class="fomr-check-label">Independiente</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="RITMOS_LATINOS" id="check8">
+                            <label for="check8" class="fomr-check-label">Ritmos Latinos</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="COUNTRY" id="check9">
+                            <label for="check9" class="fomr-check-label">Country</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="JAZZ" id="check10">
+                            <label for="check10" class="fomr-check-label">Jazz</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="BLUES" id="check11">
+                            <label for="check11" class="fomr-check-label">Blues</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="SOUL" id="check12">
+                            <label for="check12" class="fomr-check-label">Soul</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="CUMBIA" id="check13">
+                            <label for="check13" class="fomr-check-label">Cumbia</label>
+                        </div>
+                        <div class="form-check text-light">
+                            <input type="radio" th:name="style" class="form-check-input" value="MELODICO" id="check14">
+                            <label for="check14" class="fomr-check-label">Melódico</label>
+                        </div>
+
+                        <button type="submit">🔎</button>
+                    </form>
+
+                    <a th:href="@{/groups/music}" class="btn fw-bold my-3">Mostrar todos</button>
+
+                </div>
+                <div class="col-8 d-flex flex-column align-items-center div-groups">
+                    <div class="title-cards">
+                        <a href="#" class="btn-neon">
+                            <span id="span1"></span>
+                            <span id="span2"></span>
+                            <span id="span3"></span>
+                            <span id="span4"></span>
+                            GRUPO DE DANZA
+                        </a>
+                    </div>
+                    <div th:if="${isEmpty}" class="d-flex flex-row justify-content-center">
+                        <p th:text="${isEmpty}" class="alert alert-secondary text-center mb-5"></p>
+                    </div>
+                    <div class="container-card">
+                        <div class="container-img" th:each="group : ${groups}">
+                            <img th:src="@{|/uploads/__${group.groupProfileImage}__|}" alt="">
+                            <div class="text">
+                                <h3 class="title" th:text="${group.groupName}"></h3>
+                                <p class="paragraph" th:text="${group.groupDescription}">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/js/search.js}"></script>
+        
+    </body>
+</html>
