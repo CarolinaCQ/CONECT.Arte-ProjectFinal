@@ -18,6 +18,7 @@ html {
 .icon {
 	color: white;
 	text-decoration: none;
+        width: 3rem;
 	padding: .7rem;
 	display: flex;
 	transition: all .5s;
@@ -51,6 +52,9 @@ html {
 	padding-right: 3rem;
 	border-radius: 1rem 0 0 1rem;
 	box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.42);
+        width: 6rem;
 }
 
-
+.img-icon{
+    width: 32px;
+}

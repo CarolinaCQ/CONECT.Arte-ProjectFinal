@@ -31,20 +31,22 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h2 class=" rounded shadow-lg strong font-weight-bold">Billie Eilish</h2>
-                        <button class="btn btn">Editar</button>
-
+                        <h1 class="my-4 rounded strong fw-bold text-light fst-italic" th:text="${group.groupName}"></h1>
+                        <a th:href="@{/groups/delete/__${group.id}__}" class="btn btn-outline-danger">
+                            <img class="img-icon" th:src="@{/image/imageRemove.png}" alt="" width="32">
+                        </a>
+                        <a th:href="@{/groups/update/__${group.id}__}" class="btn btn-outline-primary ">
+                            <img class="img-icon" th:src="@{/image/imageEdit.png}" alt="" width="32">
+                        </a>
 
                     </div>
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-5 rounded shadow">
-                                <img th:src="@{/image/image6.jpg}" class="img-fluid">
+                            <div class="col-md-5 my-4 rounded shadow">
+                                <img th:src="@{|/uploads/__${group.groupProfileImage}__|}" class="img-fluid">
                             </div>
                             <div class="col-md-7">
-                                <p class=" rounded shadow-lg">Billie Eilish Pirate Baird O'Connell cantante y compositora estadounidense. Adquirió fama como artista cuando tenía 13 años, a raíz del sencillo «Ocean Eyes» que se publicó en 2015 en SoundCloud y volvió a lanzarse con un vídeo musical en YouTube en 2016, a la edad de 14 años, lo que la convirtió en un fenómeno viral. En 2017, publicó su EP Don't Smile at Me, producido por su hermano Finneas O'Connell
-
-                                    Su primer álbum de estudio, When We All Fall Asleep, Where Do We Go?, se publicó el 29 de marzo de 2019. Según la RIAA, a lo largo de su carrera ha logrado dos canciones con disco de platino: «Ocean Eyes» y «Lovely», esta última con Khalid, y siete sencillos con disco de oro. El álbum se llevó el Grammy al álbum del año y al mejor álbum de pop vocal en los premios de 2020. Asimismo, Eilish ganó el premio a la mejor artista novel y su éxito «Bad Guy» ganó la canción del año.</p>
+                                <p class=" my-4 rounded shadow-lg text-light" th:text="${group.groupDescription}"></p>
                             </div>
                         </div>
                     </div>
@@ -81,6 +83,6 @@
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/search.js}"></script>
-    
+
 </body>
 </html>
