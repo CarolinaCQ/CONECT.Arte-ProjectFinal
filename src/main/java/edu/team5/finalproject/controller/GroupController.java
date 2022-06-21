@@ -3,6 +3,7 @@ package edu.team5.finalproject.controller;
 import edu.team5.finalproject.dto.GroupSimpleDto;
 import edu.team5.finalproject.dto.GroupUserContactDto;
 import edu.team5.finalproject.entity.enums.Locale;
+import edu.team5.finalproject.entity.enums.Role;
 import edu.team5.finalproject.entity.enums.Style;
 import edu.team5.finalproject.entity.enums.Type;
 import edu.team5.finalproject.exception.MyException;
@@ -159,8 +160,11 @@ public class GroupController {
 
     @PreAuthorize("anyRole('GROUP', 'ADMIN')")
     @PostMapping("/delete/{id}")
-    public RedirectView deleteById(@PathVariable Long id) {
-        RedirectView redirect = new RedirectView("/logout");
+    public RedirectView deleteById(@PathVariable Long id, @RequestParam(value="role") Role role) {
+        String url = (role==Role.ADMIN) ? "/users" : "/logout";
+    
+        RedirectView redirect = new RedirectView(url);
+        
         userService.deleteById(groupService.getById(id).getUser().getId());
         contactService.deleteById(groupService.getById(id).getContact().getId());
         groupService.deleteById(id);

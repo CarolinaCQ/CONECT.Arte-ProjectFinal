@@ -1,8 +1,9 @@
 package edu.team5.finalproject.controller;
 
-import edu.team5.finalproject.dto.ClientUserDto;
-import edu.team5.finalproject.dto.GroupUserContactDto;
 import edu.team5.finalproject.dto.UserDto;
+import edu.team5.finalproject.entity.Client;
+import edu.team5.finalproject.entity.Group;
+import edu.team5.finalproject.entity.User;
 import edu.team5.finalproject.exception.ExceptionMessages;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/users")
@@ -39,19 +41,19 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ModelAndView getUsers(HttpServletRequest request) {
+    public ModelAndView getUsers(@RequestParam(value = "boolean", required = false) Boolean delete) {
         ModelAndView mav = new ModelAndView("table-user");
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        
+        if(delete==null) delete = false;
+        
 
-        List<UserDto> userAdmin= mapper.mapAll(userService.getAllAdmin(), UserDto.class);
-        List<ClientUserDto> clientUserDto = mapper.mapAll(clientService.getAll(), ClientUserDto.class);
-        List<GroupUserContactDto> groupUserContactDto = mapper.mapAll(groupService.getAll(), GroupUserContactDto.class);
-
-        if (inputFlashMap != null)
-            mav.addObject("success", inputFlashMap.get("success"));
-            mav.addObject("users", userAdmin);
-            mav.addObject("clients", clientUserDto);
-            mav.addObject("groups", groupUserContactDto);
+        List<User> users = userService.getAllAdmin(delete);
+        List<Client> clients = clientService.getByBoolean(delete);
+        List<Group> groups = groupService.getByBoolean(delete);
+    
+        mav.addObject("users", users);
+        mav.addObject("clients", clients);
+        mav.addObject("groups", groups);
 
         return mav;
     }
@@ -79,7 +81,7 @@ public class UserController {
         RedirectView redirect = new RedirectView("/users");
 
         try {
-            userService.createAdmin(dto); 
+            userService.createAdmin(dto);
             attributes.addFlashAttribute("success", ExceptionMessages.SUCCESS_STATUS_CODE_200.get());
         } catch (IllegalArgumentException | MyException e) {
             attributes.addFlashAttribute("user", dto);

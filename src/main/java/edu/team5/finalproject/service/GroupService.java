@@ -108,6 +108,11 @@ public class GroupService {
         return groupRepository.getByStyleAndLocaleMusic(style, locale);
     }
 
+    @Transactional(readOnly = true)
+    public List<Group> getByBoolean(Boolean delete) {
+        return groupRepository.getByBoolean(delete);
+    }
+    
     private void validateCreate(Group group) throws MyException { // fijarse que mas falta validar
         if (!Utility.validate(Utility.NAME_PATTERN, group.getName()))
             throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
