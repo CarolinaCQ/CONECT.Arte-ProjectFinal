@@ -53,12 +53,24 @@ public class GroupService {
     public void update(GroupUserContactDto dto, MultipartFile image, List<MultipartFile> imageList) throws MyException {
         validateUpdate(dto);
         
-        Group group = mapper.map(dto, Group.class); 
-       
-        if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
+        Group group = groupRepository.findById(dto.getId()).get();
+        
+        group.getContact().setWhatsAppNumber(dto.getContactWhatsAppNumber());
+        group.getContact().setFacebookUrl(dto.getContactFacebookUrl());
+        group.getContact().setInstagramUrl(dto.getContactInstagramUrl());
 
+        group.setName(dto.getGroupName());
+        group.setStyle(dto.getGroupStyle());
+        group.setType(dto.getGroupType());
+        group.setDescription(dto.getGroupDescription());
+        group.setMobility(dto.getGroupMobility());
+        group.setLocale(dto.getGroupLocale());
+
+        if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
+        /*
         group.setUser(groupRepository.findById(dto.getId()).get().getUser());
         group.setContact(groupRepository.findById(dto.getId()).get().getContact());
+         */
 
         groupRepository.save(group);
     }
@@ -117,23 +129,8 @@ public class GroupService {
         if (!Utility.validate(Utility.NAME_PATTERN, dto.getGroupName()))
             throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
 
-        if (!Utility.validate(Utility.EMAIL_PATTERN, dto.getUserEmail()))
-            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
-
-        if (!Utility.validate(Utility.PASSWORD_PATTERN, dto.getUserPassword()))
-            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
-
-        if (!Utility.validate(Utility.ONLY_NUMBERS_PATTERN, dto.getContactWhatsAppNumber().toString()))
-            throw new MyException(ExceptionMessages.INVALID_NUMBER.get());
-
         if (groupRepository.existsByName(dto.getGroupName()))
             throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
-
-        if (contactRepository.existsByWhatsAppNumber(dto.getContactWhatsAppNumber()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_WHATSAPP_NUMBER.get());
-
-        if (userRepository.existsByEmail(dto.getUserEmail()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
 
         if(dto.getGroupDescription().length() > 2500)
             throw new MyException(ExceptionMessages.INVALID_AMOUNT_CHARACTER.get());

@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import edu.team5.finalproject.dto.GroupUserContactDto;
+import edu.team5.finalproject.entity.Group;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Component
@@ -22,6 +24,12 @@ public class GenericModelMapper implements Serializable{
       return sourceList.stream()
                        .map(e -> map(e, destinationClass))
                        .collect(Collectors.toList());      
+   }
+
+   public Group mapSkipping(GroupUserContactDto dto) {
+      return mapper.typeMap(GroupUserContactDto.class, Group.class)
+                   .addMappings(m -> m.skip(Group::setProfileImage))
+                   .map(dto);    
    }
     
 }

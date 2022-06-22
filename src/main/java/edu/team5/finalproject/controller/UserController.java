@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
@@ -77,13 +78,14 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
-    public RedirectView create(UserDto dto, RedirectAttributes attributes) {
+    public RedirectView create(UserDto dto, RedirectAttributes attributes, HttpServletRequest request) {
         RedirectView redirect = new RedirectView("/users");
 
         try {
             userService.createAdmin(dto);
+            request.login(dto.getUserEmail(), dto.getUserPassword());
             attributes.addFlashAttribute("success", ExceptionMessages.SUCCESS_STATUS_CODE_200.get());
-        } catch (IllegalArgumentException | MyException e) {
+        } catch (IllegalArgumentException | MyException | ServletException e) {
             attributes.addFlashAttribute("user", dto);
             attributes.addFlashAttribute("exception", e.getMessage());
             redirect.setUrl("/users");

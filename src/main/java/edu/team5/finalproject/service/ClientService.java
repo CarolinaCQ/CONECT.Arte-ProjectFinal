@@ -86,15 +86,6 @@ public class ClientService {
         if (!Utility.validate(Utility.USERNAME_PATTERN, dto.getClientNickname()))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
             
-        if (!Utility.validate(Utility.PASSWORD_PATTERN, dto.getUserPassword()))
-            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
-            
-        if (!Utility.validate(Utility.EMAIL_PATTERN, dto.getUserEmail()))
-            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
-            
-        if (userRepository.existsByEmail(dto.getUserEmail()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
-            
         if (clientRepository.existsByNickname(dto.getClientNickname()))
             throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());    
     }
@@ -102,9 +93,6 @@ public class ClientService {
     private void validateUpdate(ClientUserDto dto) throws MyException {
         if (!Utility.validate(Utility.USERNAME_PATTERN, dto.getClientNickname()))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
-
-        if (clientRepository.existsByNickname(dto.getClientNickname()))
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
     }
     
 }

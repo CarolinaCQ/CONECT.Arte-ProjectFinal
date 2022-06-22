@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class AuthClientController {
     }
 
     @PostMapping("/register")
-    public RedirectView signup(ClientUserDto dto, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
+    public RedirectView signup(ClientUserDto dto, HttpServletRequest request, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
         RedirectView redirect = new RedirectView("/");
         
         try {
@@ -71,12 +72,12 @@ public class AuthClientController {
             userService.create(userDto);            
             clientService.create(dto, image);         
             
-        } catch (IllegalArgumentException | MyException e) {
+            request.login(dto.getUserEmail(), dto.getUserPassword());
+        } catch (IllegalArgumentException | MyException | ServletException e) {
             attributes.addFlashAttribute("client", dto);
             attributes.addFlashAttribute("exception", e.getMessage());
             redirect.setUrl("/auth-client/sign-up");
         }
-
         return redirect;
     }
 }
