@@ -52,3 +52,9 @@ ul li button{
     color: white;
 }
 
+.btn-search{
+    background-color: black;
+    color: aliceblue;
+    border: 1px solid aliceblue; 
+    border-radius: 20px;
+}

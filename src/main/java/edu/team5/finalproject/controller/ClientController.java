@@ -1,7 +1,6 @@
 package edu.team5.finalproject.controller;
 
 import edu.team5.finalproject.dto.ClientUserDto;
-import edu.team5.finalproject.entity.Client;
 import edu.team5.finalproject.entity.enums.Role;
 import edu.team5.finalproject.exception.MyException;
 import edu.team5.finalproject.mapper.GenericModelMapper;
@@ -53,9 +52,19 @@ public class ClientController {
     }
 
     @GetMapping("/profile")
-    public ModelAndView getProfile(@PathVariable Long id){
+    public ModelAndView getProfile(@RequestParam(value="id") Long id){
         ModelAndView mav = new ModelAndView("profile-client");
         ClientUserDto clientUserDto = mapper.map(clientService.getByIdUser(id), ClientUserDto.class);
+
+        mav.addObject("client", clientUserDto);
+        
+        return mav;
+    }
+    
+    @GetMapping("/profile/{id}")
+    public ModelAndView getProfileClient(@PathVariable Long id){
+        ModelAndView mav = new ModelAndView("profile-client");
+        ClientUserDto clientUserDto = mapper.map(clientService.getById(id), ClientUserDto.class);
 
         mav.addObject("client", clientUserDto);
         

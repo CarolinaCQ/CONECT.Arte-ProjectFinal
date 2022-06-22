@@ -35,7 +35,7 @@ public class Group implements Serializable {
     @Column(name = "group_profile_image")
     private String profileImage;
 
-    @Column(name = "group_description")
+    @Column(name = "group_description", length = 2500)
     private String description;
 
     @Column(name = "group_mobility", nullable = false)

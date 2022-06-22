@@ -11,6 +11,10 @@
             <div class="container my-3">
                 <div class="row d-flex flex-column align-items-center">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex flex-column align-items-center">
+                        <div th:if="${action}=='update'" class="step text-center">Modificación del perfil</div>
+                        <div th:unless="${action}=='update'" class="step text-center">Registro</div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex flex-column align-items-center">
                         <div class="progress d-flex flex-row justify-content-between mt-2">
                             <div class="step1">
                                 Registro
@@ -29,7 +33,7 @@
 
                                 <div class="form1">
                                     <p th:if="${exception}" th:text="${exception}" class="text-danger"></p>
-                                    
+
                                     <div>
                                         <div class="my-3">
                                             <label th:for="name" class="form-label">Nombre artístico<span class="text-danger">*</span></label>
@@ -47,7 +51,7 @@
                                             <label th:for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
                                             <input type="password" class="form-control" th:field="*{userPassword}" id="password" required>
                                             <p class="alert-group" >La contraseña debe contener al menos una minúscula, una mayúscula y un número.
-                                            Mín-4/Max-16</p>
+                                                Mín-4/Max-16</p>
                                         </div>
 
                                         <div class="my-3 d-flex flex-column">
@@ -76,7 +80,7 @@
                                         </div>
 
                                         <div class="my-3">
-                                            <label th:for="description">Descripción<span class="text-danger">*</span></label>
+                                            <label th:for="description">Descripción</label>
                                             <textarea th:field="*{groupDescription}" id="description" class="form-control" aria-label="description"></textarea>
                                             <div class="invalid-feedback">La descripción es un campo requerido!</div>
                                         </div>
@@ -89,16 +93,16 @@
                                             <div class="invalid-feedback">El departamento es un campo requerido!</div>
                                         </div>
 
-                                        <div class="my-3 form-group">
-                                            <label class="form-label">Disponibilidad para viajar?</label>
+                                        <div class="my-3 form-group" required >
+                                            <label class="form-label">Disponibilidad para viajar?<span class="text-danger">*</span></label>
 
                                             <div class="form-check" >
-                                                <input type="radio" class="form-check-input" id="yes" name="yes" value="true" th:field="*{groupMobility}">
+                                                <input type="radio" class="form-check-input" id="yes" name="groupMobility" value="true" th:field="*{groupMobility}" required>
                                                 <label for="yes" class="form-check-label">Si</label>
                                             </div>
 
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="not" name="not" value="false" th:field="*{groupMobility}">
+                                            <div class="form-check" >
+                                                <input type="radio" class="form-check-input" id="not" name="groupMobility" value="false" th:field="*{groupMobility}" requerid>
                                                 <label for="not" class="form-check-label">No</label>
                                             </div>
                                         </div>
@@ -154,6 +158,9 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="my-3 d-flex flex-row justify-content-center">
+                <a type="button" th:href="@{/groups/profile/__${group.id}__}" class="mt-2 text-light">Volver al perfil</button>
             </div>
         </main>
 
