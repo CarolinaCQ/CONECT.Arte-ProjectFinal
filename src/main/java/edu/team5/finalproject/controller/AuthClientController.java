@@ -63,12 +63,13 @@ public class AuthClientController {
     public RedirectView signup(ClientUserDto dto, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
         RedirectView redirect = new RedirectView("/");
         
-        UserDto userDto = mapper.map(dto, UserDto.class);
-        ClientUserDto clientUserDto = mapper.map(dto, ClientUserDto.class);
+        try {
+            clientService.validateClientDto(dto);
 
-        try {            
-            if(userDto.getUserEmail() != null) userService.create(userDto);            
-            if(clientUserDto.getClientNickname() != null) clientService.create(clientUserDto, image);         
+            UserDto userDto = mapper.map(dto, UserDto.class);
+                    
+            userService.create(userDto);            
+            clientService.create(dto, image);         
             
         } catch (IllegalArgumentException | MyException e) {
             attributes.addFlashAttribute("client", dto);

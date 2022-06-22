@@ -33,11 +33,11 @@ public class GroupService {
     private final ImageService imageService;
 
     public void create(GroupUserContactDto dto, MultipartFile image) throws MyException {
+        validateGroupDto(dto);
+
         Group group = mapper.map(dto, Group.class);
 
-        group.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());    
-
-        validateCreate(group);
+        group.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());   
 
         User user = userRepository.findByEmail(dto.getUserEmail()).get();
         Contact contact = contactRepository.findByWhatsAppNumber(dto.getContactWhatsAppNumber()).get();
@@ -51,15 +51,15 @@ public class GroupService {
 
     @Transactional
     public void update(GroupUserContactDto dto, MultipartFile image, List<MultipartFile> imageList) throws MyException {
+        validateUpdate(dto);
+        
         Group group = mapper.map(dto, Group.class); 
        
         if(!image.isEmpty()) group.setProfileImage(imageService.imageToString(image));
-        //if(!imageList.isEmpty()) group.setImageList(imageService.imagesToString(imageList));
 
         group.setUser(groupRepository.findById(dto.getId()).get().getUser());
         group.setContact(groupRepository.findById(dto.getId()).get().getContact());
 
-        validateUpdate(group);
         groupRepository.save(group);
     }
 
@@ -113,25 +113,34 @@ public class GroupService {
         return groupRepository.getByBoolean(delete);
     }
     
-    private void validateCreate(Group group) throws MyException { // fijarse que mas falta validar
-        if (!Utility.validate(Utility.NAME_PATTERN, group.getName()))
+    public void validateGroupDto(GroupUserContactDto dto) throws MyException { 
+        if (!Utility.validate(Utility.NAME_PATTERN, dto.getGroupName()))
             throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
 
-        if (!Utility.validate(Utility.EMAIL_PATTERN, group.getUser().getEmail()))
+        if (!Utility.validate(Utility.EMAIL_PATTERN, dto.getUserEmail()))
             throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
 
-        if (!Utility.validate(Utility.PASSWORD_PATTERN, group.getUser().getPassword()))
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, dto.getUserPassword()))
             throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
 
-        if (groupRepository.existsByName(group.getName())) 
+        if (!Utility.validate(Utility.ONLY_NUMBERS_PATTERN, dto.getContactWhatsAppNumber().toString()))
+            throw new MyException(ExceptionMessages.INVALID_NUMBER.get());
+
+        if (groupRepository.existsByName(dto.getGroupName()))
             throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
+
+        if (contactRepository.existsByWhatsAppNumber(dto.getContactWhatsAppNumber()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_WHATSAPP_NUMBER.get());
+
+        if (userRepository.existsByEmail(dto.getUserEmail()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
+
+        if(dto.getGroupDescription().length() > 2500)
+            throw new MyException(ExceptionMessages.INVALID_AMOUNT_CHARACTER.get());
     }
 
-    private void validateUpdate(Group group) throws MyException { // fijarse que mas falta validar
-        if (!Utility.validate(Utility.NAME_PATTERN, group.getName()))
+    private void validateUpdate(GroupUserContactDto dto) throws MyException { // fijarse que mas falta validar
+        if (!Utility.validate(Utility.NAME_PATTERN, dto.getGroupName()))
             throw new MyException(ExceptionMessages.INVALID_GROUP_NAME.get());
-
-        if (groupRepository.existsByName(group.getName())) 
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_GROUP_NAME.get());
     }
 }

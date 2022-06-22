@@ -73,15 +73,16 @@ public class AuthGroupController {
     @PostMapping("/register")
     public RedirectView signup(GroupUserContactDto dto, @RequestParam(required = false) MultipartFile image, RedirectAttributes attributes) { 
         RedirectView redirect = new RedirectView("/");
-        
-        UserDto userDto = mapper.map(dto, UserDto.class);        
-        GroupUserContactDto groupUserContactDto = mapper.map(dto, GroupUserContactDto.class);
-        ContactDto contactDto = mapper.map(dto, ContactDto.class);
+    
+        try {
+            groupService.validateGroupDto(dto);
 
-        try {            
-            if(userDto.getUserEmail() != null) userService.create(userDto);
-            if(contactDto.getContactWhatsAppNumber() != null)contactService.create(contactDto);                        
-            if(groupUserContactDto.getGroupName() != null) groupService.create(groupUserContactDto, image);
+            UserDto userDto = mapper.map(dto, UserDto.class);        
+            ContactDto contactDto = mapper.map(dto, ContactDto.class);
+
+            userService.create(userDto);
+            contactService.create(contactDto);                        
+            groupService.create(dto, image);
             
         } catch (IllegalArgumentException | MyException e) {
             attributes.addFlashAttribute("group", dto);

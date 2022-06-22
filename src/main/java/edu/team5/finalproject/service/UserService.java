@@ -33,11 +33,9 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder encoder;
 
     public void create(UserDto dto) throws MyException {
-        User user = mapper.map(dto, User.class);
+        validateUser(dto);
 
-        if (userRepository.existsByEmail(user.getEmail())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
-
-        validateUser(user);
+        User user = mapper.map(dto, User.class);       
 
         user.setPassword(encoder.encode(user.getPassword()));
         user.setDeleted(false);
@@ -45,11 +43,9 @@ public class UserService implements UserDetailsService {
     }
 
     public void createAdmin(UserDto dto) throws MyException {
-        User user = mapper.map(dto, User.class);
+        validateUser(dto);
 
-        if (userRepository.existsByEmail(user.getEmail())) throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
-
-        validateUser(user);
+        User user = mapper.map(dto, User.class);       
 
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRole(Role.ADMIN);
@@ -59,8 +55,9 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void update(UserDto dto) throws MyException {
+        validateUpdate(dto);
         User user = mapper.map(dto, User.class);
-        validateUser(user);
+        
         userRepository.save(user);
     }
 
@@ -89,10 +86,23 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    private void validateUser(User user) throws MyException {
-        if (!Utility.validate(Utility.EMAIL_PATTERN, user.getEmail())) throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
+    private void validateUser(UserDto dto) throws MyException {
+        if (!Utility.validate(Utility.EMAIL_PATTERN, dto.getUserEmail())) 
+            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
 
-        if (!Utility.validate(Utility.PASSWORD_PATTERN, user.getPassword())) throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, dto.getUserPassword())) 
+            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
+
+        if (userRepository.existsByEmail(dto.getUserEmail())) 
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
+    }
+
+    private void validateUpdate(UserDto dto) throws MyException {
+        if (!Utility.validate(Utility.EMAIL_PATTERN, dto.getUserEmail())) 
+            throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
+
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, dto.getUserPassword())) 
+            throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
     }
 
     @Override

@@ -30,8 +30,6 @@ public class ClientService {
     public void create(ClientUserDto dto, MultipartFile image) throws MyException {
         Client client = mapper.map(dto, Client.class);
 
-        validateCreate(client);
-
         client.setProfileImage((!image.isEmpty()) ? imageService.imageToString(image) : imageService.defaultImage());        
 
         User user = userRepository.findByEmail(dto.getUserEmail()).get();
@@ -44,13 +42,10 @@ public class ClientService {
 
     @Transactional
     public void update(ClientUserDto dto, MultipartFile image) throws MyException {
-        Client client = getById(dto.getId());
+        validateUpdate(dto);
         
-        if (clientRepository.existsByNickname(dto.getClientNickname())) 
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
-        String newName = dto.getClientNickname();
-
-        validateUpdate(newName);
+        Client client = getById(dto.getId());
+                
         if (!image.isEmpty()) client.setProfileImage(imageService.imageToString(image));
 
         client.setNickname(dto.getClientNickname());        
@@ -87,23 +82,29 @@ public class ClientService {
         return clientRepository.findById(id).get();
     }
 
-    private void validateCreate(Client client) throws MyException {
-        if (!Utility.validate(Utility.USERNAME_PATTERN, client.getNickname()))
+    public void validateClientDto(ClientUserDto dto) throws MyException {
+        if (!Utility.validate(Utility.USERNAME_PATTERN, dto.getClientNickname()))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
-
-        if (!Utility.validate(Utility.PASSWORD_PATTERN, client.getUser().getPassword()))
+            
+        if (!Utility.validate(Utility.PASSWORD_PATTERN, dto.getUserPassword()))
             throw new MyException(ExceptionMessages.INVALID_PASSWORD.get());
-
-        if (!Utility.validate(Utility.EMAIL_PATTERN, client.getUser().getEmail()))
+            
+        if (!Utility.validate(Utility.EMAIL_PATTERN, dto.getUserEmail()))
             throw new MyException(ExceptionMessages.INVALID_EMAIL.get());
-
-        if (clientRepository.existsByNickname(client.getNickname())) 
-            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
+            
+        if (userRepository.existsByEmail(dto.getUserEmail()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_EMAIL.get());
+            
+        if (clientRepository.existsByNickname(dto.getClientNickname()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());    
     }
  
-    private void validateUpdate(String newName) throws MyException {
-        if (!Utility.validate(Utility.USERNAME_PATTERN, newName))
+    private void validateUpdate(ClientUserDto dto) throws MyException {
+        if (!Utility.validate(Utility.USERNAME_PATTERN, dto.getClientNickname()))
             throw new MyException(ExceptionMessages.INVALID_USERNAME.get());
+
+        if (clientRepository.existsByNickname(dto.getClientNickname()))
+            throw new MyException(ExceptionMessages.ALREADY_EXISTS_USERNAME.get());
     }
     
 }

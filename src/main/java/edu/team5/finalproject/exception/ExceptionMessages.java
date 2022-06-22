@@ -10,6 +10,7 @@ public enum ExceptionMessages {
     INVALID_PASSWORD("La contraseña ingresada es incorrecta."),
     INVALID_EMAIL("El correo electrónico ingresado es incorrecto."),
     INVALID_NUMBER("El número ingresado es incorrecto."),
+    INVALID_AMOUNT_CHARACTER("La descripción ha superado el límite máximo de caracteres (2500)."),
     ALREADY_EXISTS_EMAIL("El correo electrónico ingresado ya se encuentra en uso."),
     ALREADY_EXISTS_USERNAME("El nombre de usuario ingresado ya se encuentra en uso."),
     ALREADY_EXISTS_GROUP_NAME("El nombre de grupo/artísta ingresado ya se encuentra en uso."),

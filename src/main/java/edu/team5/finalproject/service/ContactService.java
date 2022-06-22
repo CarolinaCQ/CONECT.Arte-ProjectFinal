@@ -20,9 +20,9 @@ public class ContactService {
 
    @Transactional
    public void create(ContactDto dto) throws MyException {
-      Contact contact = mapper.map(dto, Contact.class);    
+      validateContact(dto); 
 
-      validateContact(contact); 
+      Contact contact = mapper.map(dto, Contact.class);         
       
       contact.setDeleted(false);
       contactRepository.save(contact);
@@ -30,8 +30,10 @@ public class ContactService {
 
    @Transactional
    public void update(ContactDto dto) throws MyException {
-      Contact contact = mapper.map(dto, Contact.class);      
-      validateContact(contact);  
+      validateContactUpdate(dto); 
+
+      Contact contact = mapper.map(dto, Contact.class);     
+  
       contactRepository.save(contact);
    }
 
@@ -50,12 +52,17 @@ public class ContactService {
       contactRepository.deleteById(id);
    }
 
-   private void validateContact(Contact contact) throws MyException {
-      if(!Utility.validate(Utility.ONLY_NUMBERS_PATTERN, contact.getWhatsAppNumber().toString())) 
+   private void validateContact(ContactDto dto) throws MyException {
+      if(!Utility.validate(Utility.ONLY_NUMBERS_PATTERN, dto.getContactWhatsAppNumber().toString())) 
          throw new MyException(ExceptionMessages.INVALID_NUMBER.get()); 
 
-      if (contactRepository.existsByWhatsAppNumber(contact.getWhatsAppNumber())) 
+      if (contactRepository.existsByWhatsAppNumber(dto.getContactWhatsAppNumber())) 
          throw new MyException(ExceptionMessages.ALREADY_EXISTS_WHATSAPP_NUMBER.get());
+   }
+
+   private void validateContactUpdate(ContactDto dto) throws MyException {
+      if(!Utility.validate(Utility.ONLY_NUMBERS_PATTERN, dto.getContactWhatsAppNumber().toString())) 
+         throw new MyException(ExceptionMessages.INVALID_NUMBER.get()); 
    }
 
 }
