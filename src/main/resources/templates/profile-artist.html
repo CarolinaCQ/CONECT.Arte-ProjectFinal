@@ -22,12 +22,14 @@
                 <a th:href="@{instagram}" class="icon icon-instagram" target="_blank">
                     <img th:src="@{/image/insta.png}" alt="" width="32">
                 </a>
-                <a th:href="@{whatsapp}" class="icon icon-whatsapp" target="_blank">
+<!--                <a th:href="@{|https://api.whatsapp.com/send?phone=549__${group.contactWhatsAppNumber}__&text=Buenas! vi tu publicacion en contact.arte y quiero contratarte!!|}" class="icon icon-whatsapp" target="_blank">
                     <img th:src="@{/image/wsp.png}" alt="" width="32">
-                </a>
+                </a>-->
 
             </div>
+</div>
 
+            
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-4">
@@ -35,8 +37,8 @@
                         <a th:href="@{/groups/delete/__${group.id}__}" class="btn btn-outline-danger">
                             <img class="img-icon" th:src="@{/image/imageRemove.png}" alt="" width="32">
                         </a>
-                        <a th:href="@{/groups/update/__${group.id}__}" class="btn btn-outline-primary ">
-                            <img class="img-icon" th:src="@{/image/imageEdit.png}" alt="" width="32">
+                        <a th:href="@{/groups/form/__${group.id}__}" class="btn btn-outline-primary ">
+                            <img class="img-icon img-edit" th:src="@{/image/imageEdit.png}" alt="" width="32">
                         </a>
 
                     </div>

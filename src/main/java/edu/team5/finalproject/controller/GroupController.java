@@ -53,7 +53,7 @@ public class GroupController {
     
     @GetMapping("/dance")
     public ModelAndView getGroupsDance(@RequestParam(value="style", required = false) Style style,  @RequestParam(value="locale", required = false) Locale locale){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("artists-dance");
 
         List<GroupSimpleDto> groupListDto = mapper.mapAll(groupService.getAllDance(), GroupSimpleDto.class);
         List<GroupSimpleDto> groupListDtoDance = mapper.mapAll(groupService.getByStyleAndLocaleDance(style, locale), GroupSimpleDto.class);
@@ -76,7 +76,7 @@ public class GroupController {
     
     @GetMapping("/music")
     public ModelAndView getGroupsMusic(@RequestParam(value="style", required = false) Style style,  @RequestParam(value="locale", required = false) Locale locale){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("artists-music");
         
         List<GroupSimpleDto> groupListDto = mapper.mapAll(groupService.getAllMusic(), GroupSimpleDto.class);
         List<GroupSimpleDto> groupListDtoMusic = mapper.mapAll(groupService.getByStyleAndLocaleMusic(style, locale), GroupSimpleDto.class);
@@ -107,6 +107,16 @@ public class GroupController {
         
         return mav;
     }
+    
+    @GetMapping("/profile/{id}")
+    public ModelAndView getProfileGroup(@PathVariable Long id){
+        ModelAndView mav = new ModelAndView("profile-artist");
+        GroupUserContactDto groupUserContactDto = mapper.map(groupService.getById(id), GroupUserContactDto.class);
+
+        mav.addObject("group", groupUserContactDto);
+        
+        return mav;
+    }
 
     @PreAuthorize("hasRole('GROUP')")
     @GetMapping("/form/{id}")
@@ -121,7 +131,7 @@ public class GroupController {
             mav.addObject("exception", inputFlashMap.get("exception"));
             mav.addObject("group", inputFlashMap.get("group"));           
         }else {
-            mav.addObject("client", groupUserContactDto);            
+            mav.addObject("group", groupUserContactDto);            
         }
         
         mav.addObject("types", Type.values());
@@ -142,7 +152,7 @@ public class GroupController {
         } catch (MyException e) {
             attributes.addFlashAttribute("group", dto);
             attributes.addFlashAttribute("exception", e.getMessage());
-            redirect.setUrl("/groups/form" + dto.getId().toString());
+            redirect.setUrl("/groups/form/" + dto.getId().toString());
         }
         
         return redirect;
