@@ -159,7 +159,7 @@
                     </div>
                 </div>
             </div>
-            <div class="my-3 d-flex flex-row justify-content-center">
+            <div class="my-3 d-flex flex-row justify-content-center" th:if="${action}=='update'">
                 <a type="button" th:href="@{/groups/profile/__${group.id}__}" class="mt-2 text-light">Volver al perfil</button>
             </div>
         </main>

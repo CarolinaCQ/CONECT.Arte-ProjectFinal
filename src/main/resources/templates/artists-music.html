@@ -18,14 +18,14 @@
         <link rel="stylesheet" th:href="@{/css/groupsStyle.css}" text="text/css">
         <link rel="stylesheet" th:href="@{/css/buttonStyle.css}" text="text/css">
         <link rel="stylesheet" th:href="@{/css/styleBody.css}" text="text/css">
-        <link rel="stylesheet" th:href="@{/css/logoStyle.css}" text="text/css">
+        <link rel="stylesheet" th:href="@{/css/logosStyle.css}" text="text/css">
 
 
     </head>
 
 
     <body>
-        
+
         <div th:if="${session.id} == null">
             <header th:replace="fragments/header-index :: header-index"></header>
         </div>
@@ -33,19 +33,19 @@
         <div th:unless="${session.id} == null">
             <header th:replace="fragments/header-login :: header-login"></header>
         </div>
-        
+
         <main>
             <div class="d-flex flex-row">
                 <div class="col-3 px-5 py-5 container-style shadow-lg">
                     <form th:action="@{/groups/music}" method="GET">
                         <div>
-                            <p class="container-card text-light mb-3 mt-5 py-2">Ubicación</p>
-                            <select class="form-control form-select" th:name="locale" id="locale"
+                            <p class="container-card text-light mb-3 mt-3 py-2 fs-5">Ubicación</p>
+                            <select class="form-control search-groups bg-dark form-select" th:name="locale" id="locale"
                                     aria-label="Select locale" required>
                                 <option th:each="locale : ${locales}" th:value="${locale}" th:text="${locale.name}"></option>
                             </select>
                         </div>
-                        <p class="container-card text-light mb-3 mt-5">Seleccione el Estilo</p>
+                        <p class="container-card text-light mb-3 mt-5 fs-5">Seleccione el Estilo</p>
                         <div class="form-check text-light">
                             <input type="radio" th:name="style" class="form-check-input" value="FOLKLORE_ARGENTINO" id="check1">
                             <label for="check1" class="fomr-check-label">Folklore Argentino</label>
@@ -103,13 +103,18 @@
                             <label for="check14" class="fomr-check-label">Melódico</label>
                         </div>
 
-                        <button type="submit">🔎</button>
+                        <div class="d-flex flex-column align-items-center">
+                            <button type="submit" class="fw-bold bg-dark text-light btn-filter mt-2">Filtrar</button>
+                        </div>
+                        
                     </form>
 
-                    <a th:href="@{/groups/music}" class="btn fw-bold my-3">Mostrar todos</button>
+                    <div class="mt-2 d-flex flex-row justify-content-center">
+                        <a th:href="@{/groups/music}" class="btn-all bg-dark text-light fw-bold my-3">Mostrar todos</a>
+                    </div>
 
                 </div>
-                <div class="col-8 d-flex flex-column align-items-center div-groups">
+                <div class="col-8 d-flex flex-column mx-3 mt-3">
                     <div class="title-cards">
                         <a href="#" class="btn-neon">
                             <span id="span1"></span>
@@ -123,21 +128,23 @@
                         <p th:text="${isEmpty}" class="alert alert-secondary text-center mb-5"></p>
                     </div>
                     <div class="container-card">
+
                         <div class="container-img" th:each="group : ${groups}">
-                            <img th:src="@{|/uploads/__${group.groupProfileImage}__|}" alt="">
-                            <div class="text">
-                                <h3 class="title" th:text="${group.groupName}"></h3>
-                                <p class="paragraph" th:text="${group.groupDescription}">
-                                </p>
-                            </div>
+                            <a th:href="@{/groups/profile/__${group.groupId}__}">
+                                <img th:src="@{|/uploads/__${group.groupProfileImage}__|}" alt="">
+                                <div class="text">
+                                    <h3 class="title text-light" th:text="${group.groupName}"></h3>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+    </main>
 
-        <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-        <script th:src="@{/js/search.js}"></script>
-        
-    </body>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+
+</body>
 </html>

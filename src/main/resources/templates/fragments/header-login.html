@@ -1,22 +1,22 @@
 <header th:fragment="header-login">
-    <nav class="navbar navbar-expand-lg" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'navbar-transparent navbar-dark bg-dark bg-opacity-50':'navbar-color'}">
+    <nav class="navbar navbar-expand-lg bg-dark bg-opacity-50" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'navbar-transparent navbar-dark bg-dark bg-opacity-50':'navbar-color'}">
         <div class="container-fluid px-5">
-            <a class="col-6 mx-5 px-2 navbar-brand" th:href="@{/}">
+            <a class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-6 col-xxl-7 mx-5 px-2 navbar-brand" th:href="@{/}">
                 <img src="/image/conect.arte.logo.png" alt="" class="logo-navbar">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu"
+            <button class="navbar-toggler navbar-toggler-button" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu"
                     aria-expanded="false" aria-label="Show / Hide Menu">⬇</button>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <form class="form-inline">
-                            <input class="form-control mr-sm-2 search text-light py-2 px-5" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'bg-dark bg-opacity-50':''}" type="search" placeholder="Buscar por nombre" aria-label="Search" />
+                            <input class="form-control mr-sm-2 search bg-dark opacity-50 text-light py-2 px-5" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'bg-dark bg-opacity-50':''}" type="search" placeholder="Buscar por nombre" aria-label="Search" />
                         </form>
                         <ul class="list"></ul>
                     </li>
                     <div class="d-flex flex-row px-5">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle px-5 py-2 btn-register text-light" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        <li class="nav-item dropdown li-menu">
+                            <a class="nav-link dropdown-toggle px-5 py-2 bg-dark btn-menu text-light" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">Menu</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
