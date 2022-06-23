@@ -62,7 +62,7 @@ public class ImageService {
     }
 
     private boolean validateFormatImage(String imageName){
-         if(imageName.endsWith(".png") || imageName.endsWith(".jpg")){
+         if(imageName.endsWith(".png") || imageName.endsWith(".jpg") || imageName.endsWith(".jpeg")){
             return true;
          }
          return false;
