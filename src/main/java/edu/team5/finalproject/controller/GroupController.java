@@ -168,7 +168,7 @@ public class GroupController {
         return redirect;
     }
 
-    @PreAuthorize("anyRole('GROUP', 'ADMIN')")
+    @PreAuthorize("hasRole('GROUP') or hasRole('ADMIN')")
     @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id, @RequestParam(value="role") Role role) {
         String url = (role==Role.ADMIN) ? "/users" : "/logout";
