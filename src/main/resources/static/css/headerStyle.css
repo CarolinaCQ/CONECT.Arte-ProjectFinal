@@ -2,12 +2,8 @@ ul li button{
     width: 100%
 }
 
-.navbar-color{
-    background-color: #080E16;
-}
-
 .search{
-    background-color: #080E16;
+    border: 1px solid fuchsia;
     border-radius: 20px;
 }
 
@@ -16,14 +12,27 @@ ul li button{
 }
 
 .btn-register{
-    background-color: #44093A;
+    border: 1px solid #FDDD59;
     border-radius: 20px;
 }
 
 .btn-login{
-    background-color: #080E16;
-    border: 1px solid lightgray;
+    border: 1px solid rgba(117, 178, 235, 0.925);
     border-radius: 20px;
+}
+
+.div-menu{
+    width: 100%;
+}
+
+.li-menu{
+    width: 100%;
+}
+
+.btn-menu{
+    border: 1px solid rgba(117, 178, 235, 0.925);
+    border-radius: 20px;
+    width: 100%;
 }
 
 .btn-register:hover, .btn-login:hover{
@@ -47,14 +56,14 @@ ul li button{
     background-color: white;
 }
 
-.navbar-toggler{
-    border-color: white;
+.navbar-toggler-button{
+    border: none;
     color: white;
 }
 
 .btn-search{
-    background-color: black;
+    background-color: rgba(219, 139, 139, 0.925);
     color: aliceblue;
-    border: 1px solid aliceblue; 
+    border: 1px solid red; 
     border-radius: 20px;
 }

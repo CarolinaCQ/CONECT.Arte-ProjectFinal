@@ -27,9 +27,11 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/auth-client/login","/auth-group/login","/auth-client/sign-up","/auth-group/sign-up",
-                                            "/auth-client/register", "/auth-group/register", "/css/**", "/js/**","/img/**").permitAll()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/auth-client/login","/auth-group/login","/auth-client/sign-up","/auth-group/sign-up", "/get-all",
+                                            "/auth-client/register", "/auth-group/register", "/", "/groups", "/groups/dance", "/groups/music",
+                                            "/groups/profile/{id}", "/groups/profile",
+                                            "/css/**", "/js/**","/image/**", "/uploads/**").permitAll()
+                .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/auth-client/login")

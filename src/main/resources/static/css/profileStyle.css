@@ -58,3 +58,15 @@
     width: 32px;
     height: 38px;
 }
+
+.text-description{
+    text-align: justify;
+}
+
+.text-title{
+    font-size: 50px;
+}
+
+.card-profile{
+    background-color: lightgray;
+}

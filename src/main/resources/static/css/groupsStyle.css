@@ -12,14 +12,13 @@
     justify-content: center;
     flex-wrap: wrap;
     max-width: 1100px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 .title-cards{
     width: 100%;
     max-width: 1080px;
-    margin: auto;
     padding: 20px;
-    margin-top: 20px;
     text-align: center;
     color: #7a7a7a;
 }
@@ -243,6 +242,27 @@ img{
     background: linear-gradient(#1a0321,#8a62bf) ;
 }
 
-.div-groups{
-    margin-left: 2.5%;
+.btn-filter{
+    border: 1px solid fuchsia;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.btn-all{
+    border: 1px solid rgba(117, 178, 235, 0.925);
+    padding: 5px 10px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.search-groups{
+    border-radius: 20px;
+    border: 1px solid fuchsia;
+    color: aliceblue;
+}
+
+.search-groups:focus{
+    border-radius: 20px;
+    border: 1px solid fuchsia;
+    color: aliceblue;
 }

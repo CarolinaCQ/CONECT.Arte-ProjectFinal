@@ -4,7 +4,13 @@
 
     <body>
 
-        <header th:replace="fragments/header-index :: header-index"></header>
+        <div th:if="${session.id} == null">
+            <header th:replace="fragments/header-index :: header-index"></header>
+        </div>
+
+        <div th:unless="${session.id} == null">
+            <header th:replace="fragments/header-login :: header-login"></header>
+        </div>
 
         <main>
             <div class="container">
