@@ -92,7 +92,7 @@ public class ClientController {
         return redirect;
     }    
 
-    @PreAuthorize("anyRole('CLIENT, ADMIN')")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN')")
     @PostMapping("/delete/{id}")
     public RedirectView deleteById(@PathVariable Long id, @RequestParam(value="role") Role role) {
         String url = (role==Role.ADMIN) ? "/users" : "/logout";
