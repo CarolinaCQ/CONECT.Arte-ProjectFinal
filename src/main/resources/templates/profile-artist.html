@@ -18,10 +18,10 @@
                 <a th:href="${session.id}==null ? @{/auth-client/login} : @{https://www.facebook.com}" class="icon icon-facebook " th:target="${session.id}==null ? '' : '_blank'">
                     <img th:src="@{/image/fb.png}" alt="" width="32">
                 </a>
-                <a href="https://www.instagram.com" class="icon icon-instagram" target="_blank">
+                <a th:href="${session.id}==null ? @{/auth-client/login} : @{https://www.instagram.com}" class="icon icon-instagram" target="_blank">
                     <img th:src="@{/image/insta.png}" alt="" width="32">
                 </a>
-                <a th:href="@{|https://api.whatsapp.com/send?phone=549__${group.contactWhatsAppNumber}__&text=Buenas! vi tu publicacion en contact.arte y quiero contratarte!!|}" class="icon icon-whatsapp" target="_blank">
+                <a th:href="${session.id}==null ? @{/auth-client/login} : @{|https://api.whatsapp.com/send?phone=549__${group.contactWhatsAppNumber}__&text=Buenas! vi tu publicacion en contact.arte y quiero contratarte!!|}" class="icon icon-whatsapp" target="_blank">
                     <img th:src="@{/image/wsp.png}" alt="" width="32">
                 </a>
 
